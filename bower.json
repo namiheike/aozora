@@ -1,0 +1,11 @@
+{
+  "name": "aozora",
+  "version": "0.0.0",
+  "dependencies": {
+    "core-elements": "Polymer/core-elements#~0.5.5",
+    "paper-elements": "Polymer/paper-elements#~0.5.5",
+    "polymer": "Polymer/polymer#~0.5.5"
+  },
+  "devDependencies": {
+  }
+}
