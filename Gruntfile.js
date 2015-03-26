@@ -15,7 +15,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     yeoman: yeomanConfig,
     watch: {
-      // TODO dont fit for coffee, haml, etc.
+      // TODO dont fit for coffee, cson, haml, etc.
       options: {
         nospawn: true
       },
@@ -72,7 +72,7 @@ module.exports = function (grunt) {
         options: {
           trace: true,
           bare: false,
-          sourceMap: true
+          sourceMap: false
         },
         files: [{
           expand: true,
@@ -109,6 +109,16 @@ module.exports = function (grunt) {
           dest: '.tmp',
           ext: '.css'
         }]
+      }
+    },
+    // Compiles cson to json
+    cson: {
+      compile:{
+        expand: true,
+        cwd: '<%= yeoman.app %>',
+        src: [ 'resources/**/*.cson' ],
+        dest: '<%= yeoman.dist %>',
+        ext: '.json'
       }
     },
     autoprefixer: {
@@ -256,10 +266,12 @@ module.exports = function (grunt) {
             '*.{ico,txt}',
             '.htaccess',
             '*.html',
-            '!*.haml',
             'elements/**',
+            '!elements/**/*.haml',
             '!elements/**/*.scss',
+            '!elements/**/*.sass',
             '!elements/**/*.coffee',
+            '!resources/**/*.cson', // TODO BUG this rule does not work
             'resources/**/*'
           ]
         }, {
@@ -326,6 +338,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'haml',
     'coffee',
+    'cson',
     'sass',
     'copy',
     'useminPrepare',
@@ -333,9 +346,9 @@ module.exports = function (grunt) {
     'concat',
     'autoprefixer',
     'uglify',
-    'vulcanize',
+    // 'vulcanize', TODO currently disable vulcanize for developing
     'usemin',
-    'replace',
+    // 'replace', TODO currently disable vulcanize for developing
     'minifyHtml'
   ]);
 

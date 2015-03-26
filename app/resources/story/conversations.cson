@@ -1,0 +1,43 @@
+[
+  {
+    id: 0
+    type: 'line'
+    role: 'sora'
+    text: 'line 1'
+    background: 'flower'
+    tachie: 'sora'
+    next: 1
+  },
+  {
+    id: 1
+    type: 'line'
+    role: 'haruka'
+    text: 'line 2'
+    next: 2
+  },
+  {
+    id: 2
+    type: 'options'
+    options: [
+      {
+        text: 'option 1'
+        next: 3
+      },
+      {
+        text: 'option 2'
+        next: 4
+      }
+    ]
+    background: ''
+  },
+  {
+    id: 3
+    type: 'narrate'
+    text: 'happy ending'
+  },
+  {
+    id: 4
+    type: 'narrate'
+    text: 'bad ending'
+  }
+]

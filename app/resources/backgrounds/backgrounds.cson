@@ -1,0 +1,6 @@
+normal:
+  filename: '2.png'
+happyEnding:
+  filename: '0.jpg'
+badEnding:
+  filename: '1.jpg'
