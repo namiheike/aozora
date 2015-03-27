@@ -7,7 +7,7 @@ Polymer
     #   when 'options'
 
   roleName: (line) ->
-    @resources.characters[line.role].name
+    @app.resources.characters[line.role].name
 
   onTapOnBox: (e) ->
     switch @node.type

@@ -1,11 +1,11 @@
 Polymer
   is: 'aozora-base'
   domReady: ->
-    # get global objects
-    if @nodeName isnt 'AOZORA-APP'
-      while ( @app = @parentNode.host ).nodeName isnt 'AOZORA-APP'
-        @app = @parentNode.host
-    else
-      @app = @
+    # get global `app` object
 
-    @resources = @app.$.resources
+    if @nodeName is 'AOZORA-APP'
+      @app = @
+      return
+
+    while ( @app = @parentNode.host ).nodeName isnt 'AOZORA-APP'
+      @app = @parentNode.host

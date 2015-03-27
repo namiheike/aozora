@@ -4,8 +4,18 @@ Polymer
     @super()
 
   backgroundChanged: (oldValue, newValue) ->
-    # TODO this is a little dirty hack to prevent run the method before resources was loaded
-    return unless @resources?
+    return unless newValue?
 
-    imagePath = @resources.backgrounds[newValue].imagePath
-    @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
+    fadeOutAnimation = @app.animations.fadeOut
+    fadeOutAnimation.addEventListener 'core-animation-finish', (e) =>
+      e.target.removeEventListener e.type, arguments.callee
+
+      imagePath = @app.resources.backgrounds[newValue].imagePath
+      @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
+
+      fadeInAnimation = @app.animations.fadeIn
+      fadeInAnimation.target = @
+      fadeInAnimation.play()
+
+    fadeOutAnimation.target = @
+    fadeOutAnimation.play()
