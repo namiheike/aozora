@@ -4,8 +4,8 @@
     type: 'line'
     role: 'sora'
     text: 'line 1'
-    background: 'flower'
-    tachie: 'sora'
+    background: 'normal'
+    tachie: [ 'sora' ]
     next: 1
   },
   {
@@ -13,6 +13,7 @@
     type: 'line'
     role: 'haruka'
     text: 'line 2'
+    tachie: [ 'sora', 'miyaho' ]
     next: 2
   },
   {
@@ -28,7 +29,6 @@
         next: 4
       }
     ]
-    background: ''
   },
   {
     id: 3

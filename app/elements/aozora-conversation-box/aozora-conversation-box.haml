@@ -1,0 +1,13 @@
+%link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
+
+%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTap}}'}
+  %template
+    %link{rel: 'stylesheet', href: 'aozora-conversation-box.css'}
+
+    %template{bind: '{{ node as line }}', if: '{{ node.type == "line" }}'}
+      %p.title
+        {{ roleName(line) }}
+      %p
+        {{ line.text }}
+
+  %script{src: 'aozora-conversation-box.js'}

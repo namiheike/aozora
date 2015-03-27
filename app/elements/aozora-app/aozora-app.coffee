@@ -1,3 +1,10 @@
 Polymer
   is: 'aozora-app'
-  ready: ->
+  domReady: ->
+    @super()
+
+    @story = @.$.story
+    @background = @.$.background
+    @conversationBox = @.$.conversationBox
+
+    @story.start @resources.script[0]

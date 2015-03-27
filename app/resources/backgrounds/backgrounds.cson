@@ -1,6 +1,6 @@
 normal:
-  filename: '2.png'
+  imagePath: '2.jpg'
 happyEnding:
-  filename: '0.jpg'
+  imagePath: '0.jpg'
 badEnding:
-  filename: '1.jpg'
+  imagePath: '1.jpg'

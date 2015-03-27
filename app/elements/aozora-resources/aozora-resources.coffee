@@ -7,11 +7,15 @@ Polymer
     {
       name: 'meta'
       path: 'story/meta.json'
-    },
+    }
     {
-      name: 'conversations'
-      path: 'story/conversations.json'
-    },
+      name: 'script'
+      path: 'story/script.json'
+    }
+    {
+      name: 'characters'
+      path: 'story/characters.json'
+    }
     # backgrounds
     {
       name: 'backgrounds'

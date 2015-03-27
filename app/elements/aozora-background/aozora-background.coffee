@@ -7,5 +7,5 @@ Polymer
     # TODO this is a little dirty hack to prevent run the method before resources was loaded
     return unless @resources?
 
-    imagePath = @resources.backgrounds[newValue]
+    imagePath = @resources.backgrounds[newValue].imagePath
     @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
