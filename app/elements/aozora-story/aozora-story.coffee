@@ -15,7 +15,12 @@ Polymer
     # conversation-box
     @app.conversationBox.node = node
 
-  toNextNode: ->
+  jumpToNode: (node) ->
+    @node = node
+
+  jumpToNextNode: ->
+    return unless @node?
+
     # TODO IMPORTANT very bad performance, integrate IndexedDB
     getNodeById = (id) =>
       @app.resources.script.filter((node) -> node.id is id)[0]

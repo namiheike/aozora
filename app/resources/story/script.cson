@@ -34,10 +34,12 @@
     id: 3
     type: 'narrate'
     text: 'happy ending'
+    background: 'happyEnding'
   },
   {
     id: 4
     type: 'narrate'
     text: 'bad ending'
+    background: 'badEnding'
   }
 ]

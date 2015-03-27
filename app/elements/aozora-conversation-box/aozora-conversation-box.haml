@@ -1,6 +1,6 @@
 %link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
 
-%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTap}}'}
+%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTapOnBox}}'}
   %template
     %link{rel: 'stylesheet', href: 'aozora-conversation-box.css'}
 
@@ -9,5 +9,14 @@
         {{ roleName(line) }}
       %p
         {{ line.text }}
+
+    %template{bind: '{{ node as narrate }}', if: '{{ node.type == "narrate" }}'}
+      %p
+        {{ narrate.text }}
+
+    %template{bind: '{{ node as options }}', if: '{{ node.type == "options" }}'}
+      %template{repeat: '{{ option in options.options }}'}
+        %p{'on-tap' => '{{onTapOnOption}}'}
+          {{ option.text }}
 
   %script{src: 'aozora-conversation-box.js'}

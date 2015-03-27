@@ -9,7 +9,15 @@ Polymer
   roleName: (line) ->
     @resources.characters[line.role].name
 
-  onTap: (e) ->
+  onTapOnBox: (e) ->
     switch @node.type
       when 'line', 'narrate'
-        @app.story.toNextNode()
+        @app.story.jumpToNextNode()
+
+  onTapOnOption: (e) ->
+    # TODO IMPORTANT very bad performance, integrate IndexedDB
+    getNodeById = (id) =>
+      @app.resources.script.filter((node) -> node.id is id)[0]
+
+    option = e.currentTarget.templateInstance.model.option
+    @app.story.jumpToNode getNodeById option.next
