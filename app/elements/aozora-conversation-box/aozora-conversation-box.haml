@@ -1,22 +1,27 @@
 %link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
 
-%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTapOnBox}}'}
+%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTapOnBox}}'}(block)
   %template
     %link{rel: 'stylesheet', href: 'aozora-conversation-box.css'}
 
     %template{bind: '{{ node as line }}', if: '{{ node.type == "line" }}'}
-      %p.title
-        {{ roleName(line) }}
-      %p
-        {{ line.text }}
+      .node.line
+        %p.role
+          {{ roleName(line) }}
+        %p
+          {{ line.text }}
 
     %template{bind: '{{ node as narrate }}', if: '{{ node.type == "narrate" }}'}
-      %p
-        {{ narrate.text }}
+      .node.narrate
+        %p
+          {{ narrate.text }}
 
     %template{bind: '{{ node as options }}', if: '{{ node.type == "options" }}'}
-      %template{repeat: '{{ option in options.options }}'}
-        %p{'on-tap' => '{{onTapOnOption}}'}
-          {{ option.text }}
+      .node.options
+        %template{repeat: '{{ option in options.options }}'}
+          .option
+            / TODO ripple
+            %p{'on-tap' => '{{onTapOnOption}}'}
+              {{ option.text }}
 
   %script{src: 'aozora-conversation-box.js'}
