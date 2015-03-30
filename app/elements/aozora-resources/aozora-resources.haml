@@ -2,8 +2,6 @@
 
 %polymer-element{name: 'aozora-resources', extends: 'aozora-base'}
   %template
-    %link{rel: 'stylesheet', href: 'aozora-resources.css'}
-
     #resourceLoaders
       %template{repeat: '{{ resource in resourcesList }}'}
         %core-ajax{url: '../resources/{{resource.path}}', handleAs: 'json', 'on-core-response' => '{{ resourceLoaderResponse }}', data: {resource_name: '{{ resource.name }}' }}

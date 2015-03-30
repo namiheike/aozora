@@ -9,5 +9,4 @@ Polymer
     @story = @.$.story
     @background = @.$.background
     @conversationBox = @.$.conversationBox
-
-    @story.start @resources.script[0]
+    @splashScreen = @.$.splashScreen

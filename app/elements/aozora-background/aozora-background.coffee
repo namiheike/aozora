@@ -6,6 +6,7 @@ Polymer
   backgroundChanged: (oldValue, newValue) ->
     return unless newValue?
 
+    # TODO refactor and improve animation calling
     fadeOutAnimation = @app.animations.fadeOut
     fadeOutAnimation.addEventListener 'core-animation-finish', (e) =>
       e.target.removeEventListener e.type, arguments.callee
