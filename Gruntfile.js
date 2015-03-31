@@ -288,6 +288,14 @@ module.exports = function (grunt) {
           dest: '.tmp',
           src: ['{styles,elements}/{,*/}*.css']
         }]
+      },
+      phoneGap: {
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.app %>',
+          dest: './',
+          src: ['dist/**']
+        }]
       }
     },
     // See this tutorial if you'd like to run PageSpeed
@@ -340,7 +348,8 @@ module.exports = function (grunt) {
     'coffee',
     'cson',
     'sass',
-    'copy',
+    'copy:dist',
+    'copy:styles',
     'useminPrepare',
     'imagemin',
     'concat',
@@ -350,6 +359,12 @@ module.exports = function (grunt) {
     'usemin',
     // 'replace', TODO currently disable vulcanize for developing
     'minifyHtml'
+  ]);
+
+  grunt.registerTask('build-phonegap', [
+    // TODO auto checkout to phonegap-build branch
+    'build',
+    'copy:phoneGap'
   ]);
 
   grunt.registerTask('default', [

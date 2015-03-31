@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+  <widget xmlns   = "http://www.w3.org/ns/widgets"
+    xmlns:gap   = "http://phonegap.com/ns/1.0"
+    id          = "com.nanowang.aozora"
+    versionCode = "1"
+    version     = "0.0.1" >
+
+  <name>Aozora</name>
+
+  <description>
+    Aozora
+  </description>
+
+  <author href="https://github.com/nanowang" email="namiheike@gmail.com">
+    Nano WANG
+  </author>
+
+  <!-- currently only build android version -->
+  <gap:platform name="android" />
+
+  <!-- perferences -->
+  <preference name="fullscreen" value="true" />
+  <!-- set min sdk version to Android 5.0 -->
+  <preference name="android-minSdkVersion" value="21" />
+
+</widget>
