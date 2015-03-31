@@ -16,18 +16,21 @@
   <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
   <!-- endbuild -->
 
+  <!-- TODO only inject phonegap.js when running the build-phonegap task -->
+  <script src="phonegap.js"></script>
+
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <!-- endbuild-->
 </head>
 
 <body fullbleed>
   <aozora-app>
   </aozora-app>
-
-  <!-- build:js scripts/main.js -->
-  <script src="scripts/main.js"></script>
-  <!-- endbuild-->
 </body>
 
 </html>
