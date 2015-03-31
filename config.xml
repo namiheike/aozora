@@ -23,4 +23,7 @@
   <!-- set min sdk version to Android 5.0 -->
   <preference name="android-minSdkVersion" value="21" />
 
+  <!-- plugins -->
+  <gap:plugin name="com.jamiestarke.webviewdebug" version="1.0.8" />
+
 </widget>
