@@ -293,9 +293,9 @@ module.exports = function (grunt) {
         files: [{
           expand: true,
           dot: true,
-          cwd: '<%= yeoman.app %>',
+          cwd: '<%= yeoman.dist %>',
           dest: '.',
-          src: ['dist/*', 'dist/**']
+          src: ['*', '**']
         }]
       }
     },
@@ -364,7 +364,22 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build-phonegap', [
     // TODO auto checkout to phonegap-build branch
-    'build',
+    'clean:dist',
+    'haml',
+    'coffee',
+    'cson',
+    'sass',
+    'copy:dist',
+    'copy:styles',
+    'useminPrepare',
+    'imagemin',
+    'concat',
+    'autoprefixer',
+    'uglify',
+    'vulcanize'
+    'usemin',
+    'replace',
+    'minifyHtml',
     'copy:phoneGap'
   ]);
 
