@@ -178,7 +178,13 @@ module.exports = function (grunt) {
     },
     clean: {
       dist: ['.tmp', '<%= yeoman.dist %>/*'],
-      server: '.tmp'
+      server: '.tmp',
+      phonegap: {
+        options: {
+          force: true
+        },
+        src: ['../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore']
+      }
     },
     jshint: {
       options: {
@@ -289,13 +295,18 @@ module.exports = function (grunt) {
           src: ['{styles,elements}/{,*/}*.css']
         }]
       },
-      phoneGap: {
+      phonegap: {
         files: [{
           expand: true,
           dot: true,
           cwd: '<%= yeoman.dist %>',
-          dest: '.',
+          dest: '../aozora-phonegap-build',
           src: ['*', '**']
+        },{
+          expand: true,
+          dot: true,
+          dest: '../aozora-phonegap-build',
+          src: ['config.xml']
         }]
       }
     },
@@ -380,7 +391,8 @@ module.exports = function (grunt) {
     'usemin',
     'replace',
     'minifyHtml',
-    'copy:phoneGap'
+    'clean:phonegap',
+    'copy:phonegap'
   ]);
 
   grunt.registerTask('default', [
