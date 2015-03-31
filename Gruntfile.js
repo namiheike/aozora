@@ -376,7 +376,7 @@ module.exports = function (grunt) {
     'concat',
     'autoprefixer',
     'uglify',
-    'vulcanize'
+    'vulcanize',
     'usemin',
     'replace',
     'minifyHtml',
