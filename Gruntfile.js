@@ -277,8 +277,8 @@ module.exports = function (grunt) {
             '!elements/**/*.scss',
             '!elements/**/*.sass',
             '!elements/**/*.coffee',
-            '!resources/**/*.cson', // TODO BUG this rule does not work
-            'resources/**/*'
+            'resources/**/*',
+            '!resources/**/*.cson'
           ]
         }, {
           expand: true,
