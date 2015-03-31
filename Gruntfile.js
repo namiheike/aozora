@@ -183,7 +183,7 @@ module.exports = function (grunt) {
         options: {
           force: true
         },
-        src: ['../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore']
+        src: ['../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore', '!../aozora-phonegap-build/README.md', '!../aozora-phonegap-build/LICENSE']
       }
     },
     jshint: {
