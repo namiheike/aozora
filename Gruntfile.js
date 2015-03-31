@@ -292,8 +292,9 @@ module.exports = function (grunt) {
       phoneGap: {
         files: [{
           expand: true,
+          dot: true,
           cwd: '<%= yeoman.app %>',
-          dest: './',
+          dest: '.',
           src: ['dist/*', 'dist/**']
         }]
       }
