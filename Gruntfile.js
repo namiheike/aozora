@@ -352,8 +352,6 @@ module.exports = function (grunt) {
     ]);
   });
 
-  
-
   grunt.registerTask('build', [
     'clean:dist',
     'haml',
@@ -366,7 +364,7 @@ module.exports = function (grunt) {
     'imagemin',
     'concat',
     'autoprefixer',
-    'uglify',
+    // 'uglify', TODO weird BUG, uglify cause the webcomponents.min.js to be blank when copying to dist
     // 'vulcanize', TODO currently disable vulcanize for developing
     'usemin',
     // 'replace', TODO currently disable vulcanize for developing
@@ -386,7 +384,7 @@ module.exports = function (grunt) {
     'imagemin',
     'concat',
     'autoprefixer',
-    'uglify',
+    // 'uglify',
     'vulcanize',
     'usemin',
     'replace',
