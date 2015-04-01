@@ -4,6 +4,7 @@
   %template
     #resourceLoaders
       %template{repeat: '{{ resource in resourcesList }}'}
+        / TODO url need to be replaced with 'resources/{{resource.path}}' (remove the leading '../') when building into phonegap and vulcanize is enabled
         %core-ajax{url: '../resources/{{resource.path}}', handleAs: 'json', 'on-core-response' => '{{ resourceLoaderResponse }}', data: {resource_name: '{{ resource.name }}' }}
 
   %script{src: 'aozora-resources.js'}

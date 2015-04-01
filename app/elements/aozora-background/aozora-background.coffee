@@ -12,6 +12,7 @@ Polymer
       e.target.removeEventListener e.type, arguments.callee
 
       imagePath = @app.resources.backgrounds[newValue].imagePath
+      # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
       @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
 
       fadeInAnimation = @app.animations.fadeIn

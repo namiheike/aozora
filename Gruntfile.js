@@ -372,7 +372,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build-phonegap', [
-    // TODO auto checkout to phonegap-build branch
+    // TODO auto git command
     'clean:dist',
     'haml',
     'coffee',
@@ -384,8 +384,9 @@ module.exports = function (grunt) {
     'imagemin',
     'concat',
     'autoprefixer',
-    // 'uglify',
-    'vulcanize',
+    'uglify',
+    // TODO replace resource url for valcanize
+    'vulcanize'
     'usemin',
     'replace',
     'minifyHtml',

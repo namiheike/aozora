@@ -24,6 +24,7 @@
   <preference name="android-minSdkVersion" value="21" />
 
   <!-- plugins -->
+  <!-- TODO for developing, remove before deploy to production -->
   <gap:plugin name="com.jamiestarke.webviewdebug" version="1.0.8" />
 
 </widget>

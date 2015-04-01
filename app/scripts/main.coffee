@@ -1,4 +1,3 @@
-document.addEventListener 'deviceready', onDeviceReady, false
-
-onDeviceReady = ->
-  alert 'device ready'
+document.addEventListener 'deviceready', ( ->
+    console.log 'device ready'
+  ), false
