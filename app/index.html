@@ -13,8 +13,14 @@
   <!-- endbuild-->
 
   <!-- build:js bower_components/webcomponentsjs/webcomponents.min.js -->
-  <script src="bower_components/webcomponentsjs/webcomponents.js"></script>
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
   <!-- endbuild -->
+
+  <!-- using native shadow dom instead of shady dom -->
+  <script>
+    window.Polymer = window.Polymer || {};
+    window.Polymer.dom = 'shadow';
+  </script>
 
   <!-- TODO only inject phonegap.js when running the build-phonegap task -->
   <script src="phonegap.js"></script>
@@ -28,7 +34,7 @@
   <!-- endbuild-->
 </head>
 
-<body fullbleed>
+<body class="fullbleed">
   <aozora-app>
   </aozora-app>
 </body>

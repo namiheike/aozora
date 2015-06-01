@@ -13,6 +13,7 @@
     type: 'line'
     role: 'haruka'
     text: 'line 2'
+    background: 'bedroom'
     tachie: [ 'sora', 'miyaho' ]
     next: 2
   },

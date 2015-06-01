@@ -1,12 +1,9 @@
-%link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
-
-%polymer-element{name: 'aozora-splash-screen', extends: 'aozora-base', attributes: 'splash-screen'}(flex fit vertical layout center center-justified)
+%dom-module#aozora-splash-screen
+  %link{rel: 'import', type: 'css', href: 'aozora-splash-screen.css'}
   %template
-    %link{rel: 'stylesheet', href: 'aozora-splash-screen.css'}
-
-    %core-image.logo{src: '../../resources/images/logo.svg'}
-    %paper-button{'on-tap' => '{{startBtnOnTap}}'} START
+    %iron-image.logo{src: '../../resources/images/logo.svg'}
+    %paper-button{'on-tap' => 'startBtnOnTap'} START
     %paper-button button2
     %paper-button button3
 
-  %script{src: 'aozora-splash-screen.js'}
+%script{src: 'aozora-splash-screen.js'}

@@ -1,39 +1,35 @@
 Polymer
   is: 'aozora-resources'
+  behaviors: [ Aozora.behaviors.base ]
 
-  # TODO load this list from sth like manifest file
-  resourcesList: [
-    # story
-    {
-      name: 'meta'
-      path: 'story/meta.json'
-    }
-    {
-      name: 'script'
-      path: 'story/script.json'
-    }
-    {
-      name: 'characters'
-      path: 'story/characters.json'
-    }
-    # backgrounds
-    {
-      name: 'backgrounds'
-      path: 'backgrounds/backgrounds.json'
-    }
-  ]
+  ready: ->
+    @elementInit()
 
-  domReady: ->
-    @super()
+    # TODO load this list from sth like manifest file
+    @resourcesList = [
+      # story
+      {
+        name: 'meta'
+        path: 'story/meta.json'
+      }
+      {
+        name: 'script'
+        path: 'story/script.json'
+      }
+      {
+        name: 'characters'
+        path: 'story/characters.json'
+      }
+      # backgrounds
+      {
+        name: 'backgrounds'
+        path: 'backgrounds/backgrounds.json'
+      }
+    ]
 
-    # perform all loaders xhr sync
-    # TODO IMPORTANT Synchronous XMLHttpRequest on the main thread is deprecated because of its detrimental effects to the end user's experience.
-    loaders = @.$.resourceLoaders.querySelectorAll('core-ajax')
-    for loader in loaders
-      xhrArgs = loader.xhrArgs or {}
-      xhrArgs.sync = true
-      loader.xhrArgs = xhrArgs
-      resourceContent = loader.go()
+    # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
+    for resource in @resourcesList
+      resource.fullPath = '../resources/' + resource.path
 
   resourceLoaderResponse: (e) ->
     loader = e.currentTarget

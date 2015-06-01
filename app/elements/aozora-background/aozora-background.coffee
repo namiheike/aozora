@@ -1,23 +1,42 @@
 Polymer
   is: 'aozora-background'
-  domReady: ->
-    @super()
+  behaviors: [
+    Aozora.behaviors.base
+    Polymer.NeonAnimationRunnerBehavior
+  ]
+  properties:
+    background:
+      type: Object
+      observer: '_backgroundChanged'
+    entryAnimation:
+      value: 'fade-in-animation'
+    exitAnimation:
+      value: 'fade-out-animation'
+  listeners:
+    'neon-animation-finish': '_onNeonAnimationFinish'
 
-  backgroundChanged: (oldValue, newValue) ->
-    return unless newValue?
+  ready: ->
+    @elementInit()
 
-    # TODO refactor and improve animation calling
-    fadeOutAnimation = @app.animations.fadeOut
-    fadeOutAnimation.addEventListener 'core-animation-finish', (e) =>
-      e.target.removeEventListener e.type, arguments.callee
+    # monkey patch since cannot @apply custom classes from iron-flex-layout
+    # TODO remove later if iron-flex-layout works fine
+    @toggleClass 'vertical', true
+    @toggleClass 'layout', true
+    @toggleClass 'flex', true
+    @toggleClass 'fit', true
 
-      imagePath = @app.resources.backgrounds[newValue].imagePath
-      # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
-      @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
+  _backgroundChanged: (newValue, oldValue) ->
+    @_animationState = 'fading_out'
+    @_newBackground = newValue
+    @playAnimation 'exit'
 
-      fadeInAnimation = @app.animations.fadeIn
-      fadeInAnimation.target = @
-      fadeInAnimation.play()
-
-    fadeOutAnimation.target = @
-    fadeOutAnimation.play()
+  _onNeonAnimationFinish: (e) ->
+    switch @_animationState
+      when 'fading_in'
+        @_animationState = @_newBackground = undefined
+      when 'fading_out'
+        imagePath = @app.resources.backgrounds[@_newBackground].imagePath
+        # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
+        @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
+        @_animationState = 'fading_in'
+        @playAnimation 'entry'

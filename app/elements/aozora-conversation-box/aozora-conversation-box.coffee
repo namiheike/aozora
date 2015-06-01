@@ -1,12 +1,16 @@
 Polymer
   is: 'aozora-conversation-box'
-  # nodeChanged: (oldNode, newNode) ->    
-    # switch node.type
-    #   when 'line'
-    #   when 'narrate'
-    #   when 'options'
+  behaviors: [ Aozora.behaviors.base ]
+  properties:
+    node:
+      type: Object
+  listeners:
+    tap: 'onTapOnBox'
 
-  roleName: (line) ->
+  ready: ->
+    @elementInit()
+
+  roleNameOfLine: (line) ->
     @app.resources.characters[line.role].name
 
   onTapOnBox: (e) ->
@@ -21,3 +25,4 @@ Polymer
 
     option = e.currentTarget.templateInstance.model.option
     @app.story.jumpToNode getNodeById option.next
+

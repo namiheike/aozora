@@ -1,10 +1,15 @@
-%link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
-
-%polymer-element{name: 'aozora-resources', extends: 'aozora-base'}
+%dom-module#aozora-resources
   %template
     #resourceLoaders
-      %template{repeat: '{{ resource in resourcesList }}'}
+      %template{is: 'dom-repeat', items: '{{ resourcesList }}', as: 'resource'}
         / TODO url need to be replaced with 'resources/{{resource.path}}' (remove the leading '../') when building into phonegap and vulcanize is enabled
-        %core-ajax{url: '../resources/{{resource.path}}', handleAs: 'json', 'on-core-response' => '{{ resourceLoaderResponse }}', data: {resource_name: '{{ resource.name }}' }}
-
-  %script{src: 'aozora-resources.js'}
+        :plain
+          <iron-ajax
+            auto
+            url="[[resource.fullPath]]"
+            handle-as="json"
+            on-response="resourceLoaderResponse"
+            data-resource-name$="[[resource.name]]"
+          >
+          </iron-ajax>
+%script{src: 'aozora-resources.js'}

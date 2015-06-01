@@ -78,9 +78,24 @@ module.exports = function (grunt) {
           expand: true,
           flatten: false,
           cwd: '<%= yeoman.app %>',
-          src: ['scripts/{,*/}*.coffee', 'elements/{,*/}*.coffee'],
+          src: ['scripts/{,*/}*.coffee', 'elements/{,*/}*.coffee', '!elements/behaviors/*.coffee'],
           dest: '<%= yeoman.dist %>',
           ext: '.js'
+        }]
+      },
+      dist_for_behaviors: {
+        options: {
+          trace: true,
+          bare: true,
+          sourceMap: false
+        },
+        files: [{
+          expand: true,
+          flatten: false,
+          cwd: '<%= yeoman.app %>',
+          src: ['elements/behaviors/*.coffee'],
+          dest: '<%= yeoman.dist %>',
+          ext: '.html'
         }]
       }
     },
@@ -355,7 +370,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'haml',
-    'coffee',
+    'coffee:dist',
+    'coffee:dist_for_behaviors',
     'cson',
     'sass',
     'copy:dist',
@@ -375,7 +391,8 @@ module.exports = function (grunt) {
     // TODO auto git command
     'clean:dist',
     'haml',
-    'coffee',
+    'coffee:dist',
+    'coffee:dist_for_behaviors',
     'cson',
     'sass',
     'copy:dist',
@@ -386,7 +403,7 @@ module.exports = function (grunt) {
     'autoprefixer',
     'uglify',
     // TODO replace resource url for valcanize
-    'vulcanize'
+    'vulcanize',
     'usemin',
     'replace',
     'minifyHtml',

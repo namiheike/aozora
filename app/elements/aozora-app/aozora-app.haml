@@ -1,14 +1,10 @@
-%link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
-
-%polymer-element{name: 'aozora-app', extends: 'aozora-base'}(flex vertical layout fit)
+%dom-module#aozora-app
+  %link{rel: 'import', type: 'css', href: 'aozora-app.css'}
   %template
-    %link{rel: 'stylesheet', href: 'aozora-app.css'}
-
     %aozora-resources#resources
-    %aozora-animations#animations
     %aozora-story#story
     %aozora-background#background
     %aozora-conversation-box#conversationBox
     %aozora-splash-screen#splashScreen
 
-  %script{src: 'aozora-app.js'}
+%script{src: 'aozora-app.js'}

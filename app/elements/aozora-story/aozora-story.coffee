@@ -1,13 +1,25 @@
 Polymer
   is: 'aozora-story'
+  behaviors: [ Aozora.behaviors.base ]
+  properties:
+    node:
+      type: Object
+      observer: '_nodeChanged'
 
-  nodeChanged: (oldNode, newNode) ->
-    @render newNode
+  ready: ->
+    @elementInit()
+
+  _nodeChanged: (newNode, oldNode) ->
+    @node.typeIsLine = @node.type is 'line'
+    @node.typeIsNarrate = @node.type is 'narrate'
+    @node.typeIsOptions = @node.type is 'options'
+
+    @_render @node
 
   start: (node) ->
     @node = node
 
-  render: (node) ->
+  _render: (node) ->
     # background
     if node.background?
       @app.background.background = node.background

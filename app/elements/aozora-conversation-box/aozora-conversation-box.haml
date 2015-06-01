@@ -1,27 +1,20 @@
-%link{rel: 'import', href: '../../bower_components/polymer/polymer.html'}
-
-%polymer-element{name: 'aozora-conversation-box', extends: 'aozora-base', attributes: 'node', 'on-tap' => '{{onTapOnBox}}'}(block)
+%dom-module#aozora-conversation-box
+  %link{rel: 'import', type: 'css', href: 'aozora-conversation-box.css'}
   %template
-    %link{rel: 'stylesheet', href: 'aozora-conversation-box.css'}
-
-    %template{bind: '{{ node as line }}', if: '{{ node.type == "line" }}'}
+    %template{is: 'dom-if', if: '{{node.typeIsLine}}'}
       .node.line
-        %p.role
-          {{ roleName(line) }}
-        %p
-          {{ line.text }}
+        %p.role {{ roleNameOfLine(node) }}
+        %p {{ node.text }}
 
-    %template{bind: '{{ node as narrate }}', if: '{{ node.type == "narrate" }}'}
+    %template{is: 'dom-if', if: '{{node.typeIsNarrate}}'}
       .node.narrate
-        %p
-          {{ narrate.text }}
+        %p {{ node.text }}
 
-    %template{bind: '{{ node as options }}', if: '{{ node.type == "options" }}'}
+    %template{is: 'dom-if', if: '{{node.typeIsOptions}}'}
       .node.options
-        %template{repeat: '{{ option in options.options }}'}
+        %template{is: 'dom-repeat', items: '[[node.options]]', as: 'option'}
           .option
             / TODO ripple
-            %p{'on-tap' => '{{onTapOnOption}}'}
-              {{ option.text }}
+            %p{'on-tap' => 'onTapOnOption'} {{ option.text }}
 
-  %script{src: 'aozora-conversation-box.js'}
+%script{src: 'aozora-conversation-box.js'}
