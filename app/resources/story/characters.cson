@@ -1,4 +1,6 @@
 sora:
   name: 'Sora'
+  tachies: [ 'normal' ]
 haruka:
   name: 'Haruka'
+  tachies: [ 'normal' ]

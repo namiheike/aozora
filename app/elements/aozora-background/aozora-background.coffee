@@ -20,23 +20,34 @@ Polymer
 
     # monkey patch since cannot @apply custom classes from iron-flex-layout
     # TODO remove later if iron-flex-layout works fine
-    @toggleClass 'vertical', true
-    @toggleClass 'layout', true
-    @toggleClass 'flex', true
     @toggleClass 'fit', true
 
   _backgroundChanged: (newValue, oldValue) ->
-    @_animationState = 'fading_out'
-    @_newBackground = newValue
-    @playAnimation 'exit'
+    if oldValue?
+      @_fadeOut()
+    else
+      @_changeImageSrcAndfadeIn()
 
   _onNeonAnimationFinish: (e) ->
     switch @_animationState
       when 'fading_in'
-        @_animationState = @_newBackground = undefined
+        @_animationState = undefined
+        # TODO notify other elements that animation is finished
       when 'fading_out'
-        imagePath = @app.resources.backgrounds[@_newBackground].imagePath
-        # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
-        @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
-        @_animationState = 'fading_in'
-        @playAnimation 'entry'
+        @_changeImageSrcAndfadeIn()
+
+  _fadeOut: () ->
+    @_animationState = 'fading_out'
+    @playAnimation 'exit'
+
+  _fadeIn: () ->
+    @_animationState = 'fading_in'
+    @playAnimation 'entry'
+
+  _changeImageSrcAndfadeIn: () ->
+    imagePath = @app.resources.backgrounds[@background].imagePath
+    # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
+    # TODO wrap image path building into a method of resources
+    @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
+
+    @_fadeIn()

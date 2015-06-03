@@ -3,8 +3,13 @@
   %template
     %aozora-resources#resources
     %aozora-story#story
+
     %aozora-background#background
-    %aozora-conversation-box#conversationBox
     %aozora-splash-screen#splashScreen
+
+    / TODO layout classes are deprecated
+    .conversation-and-tachies.fit.flex.vertical.layout.end-justified
+      %aozora-conversation-box#conversationBox
+      %aozora-tachies#tachies
 
 %script{src: 'aozora-app.js'}

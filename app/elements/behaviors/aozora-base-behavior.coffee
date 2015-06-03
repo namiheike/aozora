@@ -5,10 +5,8 @@ Aozora.behaviors = {} unless Aozora.behaviors?
 Aozora.behaviors.base =
   properties: {}
   elementInit: () ->
-    if @nodeName is 'AOZORA-APP'
-      @app = @
-      return
-
-    while ( @app = @parentNode.host ).nodeName isnt 'AOZORA-APP'
-      @app = @parentNode.host
+    # get @app in every element
+    @app = @
+    while @app?.nodeName isnt 'AOZORA-APP'
+      @app = @app.domHost or @app.parentNode.host
 `</script>`

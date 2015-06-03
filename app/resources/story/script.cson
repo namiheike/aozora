@@ -5,7 +5,7 @@
     role: 'sora'
     text: 'line 1'
     background: 'normal'
-    tachie: [ 'sora' ]
+    tachies: [ { sora: 'normal' } ]
     next: 1
   },
   {
@@ -14,31 +14,40 @@
     role: 'haruka'
     text: 'line 2'
     background: 'bedroom'
-    tachie: [ 'sora', 'miyaho' ]
+    tachies: [ { sora: 'normal' }, { miyaho: 'normal' } ]
     next: 2
   },
   {
     id: 2
+    type: 'line'
+    role: 'haruka'
+    text: 'line 2'
+    background: 'bedroom'
+    tachies: [ { miyaho: 'normal' } ]
+    next: 3
+  },
+  {
+    id: 3
     type: 'options'
     options: [
       {
         text: 'option 1'
-        next: 3
+        next: 4
       },
       {
         text: 'option 2'
-        next: 4
+        next: 5
       }
     ]
   },
   {
-    id: 3
+    id: 4
     type: 'narrate'
     text: 'happy ending'
     background: 'happyEnding'
   },
   {
-    id: 4
+    id: 5
     type: 'narrate'
     text: 'bad ending'
     background: 'badEnding'

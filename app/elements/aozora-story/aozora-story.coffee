@@ -10,10 +10,6 @@ Polymer
     @elementInit()
 
   _nodeChanged: (newNode, oldNode) ->
-    @node.typeIsLine = @node.type is 'line'
-    @node.typeIsNarrate = @node.type is 'narrate'
-    @node.typeIsOptions = @node.type is 'options'
-
     @_render @node
 
   start: (node) ->
@@ -24,7 +20,14 @@ Polymer
     if node.background?
       @app.background.background = node.background
 
+    # tachies
+    if node.tachies?
+      @app.tachies.tachies = node.tachies
+
     # conversation-box
+    @node.typeIsLine = @node.type is 'line'
+    @node.typeIsNarrate = @node.type is 'narrate'
+    @node.typeIsOptions = @node.type is 'options'
     @app.conversationBox.node = node
 
   jumpToNode: (node) ->

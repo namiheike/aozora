@@ -6,15 +6,17 @@ Polymer
 
     # monkey patch since cannot @apply custom classes from iron-flex-layout
     # TODO remove later if iron-flex-layout works fine
-    @toggleClass 'vertical', true
-    @toggleClass 'layout', true
-    @toggleClass 'flex', true
     @toggleClass 'fit', true
 
-    # globals
+    # init globals
     @resources = @.$.resources
     @story = @.$.story
     @background = @.$.background
     @conversationBox = @.$.conversationBox
+    @tachies = @.$.tachies
     @splashScreen = @.$.splashScreen
 
+    # init game
+    ## set page title
+    # TODO resources are not loaded at this time
+    # @async () -> document.title = @resources.meta.title

@@ -1,2 +1,22 @@
 \:host
-  @apply(--layout-vertical --layout-flex --layout-fit)
+  @apply(--layout-fit)
+
+  .conversation-and-tachies
+    @apply(--layout-fit --layout-flex --layout-vertical --layout-end-justified)
+
+    z-index: 1
+
+    #tachies
+      order: 0
+
+    #conversationBox
+      order: 1
+
+  #tachies
+    z-index: 1
+
+  #splashScreen
+    z-index: 2
+
+  #background
+    z-index: 0
