@@ -16,6 +16,11 @@ Polymer
     @node = node
 
   _render: (node) ->
+    if node.type is 'video'
+      @app.video.allowSkipping = node.allowSkipping
+      @app.video.video = node.video
+      return
+
     # background
     if node.background?
       @app.background.background = node.background

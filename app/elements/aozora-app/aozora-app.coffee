@@ -14,6 +14,7 @@ Polymer
     @background = @.$.background
     @conversationBox = @.$.conversationBox
     @tachies = @.$.tachies
+    @video = @.$.video
     @splashScreen = @.$.splashScreen
 
     # init game

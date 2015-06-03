@@ -1,6 +1,13 @@
 [
   {
     id: 0
+    type: 'video'
+    video: 'opening'
+    allowSkipping: true
+    next: 1
+  },
+  {
+    id: 1
     type: 'line'
     role: 'sora'
     text: 'line 1'
@@ -9,7 +16,7 @@
     next: 1
   },
   {
-    id: 1
+    id: 2
     type: 'line'
     role: 'haruka'
     text: 'line 2'
@@ -18,7 +25,7 @@
     next: 2
   },
   {
-    id: 2
+    id: 3
     type: 'line'
     role: 'haruka'
     text: 'line 2'
@@ -27,7 +34,7 @@
     next: 3
   },
   {
-    id: 3
+    id: 4
     type: 'options'
     options: [
       {
@@ -41,13 +48,13 @@
     ]
   },
   {
-    id: 4
+    id: 5
     type: 'narrate'
     text: 'happy ending'
     background: 'happyEnding'
   },
   {
-    id: 5
+    id: 6
     type: 'narrate'
     text: 'bad ending'
     background: 'badEnding'

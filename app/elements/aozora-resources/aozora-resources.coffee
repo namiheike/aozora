@@ -25,6 +25,11 @@ Polymer
         name: 'backgrounds'
         path: 'backgrounds/backgrounds.json'
       }
+      # videos
+      {
+        name: 'videos'
+        path: 'videos/videos.json'
+      }
     ]
 
     # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
