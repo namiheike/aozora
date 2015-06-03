@@ -41,7 +41,7 @@ Polymer
   jumpToNextNode: ->
     return unless @node?
 
-    # TODO IMPORTANT very bad performance, integrate IndexedDB
+    # TODO IMPORTANT very bad performance, integrate IndexedDB or just use array index
     getNodeById = (id) =>
       @app.resources.script.filter((node) -> node.id is id)[0]
 

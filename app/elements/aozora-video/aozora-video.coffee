@@ -36,6 +36,7 @@ Polymer
     @_hide()
 
   _hide: () ->
-    # fade out and play next node in story
+    # stop video playing, fade out, and play next node in story
+    @$.videoElement.pause()
     @toggleClass 'hide', true
     @app.story.jumpToNextNode()
