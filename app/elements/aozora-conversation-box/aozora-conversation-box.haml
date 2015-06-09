@@ -12,7 +12,7 @@
 
     %template{is: 'dom-if', if: '{{node.typeIsOptions}}'}
       .node.options
-        %template{is: 'dom-repeat', items: '[[node.options]]', as: 'option'}
+        %template{is: 'dom-repeat', items: '{{node.options}}', as: 'option'}
           .option
             / TODO ripple
             %p{'on-tap' => 'onTapOnOption'} {{ option.text }}

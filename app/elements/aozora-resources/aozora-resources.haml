@@ -1,15 +1,15 @@
 %dom-module#aozora-resources
   %template
     #resourceLoaders
-      %template{is: 'dom-repeat', items: '{{ resourcesList }}', as: 'resource'}
+      %template{is: 'dom-repeat', items: '{{ _resourcesList }}', as: 'resource'}
         / TODO url need to be replaced with 'resources/{{resource.path}}' (remove the leading '../') when building into phonegap and vulcanize is enabled
         :plain
           <iron-ajax
             auto
-            url="[[resource.fullPath]]"
+            url="{{resource.fullPath}}"
             handle-as="json"
-            on-response="resourceLoaderResponse"
-            data-resource-name$="[[resource.name]]"
+            on-response="_resourceLoaderResponse"
+            data-resource-name$="{{resource.name}}"
           >
           </iron-ajax>
 %script{src: 'aozora-resources.js'}

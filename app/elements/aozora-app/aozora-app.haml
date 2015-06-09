@@ -1,16 +1,21 @@
 %dom-module#aozora-app
   %link{rel: 'import', type: 'css', href: 'aozora-app.css'}
   %template
+    %aozora-loading-screen#loadingScreen
+
     %aozora-resources#resources
-    %aozora-story#story
 
     %aozora-background#background
-    %aozora-splash-screen#splashScreen
+    %aozora-opening-screen#openingScreen
     %aozora-video#video
 
     / TODO layout classes are deprecated
     .conversation-and-tachies.fit.flex.vertical.layout.end-justified
       %aozora-conversation-box#conversationBox
       %aozora-tachies#tachies
+
+    %aozora-bgm#bgm
+
+    %aozora-story#story
 
 %script{src: 'aozora-app.js'}

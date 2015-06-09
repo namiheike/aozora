@@ -13,6 +13,7 @@
     text: 'line 1'
     background: 'normal'
     tachies: [ { sora: 'normal' } ]
+    bgm: 'ridingTheDragon'
     next: 2
   },
   {

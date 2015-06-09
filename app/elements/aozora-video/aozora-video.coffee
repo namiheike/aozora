@@ -21,6 +21,7 @@ Polymer
     @toggleClass 'center-justified', true
 
   _videoChanged: (newVideo, oldVideo) ->
+    @_holdBgmPlaying()
     @toggleClass 'hide', false
     # TODO wrap path building into a method of resources
     videoFileName = this.app.resources.videos[newVideo]
@@ -30,13 +31,22 @@ Polymer
     @$.videoElement.play()
 
   _onTap: (e) ->
-    @_hide() if @allowSkipping
+    @_finish() if @allowSkipping
+
+  _holdBgmPlaying: ->
+    @app.bgm.pause()
 
   _onVideoFinish: (e) ->
-    @_hide()
+    @_finish()
 
-  _hide: () ->
-    # stop video playing, fade out, and play next node in story
+  _finish: () ->
+    # stop video playing, resume bgm playing, fade out, and play next node in story
+
+    # TODO consider if need auto resume bgm playing,
+    # and what if the next node's bgm is a different one from the resuming one
+
     @$.videoElement.pause()
+    @app.bgm.play()
     @toggleClass 'hide', true
+
     @app.story.jumpToNextNode()

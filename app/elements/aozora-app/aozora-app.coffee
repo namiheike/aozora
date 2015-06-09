@@ -15,7 +15,9 @@ Polymer
     @conversationBox = @.$.conversationBox
     @tachies = @.$.tachies
     @video = @.$.video
-    @splashScreen = @.$.splashScreen
+    @openingScreen = @.$.openingScreen
+    @loadingScreen = @.$.loadingScreen
+    @bgm = @.$.bgm
 
     # init game
     ## set page title

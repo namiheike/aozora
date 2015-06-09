@@ -6,7 +6,7 @@ Polymer
     @elementInit()
 
     # TODO load this list from sth like manifest file
-    @resourcesList = [
+    @_resourcesList = [
       # story
       {
         name: 'meta'
@@ -20,6 +20,10 @@ Polymer
         name: 'characters'
         path: 'story/characters.json'
       }
+      {
+        name: 'custom'
+        path: 'story/custom.json'
+      }
       # backgrounds
       {
         name: 'backgrounds'
@@ -30,14 +34,28 @@ Polymer
         name: 'videos'
         path: 'videos/videos.json'
       }
+      # music
+      {
+        name: 'music'
+        path: 'music/music.json'
+      }
     ]
 
     # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
-    for resource in @resourcesList
+    for resource in @_resourcesList
       resource.fullPath = '../resources/' + resource.path
 
-  resourceLoaderResponse: (e) ->
+    @_unloadResourcesCount = @_resourcesList.length
+
+  _resourceLoaderResponse: (e) ->
     loader = e.currentTarget
     resourceName = loader.dataset.resourceName
     resourceContent = e.detail.response
     @[resourceName] = resourceContent
+
+    @_unloadResourcesCount -= 1
+    if @_unloadResourcesCount is 0
+      @_allLoaded()
+
+  _allLoaded: ->
+    @app.story.start()

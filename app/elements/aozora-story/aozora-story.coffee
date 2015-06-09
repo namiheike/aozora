@@ -9,13 +9,24 @@ Polymer
   ready: ->
     @elementInit()
 
-  _nodeChanged: (newNode, oldNode) ->
-    @_render @node
+  start: ->
+    # triggered after all resources are ready
 
-  start: (node) ->
+    # hide the loading screen
+    @app.loadingScreen.tryFadeOut()
+
+    # handle opening screen custom
+    ## bgm
+    if ( music = @app.resources.custom?.opening?.bgm )?
+      @app.bgm.music = music
+
+  _nodeChanged: (newNode, oldNode) ->
+    @_renderNode @node
+
+  startScript: (node) ->
     @node = node
 
-  _render: (node) ->
+  _renderNode: (node) ->
     if node.type is 'video'
       @app.video.allowSkipping = node.allowSkipping
       @app.video.video = node.video
@@ -34,6 +45,10 @@ Polymer
     @node.typeIsNarrate = @node.type is 'narrate'
     @node.typeIsOptions = @node.type is 'options'
     @app.conversationBox.node = node
+
+    # bgm
+    if node.bgm?
+      @app.bgm.music = node.bgm
 
   jumpToNode: (node) ->
     @node = node
