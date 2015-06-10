@@ -126,6 +126,19 @@ module.exports = function (grunt) {
         }]
       }
     },
+    stamp: {
+      for_custom_styles_in_sass: {
+        options: {
+          banner: '<style is="custom-style">',
+          footer: '</style>'
+        },
+        files: [{
+          expand: true,
+          cwd: '<%= yeoman.dist %>',
+          src: ['elements/{,*/}*.css'],
+        }]
+      }
+    },
     // Compiles cson to json
     cson: {
       compile:{
@@ -251,16 +264,16 @@ module.exports = function (grunt) {
         }
       }
     },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/images',
-          src: '{,*/}*.{png,jpg,jpeg,svg}',
-          dest: '<%= yeoman.dist %>/images'
-        }]
-      }
-    },
+    // imagemin: {
+    //   dist: {
+    //     files: [{
+    //       expand: true,
+    //       cwd: '<%= yeoman.app %>/images',
+    //       src: '{,*/}*.{png,jpg,jpeg,svg}',
+    //       dest: '<%= yeoman.dist %>/images'
+    //     }]
+    //   }
+    // },
     minifyHtml: {
       options: {
         quotes: true,
@@ -377,9 +390,10 @@ module.exports = function (grunt) {
     'copy:dist',
     'copy:styles',
     'useminPrepare',
-    'imagemin',
+    // 'imagemin',
     'concat',
     'autoprefixer',
+    'stamp:for_custom_styles_in_sass',
     'uglify',
     // 'vulcanize', //disable vulcanize for developing
     'usemin',
@@ -397,9 +411,10 @@ module.exports = function (grunt) {
     'copy:dist',
     'copy:styles',
     'useminPrepare',
-    'imagemin',
+    // 'imagemin',
     'concat',
     'autoprefixer',
+    'stamp:for_custom_styles_in_sass',
     'uglify',
     'vulcanize',
     'usemin',
@@ -418,7 +433,7 @@ module.exports = function (grunt) {
     'copy:dist',
     'copy:styles',
     'useminPrepare',
-    'imagemin',
+    // 'imagemin',
     'concat',
     'autoprefixer',
     'uglify',
