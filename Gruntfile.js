@@ -380,10 +380,30 @@ module.exports = function (grunt) {
     'imagemin',
     'concat',
     'autoprefixer',
-    // 'uglify', TODO weird BUG, uglify cause the webcomponents.min.js to be blank when copying to dist
-    // 'vulcanize', TODO currently disable vulcanize for developing
+    'uglify',
+    // 'vulcanize', //disable vulcanize for developing
     'usemin',
-    // 'replace', TODO currently disable vulcanize for developing
+    // 'replace', //disable vulcanize for developing
+    'minifyHtml'
+  ]);
+
+  grunt.registerTask('build-production', [
+    'clean:dist',
+    'haml',
+    'coffee:dist',
+    'coffee:dist_for_behaviors',
+    'cson',
+    'sass',
+    'copy:dist',
+    'copy:styles',
+    'useminPrepare',
+    'imagemin',
+    'concat',
+    'autoprefixer',
+    'uglify',
+    'vulcanize',
+    'usemin',
+    'replace',
     'minifyHtml'
   ]);
 
