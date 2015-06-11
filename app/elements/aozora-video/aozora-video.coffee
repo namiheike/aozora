@@ -13,13 +13,6 @@ Polymer
   ready: ->
     @elementInit()
 
-    # monkey patch since cannot @apply custom classes from iron-flex-layout
-    # TODO remove later if iron-flex-layout works fine
-    @toggleClass 'fit', true
-    @toggleClass 'vertical', true
-    @toggleClass 'layout', true
-    @toggleClass 'center-justified', true
-
   _videoChanged: (newVideo, oldVideo) ->
     @_holdBgmPlaying()
     @toggleClass 'hide', false

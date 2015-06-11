@@ -4,10 +4,6 @@ Polymer
   ready: ->
     @elementInit()
 
-    # monkey patch since cannot @apply custom classes from iron-flex-layout
-    # TODO remove later if iron-flex-layout works fine
-    @toggleClass 'fit', true
-
     # init globals
     @resources = @.$.resources
     @story = @.$.story

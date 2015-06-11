@@ -9,12 +9,6 @@ Polymer
   ready: ->
     @elementInit()
 
-    # monkey patch since cannot @apply custom classes from iron-flex-layout
-    # TODO remove later if iron-flex-layout works fine
-    @toggleClass 'horizontal', true
-    @toggleClass 'layout', true
-    @toggleClass 'around-justified', true
-
   _tachiesChanged: (newTachies, oldTachies) ->
     # lots TODO
     # say the proper transition

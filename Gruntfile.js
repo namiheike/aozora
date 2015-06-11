@@ -393,7 +393,7 @@ module.exports = function (grunt) {
     // 'imagemin',
     'concat',
     'autoprefixer',
-    'stamp:for_custom_styles_in_sass',
+    // 'stamp:for_custom_styles_in_sass',
     'uglify',
     // 'vulcanize', //disable vulcanize for developing
     'usemin',
@@ -414,7 +414,7 @@ module.exports = function (grunt) {
     // 'imagemin',
     'concat',
     'autoprefixer',
-    'stamp:for_custom_styles_in_sass',
+    // 'stamp:for_custom_styles_in_sass',
     'uglify',
     'vulcanize',
     'usemin',
