@@ -5,20 +5,25 @@ Polymer
     node:
       type: Object
   listeners:
-    tap: 'onTapOnBox'
+    tap: '_onTapOnBox'
 
   ready: ->
     @elementInit()
 
-  roleNameOfLine: (line) ->
+  _roleNameOfLine: (line) ->
+
+    # dirty hack for this issue: https://github.com/Polymer/polymer/issues/1716
+    # TODO remove after issue been solved
+    return unless line.role?
+
     @app.resources.characters[line.role].name
 
-  onTapOnBox: (e) ->
+  _onTapOnBox: (e) ->
     switch @node.type
       when 'line', 'narrate'
         @app.story.jumpToNextNode()
 
-  onTapOnOption: (e) ->
+  _onTapOnOption: (e) ->
     # TODO IMPORTANT very bad performance, integrate IndexedDB
     getNodeById = (id) =>
       @app.resources.script.filter((node) -> node.id is id)[0]

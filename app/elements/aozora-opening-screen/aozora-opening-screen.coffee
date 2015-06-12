@@ -5,8 +5,11 @@ Polymer
     Polymer.NeonAnimationRunnerBehavior
   ]
   properties:
-    exitAnimation:
-      value: 'fade-out-animation'
+    animationConfig:
+      value: ->
+        exit:
+          name: 'fade-out-animation'
+          node: @
   listeners:
     'neon-animation-finish': '_onAnimationFinish'
 
@@ -14,11 +17,11 @@ Polymer
     @elementInit()
 
   _startBtnOnTap: (e) ->
-    @app.story.startScript @app.resources.script[0]
-    @fadeOut()
+    @_fadeOut()
 
-  fadeOut: ->
+  _fadeOut: ->
     @playAnimation 'exit'
 
   _onAnimationFinish: (e) ->
+    @app.story.startScript @app.resources.script[0]
     @removeSelfDom()

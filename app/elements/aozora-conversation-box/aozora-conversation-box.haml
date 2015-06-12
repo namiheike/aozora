@@ -3,8 +3,8 @@
   %template
     %template{is: 'dom-if', if: '{{node.typeIsLine}}'}
       .node.line
-        %p.role {{ roleNameOfLine(node) }}
-        %p {{ node.text }}
+        %p.role {{ _roleNameOfLine(node) }}
+        %aozora-sentence{sentence: '{{node.text}}'}
 
     %template{is: 'dom-if', if: '{{node.typeIsNarrate}}'}
       .node.narrate
@@ -15,6 +15,6 @@
         %template{is: 'dom-repeat', items: '{{node.options}}', as: 'option'}
           .option
             / TODO ripple
-            %p{'on-tap' => 'onTapOnOption'} {{ option.text }}
+            %p{'on-tap' => '_onTapOnOption'} {{ option.text }}
 
 %script{src: 'aozora-conversation-box.js'}

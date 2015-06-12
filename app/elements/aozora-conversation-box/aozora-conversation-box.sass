@@ -1,10 +1,14 @@
 \:host
   background: whitesmoke
+  padding: 0 1em
 
   .node.line
-    p
-      color: red
+    p.role
+      @apply(--paper-font-headline)
+      font-weight: bold
+
   .node.narrate
+
   .node.options
     p
       cursor: pointer
