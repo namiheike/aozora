@@ -15,7 +15,7 @@ Polymer
 
   _videoChanged: (newVideo, oldVideo) ->
     @_holdBgmPlaying()
-    @toggleClass 'hide', false
+    @_show()
     # TODO wrap path building into a method of resources
     videoFileName = this.app.resources.videos[newVideo]
     videoFilePath = "../../resources/videos/#{videoFileName}"
@@ -40,6 +40,13 @@ Polymer
 
     @$.videoElement.pause()
     @app.bgm.play()
-    @toggleClass 'hide', true
+    @_hide()
 
     @app.story.jumpToNextNode()
+
+  _show: () ->
+    # TODO fade in
+    @toggleClass 'hide', false
+
+  _hide: () ->
+    @toggleClass 'hide', true

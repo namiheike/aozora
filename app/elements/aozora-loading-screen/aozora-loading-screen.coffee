@@ -58,4 +58,8 @@ Polymer
 
   _onAnimationFinish: (e) ->
     return unless @_animationStatus is 'fading_out'
-    Polymer.dom(@app.root).removeChild @
+
+    # notify the opening screen it has been shown
+    @app.story.onOpeningScreenShown()
+
+    @removeSelfDom()

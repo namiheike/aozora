@@ -12,13 +12,20 @@ Polymer
   start: ->
     # triggered after all resources are ready
 
-    # hide the loading screen
+    # hide the loading-screen
     @app.loadingScreen.tryFadeOut()
 
     # handle opening screen custom
     ## bgm
     if ( music = @app.resources.custom?.opening?.bgm )?
       @app.bgm.music = music
+
+  onOpeningScreenShown: ->
+    # notify the animations in opening-screen
+    # @app.openingScreen.onShown()
+
+    # notify the app to show the drawer button
+    @app.topBar.show()
 
   _nodeChanged: (newNode, oldNode) ->
     @_renderNode @node

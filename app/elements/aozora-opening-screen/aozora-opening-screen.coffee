@@ -21,5 +21,4 @@ Polymer
     @playAnimation 'exit'
 
   _onAnimationFinish: (e) ->
-    # TODO better way to remove self
-    Polymer.dom(@app.root).removeChild @
+    @removeSelfDom()

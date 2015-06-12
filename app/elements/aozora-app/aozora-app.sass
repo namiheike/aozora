@@ -2,31 +2,25 @@
   @apply(--layout-fit)
   @apply(--layout-flex)
 
-  .conversation-and-tachies
-    @apply(--layout-fit)
-    @apply(--layout-flex)
-    @apply(--layout-vertical)
-    @apply(--layout-end-justified)
+  paper-drawer-panel
 
-    z-index: 1
+    .conversation-and-tachies
+      @apply(--layout-fit)
+      @apply(--layout-flex)
+      @apply(--layout-vertical)
+      @apply(--layout-end-justified)
 
-    #tachies
-      order: 0
+      #tachies
+        order: 0
 
-    #conversationBox
-      order: 1
+      #conversationBox
+        order: 1
 
-  #tachies
-    z-index: 1
+    aozora-topbar
+      @apply(--layout-fixed-top)
 
   #video
-    z-index: 2
-
-  #openingScreen
-    z-index: 3
+    z-index: 1
 
   #loadingScreen
-    z-index: 4
-
-  #background
-    z-index: 0
+    z-index: 2

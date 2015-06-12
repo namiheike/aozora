@@ -1,20 +1,27 @@
 %dom-module#aozora-app
   %link{rel: 'import', type: 'css', href: 'aozora-app.css'}
   %template
-    %aozora-loading-screen#loadingScreen
 
     %aozora-resources#resources
-
-    %aozora-background#background
-    %aozora-opening-screen#openingScreen
-    %aozora-video#video
-
-    .conversation-and-tachies
-      %aozora-conversation-box#conversationBox
-      %aozora-tachies#tachies
-
-    %aozora-bgm#bgm
-
     %aozora-story#story
+
+    %aozora-video#video.hide
+    %aozora-loading-screen#loadingScreen
+
+    %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
+      %div(drawer)
+        drawer
+      %div(main)
+        %aozora-background#background
+
+        .conversation-and-tachies
+          %aozora-conversation-box#conversationBox
+          %aozora-tachies#tachies
+
+        %aozora-bgm#bgm
+
+        %aozora-opening-screen#openingScreen
+
+        %aozora-topbar#topBar.hide
 
 %script{src: 'aozora-app.js'}

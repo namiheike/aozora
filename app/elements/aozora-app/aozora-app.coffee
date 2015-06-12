@@ -1,6 +1,7 @@
 Polymer
   is: 'aozora-app'
   behaviors: [ Aozora.behaviors.base ]
+
   ready: ->
     @elementInit()
 
@@ -14,8 +15,13 @@ Polymer
     @openingScreen = @.$.openingScreen
     @loadingScreen = @.$.loadingScreen
     @bgm = @.$.bgm
+    @topBar = @.$.topBar
 
     # init game
     ## set page title
     # TODO resources are not loaded at this time
     # @async () -> document.title = @resources.meta.title
+
+  openDrawer: ->
+    drawerPanel = @$$ 'paper-drawer-panel'
+    drawerPanel.openDrawer()

@@ -1,0 +1,6 @@
+%dom-module#aozora-topbar
+  %link{rel: 'import', type: 'css', href: 'aozora-topbar.css'}
+  %template
+    %paper-icon-button#drawerBtn{icon: 'menu', 'on-tap' => '_onDrawerBtnTap'}(paper-drawer-toggle)
+
+%script{src: 'aozora-topbar.js'}
