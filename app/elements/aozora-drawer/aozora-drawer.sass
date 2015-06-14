@@ -1,0 +1,22 @@
+\:host
+  @apply(--layout-flex)
+  @apply(--layout-vertical)
+  @apply(--layout-center)
+  padding: 1em 0
+
+  header
+    margin: 1em 0
+
+  nav
+    @apply(--layout-self-stretch)
+    flex-grow: 1
+
+    @apply(--layout-flex)
+    @apply(--layout-vertical)
+    @apply(--layout-center)
+    @apply(--layout-center-justified)
+
+  footer
+    margin: 1em 0
+    // hack since the bottom-margin is missing
+    padding-bottom: 2em
