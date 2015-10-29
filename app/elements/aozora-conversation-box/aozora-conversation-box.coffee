@@ -38,3 +38,6 @@ Polymer
 
     option = e.model.option
     @app.story.jumpToNode getNodeById option.next
+
+    # prevent from triggering `_onTapOnBox` method
+    e.stopPropagation()
