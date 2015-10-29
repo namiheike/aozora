@@ -2,6 +2,9 @@ Polymer
   is: 'aozora-app'
   behaviors: [ Aozora.behaviors.base ]
 
+  created: ->
+    window.Aozora.app = @
+
   ready: ->
     @elementInit()
 
