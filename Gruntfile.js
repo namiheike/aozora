@@ -78,26 +78,11 @@ module.exports = function (grunt) {
           expand: true,
           flatten: false,
           cwd: '<%= yeoman.app %>',
-          src: ['scripts/{,*/}*.coffee', 'elements/{,*/}*.coffee', '!elements/behaviors/*.coffee'],
+          src: ['scripts/{,*/}*.coffee', 'elements/{,*/}*.coffee'],
           dest: '<%= yeoman.dist %>',
           ext: '.js'
         }]
       },
-      dist_for_behaviors: {
-        options: {
-          trace: true,
-          bare: true,
-          sourceMap: false
-        },
-        files: [{
-          expand: true,
-          flatten: false,
-          cwd: '<%= yeoman.app %>',
-          src: ['elements/behaviors/*.coffee'],
-          dest: '<%= yeoman.dist %>',
-          ext: '.html'
-        }]
-      }
     },
     // Compiles Sass to CSS and generates necessary files if requested
     sass: {
@@ -384,7 +369,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'haml',
     'coffee:dist',
-    'coffee:dist_for_behaviors',
     'cson',
     'sass',
     'copy:dist',
@@ -405,7 +389,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'haml',
     'coffee:dist',
-    'coffee:dist_for_behaviors',
     'cson',
     'sass',
     'copy:dist',
@@ -427,7 +410,6 @@ module.exports = function (grunt) {
     'clean:dist',
     'haml',
     'coffee:dist',
-    'coffee:dist_for_behaviors',
     'cson',
     'sass',
     'copy:dist',

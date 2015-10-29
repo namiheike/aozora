@@ -1,5 +1,5 @@
-# TODO coffeescript auto add `;` to generated js file, remove it via `replace`
-`<script>`
+# TODO currently behavios will pollute global environment, see PolymerLabs/IMD(friendly AMD) for more info
+
 Aozora = {} unless Aozora?
 Aozora.behaviors = {} unless Aozora.behaviors?
 Aozora.behaviors.base =
@@ -14,4 +14,4 @@ Aozora.behaviors.base =
   removeSelfDom: () ->
     Polymer.dom(@parentNode).removeChild @
 
-`</script>`
+window.Aozora = Aozora
