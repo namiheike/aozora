@@ -57,7 +57,7 @@ Polymer
     @node = node
 
   jumpToNextNode: ->
-    return unless @node?
+    return unless @node? and @node.next?
 
     # TODO IMPORTANT very bad performance, integrate IndexedDB or just use array index
     getNodeById = (id) =>
