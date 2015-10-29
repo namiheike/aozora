@@ -16,7 +16,6 @@ Polymer
     'neon-animation-finish': '_onNeonAnimationFinish'
 
   ready: ->
-    @elementInit()
 
   _backgroundChanged: (newValue, oldValue) ->
     if oldValue?

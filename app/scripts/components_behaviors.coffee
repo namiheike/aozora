@@ -6,9 +6,10 @@ Aozora.behaviors = {} unless Aozora.behaviors?
 Aozora.behaviors.base =
   properties: {}
 
-  elementInit: () ->
+  ready: () ->
+    # get vars like @app
     unless @nodeName is 'AOZORA-APP'
       @app = Aozora.app
 
-  removeSelfDom: () ->
+  _removeSelfDom: () ->
     Polymer.dom(@parentNode).removeChild @

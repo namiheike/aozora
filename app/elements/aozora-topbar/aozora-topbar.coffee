@@ -20,7 +20,6 @@ Polymer
     'neon-animation-finish': '_onAnimationFinish'
 
   ready: () ->
-    @elementInit()
 
   show: () ->
     @style.opacity = 0

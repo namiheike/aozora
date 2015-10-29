@@ -30,7 +30,6 @@ Polymer
     'neon-animation-finish': '_onAnimationFinish'
 
   ready: () ->
-    @elementInit()
 
     @_waitedEnoughTimeBeforeFadeOut = false
     @_triedToFadeOut = false
@@ -62,4 +61,4 @@ Polymer
     # notify the opening screen it has been shown
     @app.story.onOpeningScreenShown()
 
-    @removeSelfDom()
+    @_removeSelfDom()

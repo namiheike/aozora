@@ -6,8 +6,6 @@ Polymer
     window.Aozora.app = @
 
   ready: ->
-    @elementInit()
-
     # init globals
     @resources = @.$.resources
     @story = @.$.story

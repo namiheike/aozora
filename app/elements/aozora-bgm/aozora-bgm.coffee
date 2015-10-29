@@ -11,7 +11,6 @@ Polymer
       observer: '_musicChanged'
 
   ready: ->
-    @elementInit()
 
   pause: ->
     @$.audioElement.pause()

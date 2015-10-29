@@ -3,8 +3,6 @@ Polymer
   behaviors: [ Aozora.behaviors.base ]
 
   ready: ->
-    @elementInit()
-
     # TODO load this list from sth like manifest file
     @_resourcesList = [
       # story

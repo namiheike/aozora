@@ -20,9 +20,11 @@ Polymer
     'neon-animation-finish': '_onNeonAnimationFinish'
 
   attached: ->
+    # TODO now @elementInit will be called in ready
+
     # put @elementInit() in attached instead of ready,
     # since it's rendered via a template and @parentNode.host is null until inserted to dom
-    @elementInit()
+    # @elementInit()
 
   _tachieChanged: (newTachie, oldTachie) ->
     if oldTachie?

@@ -3,4 +3,3 @@ Polymer
   behaviors: [Aozora.behaviors.base]
 
   ready: () ->
-    @elementInit()

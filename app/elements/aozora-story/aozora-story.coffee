@@ -7,7 +7,6 @@ Polymer
       observer: '_nodeChanged'
 
   ready: ->
-    @elementInit()
 
   start: ->
     # triggered after all resources are ready
@@ -48,9 +47,6 @@ Polymer
       @app.tachies.tachies = node.tachies
 
     # conversation-box
-    @node.typeIsLine = @node.type is 'line'
-    @node.typeIsNarrate = @node.type is 'narrate'
-    @node.typeIsOptions = @node.type is 'options'
     @app.conversationBox.node = node
 
     # bgm

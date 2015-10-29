@@ -1,16 +1,16 @@
 %dom-module#aozora-conversation-box
   %link{rel: 'import', type: 'css', href: 'aozora-conversation-box.css'}
   %template
-    %template{is: 'dom-if', if: '{{node.typeIsLine}}'}
+    %template{is: 'dom-if', if: '{{nodeTypeIsLine}}'}
       .node.line
         %p.role {{ _roleNameOfLine(node) }}
         %aozora-sentence{sentence: '{{node.text}}'}
 
-    %template{is: 'dom-if', if: '{{node.typeIsNarrate}}'}
+    %template{is: 'dom-if', if: '{{nodeTypeIsNarrate}}'}
       .node.narrate
         %p {{ node.text }}
 
-    %template{is: 'dom-if', if: '{{node.typeIsOptions}}'}
+    %template{is: 'dom-if', if: '{{nodeTypeIsOptions}}'}
       .node.options
         %template{is: 'dom-repeat', items: '{{node.options}}', as: 'option'}
           .option

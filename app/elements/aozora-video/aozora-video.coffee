@@ -11,7 +11,6 @@ Polymer
     tap: '_onTap'
 
   ready: ->
-    @elementInit()
 
   _videoChanged: (newVideo, oldVideo) ->
     @_holdBgmPlaying()

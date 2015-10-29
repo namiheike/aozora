@@ -14,7 +14,6 @@ Polymer
     'neon-animation-finish': '_onAnimationFinish'
 
   ready: () ->
-    @elementInit()
 
   _startBtnOnTap: (e) ->
     @_fadeOut()
@@ -24,4 +23,4 @@ Polymer
 
   _onAnimationFinish: (e) ->
     @app.story.startScript @app.resources.script[0]
-    @removeSelfDom()
+    @_removeSelfDom()

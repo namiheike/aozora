@@ -7,7 +7,6 @@ Polymer
       observer: '_tachiesChanged'
 
   ready: ->
-    @elementInit()
 
   _tachiesChanged: (newTachies, oldTachies) ->
     # lots TODO
