@@ -1,5 +1,11 @@
+/ TODO fading animations
+
 %dom-module#aozora-bgm
-  %link{rel: 'import', type: 'css', href: 'aozora-bgm.css'}
   %template
+    %link{rel: 'import', type: 'css', href: 'aozora-bgm.css'}
+
     %audio#audioElement(loop preload)
+    %span#musicNameWrapper
+      %iron-icon{icon: 'image:audiotrack'}
+      %span#musicName [[music.displayName]]
 %script{src: 'aozora-bgm.js'}

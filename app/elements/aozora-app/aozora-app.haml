@@ -1,3 +1,7 @@
+/ GLOBAL TODOS
+/ TODO move style tags into %template
+/ TODO use classes for flex-layout
+
 %dom-module#aozora-app
   %link{rel: 'import', type: 'css', href: 'aozora-app.css'}
   %template
@@ -8,6 +12,8 @@
     %aozora-video#video.hide
     %aozora-loading-screen#loadingScreen
 
+    %aozora-bgm#bgm(hidden)
+
     %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
       %aozora-drawer#drawer(drawer)
       %div(main)
@@ -17,10 +23,9 @@
           %aozora-conversation-box#conversationBox
           %aozora-tachies#tachies
 
-        %aozora-bgm#bgm
-
         %aozora-opening-screen#openingScreen
 
         %aozora-topbar#topBar.hide
+
 
 %script{src: 'aozora-app.js'}

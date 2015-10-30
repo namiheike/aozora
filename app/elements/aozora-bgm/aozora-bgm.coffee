@@ -1,26 +1,74 @@
 # TODO
-# fade in and out
+# audio fade in/out
 # show the bgm title and composer ( via a toast maybe? )
+# TODO test for two bgms in close proximity to each other
 
 Polymer
   is: 'aozora-bgm'
-  behaviors: [ Aozora.behaviors.base ]
+  behaviors: [
+    Aozora.behaviors.base
+    Polymer.NeonAnimationRunnerBehavior
+  ]
   properties:
-    music:
+    musicName:
       type: String
+      observer: '_musicNameChanged'
+    music:
+      type: Object
       observer: '_musicChanged'
+    showed:
+      type: Boolean
+      value: false
+    animationConfig:
+      value: ->
+        entry:
+          name: 'fade-in-animation'
+          node: @
+          timing:
+            delay: 0
+            duration: 500
+        exit:
+          name: 'fade-out-animation'
+          node: @
+          timing:
+            delay: 0
+            duration: 500
 
-  ready: ->
+  play: ->
+    @$.audioElement.play()
+    @_showMusicName()
 
   pause: ->
     @$.audioElement.pause()
 
-  play: ->
-    @$.audioElement.play()
+  _showMusicName: ->
+    # remove arranged hiding animation in the future
+    if @exitAnimationTask?
+      @cancelAsync @exitAnimationTask
 
-  _musicChanged: (newMusic, oldMusic) ->
+    unless @showed is true
+      @toggleAttribute 'hidden', false
+      @playAnimation 'entry'
+      @showed = true
+
+    # arrange hiding animation
+    @exitAnimationTask = @async =>
+      @_hideMusicName()
+    , 5000
+
+  _hideMusicName: ->
+    @playAnimation 'exit'
+    @async =>
+      @toggleAttribute 'hidden', true
+      @showed = false
+    , 475
+
+  _musicNameChanged: ->
+    @music = @app.resources.getResource 'music', @musicName
+
+  _musicChanged: ->
     # TODO wrap path building into a method of resources
-    musicFileName = this.app.resources.music[newMusic]
+    musicFileName = @music.fileName
     musicFilePath = "../../resources/music/#{musicFileName}"
     @$.audioElement.src = musicFilePath
     @play()

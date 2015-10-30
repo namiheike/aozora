@@ -17,7 +17,7 @@ Polymer
     # handle opening screen custom
     ## bgm
     if ( music = @app.resources.custom?.opening?.bgm )?
-      @app.bgm.music = music
+      @app.bgm.musicName = music
 
   onOpeningScreenShown: ->
     # notify the animations in opening-screen
@@ -51,7 +51,7 @@ Polymer
 
     # bgm
     if node.bgm?
-      @app.bgm.music = node.bgm
+      @app.bgm.musicName = node.bgm
 
   jumpToNode: (node) ->
     @node = node

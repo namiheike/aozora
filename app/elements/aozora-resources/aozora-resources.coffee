@@ -45,6 +45,13 @@ Polymer
 
     @_unloadResourcesCount = @_resourcesList.length
 
+  getResource: (collection, key) ->
+    @[collection][key]
+
+  # TODO
+  # getResourcePath: (collection, key) ->
+  # getResourcesCollection: (collection) ->
+
   _resourceLoaderResponse: (e) ->
     loader = e.currentTarget
     resourceName = loader.dataset.resourceName

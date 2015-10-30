@@ -7,6 +7,7 @@ Polymer
 
   ready: ->
     # init globals
+    # TODO maybe register each component onto @app by themselves
     @resources = @.$.resources
     @story = @.$.story
     @background = @.$.background
@@ -15,8 +16,8 @@ Polymer
     @video = @.$.video
     @openingScreen = @.$.openingScreen
     @loadingScreen = @.$.loadingScreen
-    @bgm = @.$.bgm
     @topBar = @.$.topBar
+    @bgm = @$.bgm
 
     # init game
     ## set page title
