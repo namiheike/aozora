@@ -61,7 +61,7 @@ Polymer
     @async =>
       @toggleAttribute 'hidden', true
       @showed = false
-    , 475
+    , 475 # TODO HACK should use a callback event instead of async
 
   _musicNameChanged: ->
     @music = @app.resources.getResource 'music', @musicName
