@@ -234,6 +234,19 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.dist %>/index.html': ['<%= yeoman.dist %>/index.html']
         }
+      },
+      phonegap_resources: {
+        options: {
+          patterns: [
+            {
+              match: /\.\.\/resources\//,
+              replacement: 'resources\/'
+            }
+          ]
+        },
+        files: {
+          '<%= yeoman.dist %>/elements/aozora-resources/aozora-resources.js': ['<%= yeoman.dist %>/elements/aozora-resources/aozora-resources.js']
+        }
       }
     },
     vulcanize: {
@@ -401,7 +414,7 @@ module.exports = function (grunt) {
     'uglify',
     'vulcanize',
     'usemin',
-    'replace',
+    'replace:dist',
     'minifyHtml'
   ]);
 
@@ -419,10 +432,10 @@ module.exports = function (grunt) {
     'concat',
     'autoprefixer',
     'uglify',
-    // TODO replace resource url for valcanize
+    'replace:phonegap_resources',
     'vulcanize',
     'usemin',
-    'replace',
+    'replace:dist',
     'minifyHtml',
     'clean:phonegap',
     'copy:phonegap'

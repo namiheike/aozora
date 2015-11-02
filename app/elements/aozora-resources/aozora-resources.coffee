@@ -40,6 +40,7 @@ Polymer
     ]
 
     # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
+    # COMMENT app via phonegap relies on different path ( without '../' ), will be auto replaced
     for resource in @_resourcesList
       resource.fullPath = '../resources/' + resource.path
 
