@@ -240,7 +240,7 @@ module.exports = function (grunt) {
           patterns: [
             {
               match: /\.\.\/resources\//,
-              replacement: 'resources\/'
+              replacement: './resources\/'
             }
           ]
         },
