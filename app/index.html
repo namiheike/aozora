@@ -8,6 +8,14 @@
   <title>Aozora game engine</title>
   <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
+  <!-- TODO only inject phonegap.js when running the build-phonegap task -->
+  <script src="phonegap.js"></script>
+
+  <!-- TODO bundle these into one scripts -->
+  <script src="scripts/init.js"></script>
+  <script src="scripts/environments.js"></script>
+  <script src="scripts/components_behaviors.js"></script>
+
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
   <!-- endbuild-->
@@ -23,14 +31,9 @@
     window.Polymer.dom = 'shadow';
   </script>
 
-  <script src="scripts/components_behaviors.js"></script>
-
   <!-- will be replaced with elements/elements.vulcanized.html -->
   <link rel="import" href="elements/elements.html">
   <!-- endreplace-->
-
-  <!-- TODO only inject phonegap.js when running the build-phonegap task -->
-  <script src="phonegap.js"></script>
 
   <script src="scripts/main.js"></script>
 </head>

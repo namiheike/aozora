@@ -24,7 +24,7 @@
   <preference name="android-minSdkVersion" value="21" />
 
   <!-- plugins -->
+  <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
   <!-- TODO for developing, remove before deploy to production -->
   <gap:plugin name="com.jamiestarke.webviewdebug" version="1.0.8" />
-
 </widget>
