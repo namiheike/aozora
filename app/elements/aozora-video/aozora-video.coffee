@@ -16,8 +16,7 @@ Polymer
     @_holdBgmPlaying()
     @_show()
     # TODO wrap path building into a method of resources
-    videoFileName = this.app.resources.videos[newVideo]
-    videoFilePath = "../../resources/videos/#{videoFileName}"
+    videoFilePath = this.app.resources.getResource('videos', newVideo).filePath
     @$.videoElement.src = videoFilePath
     @$.videoElement.addEventListener 'ended', @_onVideoFinish.bind(@), false
     @$.videoElement.play()

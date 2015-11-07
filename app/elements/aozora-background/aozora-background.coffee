@@ -5,9 +5,11 @@ Polymer
     Polymer.NeonAnimationRunnerBehavior
   ]
   properties:
-    background:
+    options:
       type: Object
-      observer: '_backgroundChanged'
+      observer: '_optionsChanged'
+    currentBackground:
+      type: Object
     entryAnimation:
       value: 'fade-in-animation'
     exitAnimation:
@@ -15,13 +17,19 @@ Polymer
   listeners:
     'neon-animation-finish': '_onNeonAnimationFinish'
 
-  ready: ->
+  _optionsChanged: (newOptions, oldOptions) ->
+    @newBackground = @app.resources.getResource('backgrounds', @options.name)
+    if @newBackground isnt @currentBackground
+      if not @currentBackground?
+        @_setImageSrcAndfadeIn()
+      else
+        @_fadeOut()
 
-  _backgroundChanged: (newValue, oldValue) ->
-    if oldValue?
-      @_fadeOut()
-    else
-      @_changeImageSrcAndfadeIn()
+  _setImageSrcAndfadeIn: () ->
+    @currentBackground = @newBackground
+    @style.backgroundImage = "url('#{@currentBackground.filePath}')"
+
+    @_fadeIn()
 
   _onNeonAnimationFinish: (e) ->
     switch @_animationState
@@ -29,7 +37,7 @@ Polymer
         @_animationState = undefined
         # TODO notify other elements that animation is finished
       when 'fading_out'
-        @_changeImageSrcAndfadeIn()
+        @_setImageSrcAndfadeIn()
 
   _fadeOut: () ->
     @_animationState = 'fading_out'
@@ -38,11 +46,3 @@ Polymer
   _fadeIn: () ->
     @_animationState = 'fading_in'
     @playAnimation 'entry'
-
-  _changeImageSrcAndfadeIn: () ->
-    imagePath = @app.resources.backgrounds[@background].imagePath
-    # TODO url need to be replaced with 'resources/backgrounds...' (remove the leading '../') when building into phonegap and vulcanize is enabled
-    # TODO wrap image path building into a method of resources
-    @style.backgroundImage = "url('../resources/backgrounds/#{imagePath}')"
-
-    @_fadeIn()

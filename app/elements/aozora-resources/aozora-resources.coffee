@@ -4,7 +4,7 @@ Polymer
 
   ready: ->
     # TODO load this list from sth like manifest file
-    @_resourcesList = [
+    @_resourcesCollections = [
       # story
       {
         name: 'meta'
@@ -40,32 +40,46 @@ Polymer
     ]
 
     # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
+    # TODO check if 1.2 support this feature
     # COMMENT app via phonegap relies on different path ( without '../' )
     if window.Aozora.env.isPhonegap
-      for resource in @_resourcesList
-        resource.fullPath = '../resources/' + resource.path
+      for collection in @_resourcesCollections
+        collection.fullPath = '../resources/' + collection.path
     else
-      for resource in @_resourcesList
-        resource.fullPath = 'resources/' + resource.path
+      for collection in @_resourcesCollections
+        collection.fullPath = 'resources/' + collection.path
 
-    @_unloadResourcesCount = @_resourcesList.length
+    @_unloadCollectionsCount = @_resourcesCollections.length
 
-  getResource: (collection, key) ->
-    @[collection][key]
+  getResource: (collectionName, resourceName) ->
+    @[collectionName][resourceName]
 
-  # TODO
-  # getResourcePath: (collection, key) ->
-  # getResourcesCollection: (collection) ->
+  getResourcesCollection: (collectionName) ->
+    @[collectionName]
 
-  _resourceLoaderResponse: (e) ->
+  _collectionLoaderResponse: (e) ->
     loader = e.currentTarget
-    resourceName = loader.dataset.resourceName
-    resourceContent = e.detail.response
-    @[resourceName] = resourceContent
+    collectionName = loader.dataset.collectionName
+    @[collectionName] = e.detail.response
 
-    @_unloadResourcesCount -= 1
-    if @_unloadResourcesCount is 0
+    # build filePath for every entry in every collection
+    if collectionName in [ 'videos', 'music', 'backgrounds' ]
+      @_buildFilePathsForCollection collectionName
+
+    @_unloadCollectionsCount -= 1
+    if @_unloadCollectionsCount is 0
       @_allLoaded()
+
+  _buildFilePathsForCollection: (collectionName) ->
+    collection = @getResourcesCollection collectionName
+    if window.Aozora.env.isPhonegap
+      for entryName of collection
+        entry = collection[entryName]
+        entry.filePath = "../resources/#{collectionName}/#{entry.fileName}"
+    else
+      for entryName of collection
+        entry = collection[entryName]
+        entry.filePath = "resources/#{collectionName}/#{entry.fileName}"
 
   _allLoaded: ->
     @app.story.start()

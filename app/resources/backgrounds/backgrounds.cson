@@ -1,8 +1,8 @@
 normal:
-  imagePath: '2.jpg'
+  fileName: '2.jpg'
 bedroom:
-  imagePath: 'bedroom.jpg'
+  fileName: 'bedroom.jpg'
 happyEnding:
-  imagePath: '0.jpg'
+  fileName: '0.jpg'
 badEnding:
-  imagePath: '1.jpg'
+  fileName: '1.jpg'

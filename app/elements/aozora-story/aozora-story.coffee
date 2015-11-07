@@ -40,7 +40,7 @@ Polymer
 
     # background
     if node.background?
-      @app.background.background = node.background
+      @app.background.options = node.background
 
     # tachies
     if node.tachies?

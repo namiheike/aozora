@@ -67,6 +67,7 @@ Polymer
     @music = @app.resources.getResource 'music', @musicName
 
   _musicChanged: ->
+    @music.fileName
     # TODO wrap path building into a method of resources
     musicFileName = @music.fileName
     musicFilePath = "../../resources/music/#{musicFileName}"
