@@ -8,6 +8,8 @@ Polymer
     tachie:
       type: Object
       observer: '_tachieChanged'
+    currentTachieResource:
+      type: Object
     animationConfig:
       value: ->
         entry:
@@ -19,18 +21,19 @@ Polymer
   listeners:
     'neon-animation-finish': '_onNeonAnimationFinish'
 
-  attached: ->
-    # TODO now @elementInit will be called in ready
-
-    # put @elementInit() in attached instead of ready,
-    # since it's rendered via a template and @parentNode.host is null until inserted to dom
-    # @elementInit()
-
   _tachieChanged: (newTachie, oldTachie) ->
-    if oldTachie?
-      @_fadeOut()
-    else
-      @_changeImageSrcAndfadeIn()
+    # build resource name
+    characterName = Object.keys(@tachie)[0]
+    tachieAlter = @tachie[characterName]
+    tachieResourceName = "#{characterName}_#{tachieAlter}"
+
+    @newTachieResource = @app.resources.getResource('tachies', tachieResourceName)
+
+    if @newTachieResource isnt @currentTachieResource
+      if not @currentTachieResource?
+        @_setImageSrcAndfadeIn()
+      else
+        @_fadeOut()
 
   _onNeonAnimationFinish: (e) ->
     switch @_animationState
@@ -38,7 +41,7 @@ Polymer
         @_animationState = undefined
         # TODO notify other elements that animation is finished
       when 'fading_out'
-        @_changeImageSrcAndfadeIn()
+        @_setImageSrcAndfadeIn()
 
   _fadeOut: () ->
     @_animationState = 'fading_out'
@@ -48,16 +51,6 @@ Polymer
     @_animationState = 'fading_in'
     @playAnimation 'entry'
 
-  _changeImageSrcAndfadeIn: () ->
-    # build image url
-    # TODO wrap url building into a wrapper method in app.resources 
-    characterName = Object.keys(@tachie)[0]
-    tachieAlter = @tachie[characterName]
-    tachieFileName = "#{characterName}_#{tachieAlter}"
-    imageUrl = "../../resources/tachies/#{tachieFileName}.png"
-
-    # show image
-    # TODO animation
-    @$.image.src = imageUrl
-
+  _setImageSrcAndfadeIn: () ->
+    @currentTachieResource = @newTachieResource
     @_fadeIn()

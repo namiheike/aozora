@@ -37,17 +37,18 @@ Polymer
         name: 'music'
         path: 'music/music.json'
       }
+      # tachies
+      {
+        name: 'tachies'
+        path: 'tachies/tachies.json'
+      }
     ]
 
     # TODO monkey patch since currently polymer still dont support sth like `url='../resource/{{item.path}}'`
     # TODO check if 1.2 support this feature
     # COMMENT app via phonegap relies on different path ( without '../' )
-    if window.Aozora.env.isPhonegap
-      for collection in @_resourcesCollections
-        collection.fullPath = '../resources/' + collection.path
-    else
-      for collection in @_resourcesCollections
-        collection.fullPath = 'resources/' + collection.path
+    for collection in @_resourcesCollections
+      collection.fullPath = @_resourceFilePath collection.path
 
     @_unloadCollectionsCount = @_resourcesCollections.length
 
@@ -62,9 +63,14 @@ Polymer
     collectionName = loader.dataset.collectionName
     @[collectionName] = e.detail.response
 
+    Aozora.utilities.log "resource collection #{collectionName} loaded"
+
     # build filePath for every entry in every collection
-    if collectionName in [ 'videos', 'music', 'backgrounds' ]
-      @_buildFilePathsForCollection collectionName
+    switch collectionName
+      when 'videos', 'music', 'backgrounds'
+        @_buildFilePathsForCollection collectionName
+      when 'tachies'
+        @_buildFilePathsForTachies()
 
     @_unloadCollectionsCount -= 1
     if @_unloadCollectionsCount is 0
@@ -72,14 +78,36 @@ Polymer
 
   _buildFilePathsForCollection: (collectionName) ->
     collection = @getResourcesCollection collectionName
-    if window.Aozora.env.isPhonegap
-      for entryName of collection
-        entry = collection[entryName]
-        entry.filePath = "../resources/#{collectionName}/#{entry.fileName}"
+    for entryName of collection
+      entry = collection[entryName]
+      entry.filePath = @_resourceFilePath "#{collectionName}/#{entry.fileName}"
+
+  _buildFilePathsForTachies: ->
+    collection = @getResourcesCollection 'tachies'
+
+    newCollection = {}
+
+    for character of collection
+      tachies = collection[character]
+      for tachieAlter of tachies
+        tachie = tachies[tachieAlter]
+        # rebuild structure
+        resourceName = "#{character}_#{tachieAlter}"
+        collection[resourceName] = tachie
+        if tachie.type is 'static'
+          # default value
+          tachie.fileExt ||= 'png'
+          tachie.fileName = "#{resourceName}.#{tachie.fileExt}"
+          tachie.filePath = @_resourceFilePath "tachies/#{tachie.fileName}"
+      delete collection[character]
+
+  _resourceFilePath: (relativePath) ->
+    # relativePath like 'backgrounds/a.jpg'
+    if window.Aozora.env.platform.isPhonegap
+      "../resources/#{relativePath}"
     else
-      for entryName of collection
-        entry = collection[entryName]
-        entry.filePath = "resources/#{collectionName}/#{entry.fileName}"
+      "resources/#{relativePath}"
 
   _allLoaded: ->
+    Aozora.utilities.log 'all resource collections loaded'
     @app.story.start()

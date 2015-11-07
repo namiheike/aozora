@@ -5,10 +5,14 @@ Aozora.behaviors = {} unless Aozora.behaviors?
 Aozora.behaviors.base =
   properties: {}
 
-  ready: () ->
-    # get vars like @app
-    unless @nodeName is 'AOZORA-APP'
-      @app = Aozora.app
+  created: ->
+    Aozora.utilities.log "component #{@nodeName} getting created"
 
-  _removeSelfDom: () ->
+    unless @nodeName is 'AOZORA-APP'
+      @_getGlobalVars()
+
+  _getGlobalVars: ->
+    @app = Aozora.app
+
+  _removeSelfDom: ->
     Polymer.dom(@parentNode).removeChild @

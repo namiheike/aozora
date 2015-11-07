@@ -1,0 +1,8 @@
+sora:
+  normal:
+    type: 'static'
+    fileExt: 'png'
+miyaho:
+  normal:
+    type: 'static'
+    fileExt: 'png'
