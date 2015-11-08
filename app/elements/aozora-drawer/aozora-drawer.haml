@@ -1,7 +1,8 @@
 / TODO make the nav button width 100 and add hover effect
 %dom-module#aozora-drawer
-  %link{rel: 'import', type: 'css', href: 'aozora-drawer.css'}
   %template
+    @@include('./aozora-drawer.css')
+
     %header
       %iron-image.logo#logo{src: '../../resources/images/logo.svg'}
     %nav

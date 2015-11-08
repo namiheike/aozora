@@ -2,7 +2,7 @@
 
 %dom-module#aozora-bgm
   %template
-    %link{rel: 'import', type: 'css', href: 'aozora-bgm.css'}
+    @@include('./aozora-bgm.css')
 
     %audio#audioElement(loop preload)
     %span#musicNameWrapper

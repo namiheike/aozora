@@ -1,5 +1,6 @@
 #source 'https://rubygems.org'
-source 'http://ruby.taobao.org'
+source 'https://ruby.taobao.org'
 
-gem 'haml'
+# gem 'haml'
+gem 'hamlit'
 gem 'sass'

@@ -1,6 +1,7 @@
 %dom-module#aozora-conversation-box
-  %link{rel: 'import', type: 'css', href: 'aozora-conversation-box.css'}
   %template
+    @@include('./aozora-conversation-box.css')
+
     %template{is: 'dom-if', if: '{{nodeTypeIsLine}}'}
       .node.line
         %p.role {{ _roleNameOfLine(node) }}

@@ -1,6 +1,7 @@
 %dom-module#aozora-video
-  %link{rel: 'import', type: 'css', href: 'aozora-video.css'}
   %template
+    @@include('./aozora-video.css')
+
     %video#videoElement(preload)
 
 %script{src: 'aozora-video.js'}

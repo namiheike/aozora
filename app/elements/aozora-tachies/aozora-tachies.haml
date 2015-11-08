@@ -1,6 +1,7 @@
 %dom-module#aozora-tachies
-  %link{rel: 'import', type: 'css', href: 'aozora-tachies.css'}
   %template
+    @@include('./aozora-tachies.css')
+
     %template{is: 'dom-repeat', items: '{{tachies}}', as: 'tachie'}
       %aozora-tachie{tachie: '{{tachie}}'}
 
