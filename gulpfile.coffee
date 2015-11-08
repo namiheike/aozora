@@ -42,6 +42,7 @@ gulp.task 'clean', (cb) ->
 
 gulp.task 'copy', ['copy-dependencies', 'copy-resources-content', 'copy-others']
 gulp.task 'copy-dependencies', ->
+  # TODO link instead of copy
   gulp
     .src paths.dependencies
     .pipe gulp.dest 'dist/bower_components'
@@ -123,6 +124,22 @@ gulp.task 'replace-min', ->
     .pipe $.replace 'href=\"elements/elements.html\"', 'href=\"elements/elements.vulcanized.html\"'
     .pipe gulp.dest 'dist/'
 
+gulp.task 'clean-phonegap', (cb) ->
+  del(
+    [ '../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore', '!../aozora-phonegap-build/README.md', '!../aozora-phonegap-build/LICENSE' ],
+    {
+      force: true
+    },
+    cb)
+
+gulp.task 'copy-phonegap', ->
+  gulp
+    .src [
+      'dist/**/*',
+      'config.xml'
+    ]
+    .pipe gulp.dest '../aozora-phonegap-build'
+
 gulp.task 'build', (cb) ->
   runSequence(
     'clean',
@@ -132,5 +149,8 @@ gulp.task 'build', (cb) ->
     'compress-pages'
     cb
   )
+
+gulp.task 'build-phonegap', (cb) ->
+  runSequence [ 'build', 'clean-phonegap' ], 'copy-phonegap'
 
 gulp.task 'default', [ 'build' ]
