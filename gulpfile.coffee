@@ -106,14 +106,14 @@ gulp.task 'inject-styles', ->
     .pipe $.fileInclude()
     .pipe gulp.dest 'dist/elements'
 
-gulp.task 'compress-pages', ->
-  runSequence 'compress-elements', 'replace-min'
+gulp.task 'compress-pages', (cb) ->
+  runSequence 'compress-elements', 'replace-min', cb
 
 gulp.task 'compress-elements', ->
   gulp
     .src 'app/elements/elements.html'
     .pipe gulp.dest 'dist/elements'
-    .pipe $.vulcanize()
+    .pipe $.vulcanize { inlineScripts: true }
     .pipe $.rename 'elements.vulcanized.html'
     .pipe gulp.dest 'dist/elements/'
 
@@ -142,15 +142,15 @@ gulp.task 'copy-phonegap', ->
 
 gulp.task 'build', (cb) ->
   runSequence(
-    'clean',
-    'copy',
-    ['compile-resources-meta', 'compile-scripts', 'compile-pages'],
-    'handle-styles',
+    'clean'
+    'copy'
+    ['compile-resources-meta', 'compile-scripts', 'compile-pages']
+    'handle-styles'
     'compress-pages'
     cb
   )
 
 gulp.task 'build-phonegap', (cb) ->
-  runSequence [ 'build', 'clean-phonegap' ], 'copy-phonegap'
+  runSequence 'build', 'clean-phonegap', 'copy-phonegap'
 
 gulp.task 'default', [ 'build' ]
