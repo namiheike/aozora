@@ -104,7 +104,9 @@ Polymer
   _resourceFilePath: (relativePath) ->
     # relativePath like 'backgrounds/a.jpg'
     if window.Aozora.env.platform.isPhonegap
-      "../resources/#{relativePath}"
+      # "../resources/#{relativePath}"
+      # TODO figure out what happened with relative path after vulcanized
+      "resources/#{relativePath}"
     else
       "resources/#{relativePath}"
 
