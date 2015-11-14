@@ -18,6 +18,8 @@
   <!-- currently only build android version -->
   <gap:platform name="android" />
 
+  <preference name="Orientation" value="landscape" />
+
   <!-- perferences -->
   <preference name="fullscreen" value="true" />
   <!-- set min sdk version to Android 5.0 -->
