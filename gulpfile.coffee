@@ -152,5 +152,6 @@ gulp.task 'build', (cb) ->
 
 gulp.task 'build-phonegap', (cb) ->
   runSequence 'build', 'clean-phonegap', 'copy-phonegap'
+  # TODO auto git add, commit, push and call phonegap build url to update code and rebuild
 
 gulp.task 'default', [ 'build' ]
