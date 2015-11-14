@@ -1,8 +1,12 @@
-sora:
+yizhihu:
   normal:
     type: 'static'
     fileExt: 'png'
-miyaho:
+qinbo:
+  normal:
+    type: 'static'
+    fileExt: 'png'
+zhuzhiwu:
   normal:
     type: 'static'
     fileExt: 'png'

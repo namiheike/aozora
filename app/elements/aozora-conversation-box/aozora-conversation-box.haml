@@ -3,12 +3,14 @@
     @@include('./aozora-conversation-box.css')
 
     %template{is: 'dom-if', if: '{{nodeTypeIsLine}}'}
-      .node.line
-        %p.role {{ _roleNameOfLine(node) }}
-        %aozora-sentence{sentence: '{{node.text}}'}
+      .node.line.horizontal.layout
+        .role-wrapper.vertical.layout.center-justified.center
+          %p.role {{ _roleNameOfLine(node) }}
+        .sentence-wrapper.flex.vertical.layout.center-justified.center
+          %aozora-sentence(flex){sentence: '{{node.text}}'}
 
     %template{is: 'dom-if', if: '{{nodeTypeIsNarrate}}'}
-      .node.narrate
+      .node.narrate.horizontal.layout.center-justified
         %p {{ node.text }}
 
     %template{is: 'dom-if', if: '{{nodeTypeIsOptions}}'}

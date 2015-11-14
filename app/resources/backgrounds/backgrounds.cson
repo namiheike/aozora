@@ -1,8 +1,8 @@
-normal:
-  fileName: '2.jpg'
-bedroom:
-  fileName: 'bedroom.jpg'
-happyEnding:
-  fileName: '0.jpg'
-badEnding:
-  fileName: '1.jpg'
+gate_1:
+  fileName: 'gate_1.jpg'
+yard:
+  fileName: 'yard.jpg'
+sky:
+  fileName: 'sky.jpg'
+winter:
+  fileName: 'winter.jpg'
