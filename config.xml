@@ -18,12 +18,13 @@
   <!-- currently only build android version -->
   <gap:platform name="android" />
 
-  <preference name="Orientation" value="landscape" />
-
   <!-- perferences -->
-  <preference name="fullscreen" value="true" />
+
   <!-- set min sdk version to Android 5.0 -->
   <preference name="android-minSdkVersion" value="21" />
+
+  <preference name="fullscreen" value="true" />
+  <preference name="orientation" value="landscape" />
 
   <!-- plugins -->
   <gap:plugin name="org.apache.cordova.device" version="0.2.12" />
