@@ -4,12 +4,15 @@
 		type: "video"
 		next: 2
 		video: "opening"
+		allowSkipping: true
 	}
 	{
 		id: 2
 		type: "narrate"
 		next: 3
 		text: "僖公三十三年"
+		background:
+			name: "gate_1"
 	}
 	{
 		id: 3
@@ -28,6 +31,13 @@
 		type: "narrate"
 		next: 6
 		text: "佚之狐言於鄭伯"
+		tachies: [
+			{
+				yizhihu: "normal"
+			}
+		]
+		background:
+			name: "yard"
 	}
 	{
 		id: 6
@@ -41,6 +51,7 @@
 		type: "narrate"
 		next: 8
 		text: "公從之．"
+		tachies: []
 	}
 	{
 		id: 8
@@ -48,6 +59,11 @@
 		next: 9
 		role: "zhuzhiwu"
 		text: "辭曰．臣之壯也．猶不如人．今老矣．無能為也已．"
+		tachies: [
+			{
+				zhuzhiwu: "normal"
+			}
+		]
 	}
 	{
 		id: 9
@@ -61,12 +77,20 @@
 		type: "narrate"
 		next: 11
 		text: "許之．夜縋而出．"
+		background:
+			name: "sky"
 	}
 	{
 		id: 11
 		type: "narrate"
 		next: 12
 		text: "見秦伯"
+		tachies: [
+			{
+				qinbo: "normal"
+			}
+		]
+		bgm: "ridingTheDragon"
 	}
 	{
 		id: 12
@@ -74,6 +98,11 @@
 		next: 13
 		role: "zhuzhiwu"
 		text: "曰秦晉圍鄭．鄭既知亡矣．"
+		tachies: [
+			{
+				zhuzhiwu: "normal"
+			}
+		]
 	}
 	{
 		id: 13
@@ -127,7 +156,20 @@
 	{
 		id: 20
 		type: "line"
+		next: 21
 		role: "qinbo"
 		text: "秦伯說．與鄭人盟．"
+		tachies: [
+			{
+				qinbo: "normal"
+			}
+		]
+		background:
+			name: "yard"
+	}
+	{
+		id: 21
+		type: "narrate"
+		text: "- Fin -"
 	}
 ]
