@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
   <widget xmlns   = "http://www.w3.org/ns/widgets"
     xmlns:gap   = "http://phonegap.com/ns/1.0"
-    id          = "com.aozoragame.demo"
+    id          = "com.projectyoru.aurora.demoapp"
     versionCode = "1"
     version     = "0.0.2" >
 
-  <name>Aozora</name>
+  <name>Aurora demo app</name>
 
   <description>
-    Aozora
+    Aurora demo app
   </description>
 
-  <author href="https://github.com/nanowang" email="namiheike@gmail.com">
-    Nano WANG
+  <author href="https://github.com/project-yoru" email="namiheike@gmail.com">
+    Project YORU
   </author>
 
   <!-- currently only build android version -->
