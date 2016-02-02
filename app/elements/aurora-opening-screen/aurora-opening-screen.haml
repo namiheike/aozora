@@ -1,0 +1,10 @@
+%dom-module#aurora-opening-screen
+  %template
+    @@include('./aurora-opening-screen.css')
+
+    %iron-image.logo{src: '../../resources/images/logo.svg'}
+    %paper-button{'on-tap' => '_startBtnOnTap'} START
+    %paper-button LOAD
+    %paper-button GALLERY
+
+%script{src: 'aurora-opening-screen.js'}

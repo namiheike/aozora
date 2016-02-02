@@ -1,1 +1,1 @@
-window.Aozora = {} unless window.Aozora?
+window.Aurora = {} unless window.Aurora?

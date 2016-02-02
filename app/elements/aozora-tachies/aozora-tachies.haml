@@ -1,8 +1,0 @@
-%dom-module#aozora-tachies
-  %template
-    @@include('./aozora-tachies.css')
-
-    %template{is: 'dom-repeat', items: '{{tachies}}', as: 'tachie'}
-      %aozora-tachie{tachie: '{{tachie}}'}
-
-%script{src: 'aozora-tachies.js'}

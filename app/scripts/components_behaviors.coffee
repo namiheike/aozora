@@ -1,18 +1,18 @@
 # TODO currently behavios will pollute global environment, see PolymerLabs/IMD(friendly AMD) for more info
 
-Aozora = window.Aozora
-Aozora.behaviors = {} unless Aozora.behaviors?
-Aozora.behaviors.base =
+Aurora = window.Aurora
+Aurora.behaviors = {} unless Aurora.behaviors?
+Aurora.behaviors.base =
   properties: {}
 
   created: ->
-    Aozora.utilities.log "component #{@nodeName} getting created"
+    Aurora.utilities.log "component #{@nodeName} getting created"
 
-    unless @nodeName is 'AOZORA-APP'
+    unless @nodeName is 'AURORA-APP'
       @_getGlobalVars()
 
   _getGlobalVars: ->
-    @app = Aozora.app
+    @app = Aurora.app
 
   _removeSelfDom: ->
     Polymer.dom(@parentNode).removeChild @

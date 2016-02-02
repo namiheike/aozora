@@ -124,6 +124,7 @@ gulp.task 'replace-min', ->
     .pipe $.replace 'href=\"elements/elements.html\"', 'href=\"elements/elements.vulcanized.html\"'
     .pipe gulp.dest 'dist/'
 
+# TODO rename phonegap-build repo name with prefix aurora
 gulp.task 'clean-phonegap', (cb) ->
   del(
     [ '../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore', '!../aozora-phonegap-build/README.md', '!../aozora-phonegap-build/LICENSE' ],

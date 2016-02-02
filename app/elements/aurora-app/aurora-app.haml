@@ -1,0 +1,31 @@
+/ GLOBAL TODOS
+/ TODO move style tags into %template
+/ TODO use classes for flex-layout
+
+%dom-module#aurora-app
+  %template
+    @@include('./aurora-app.css')
+
+    %aurora-resources#resources
+    %aurora-story#story
+
+    %aurora-video#video.hide
+    %aurora-loading-screen#loadingScreen
+
+    %aurora-bgm#bgm(hidden)
+
+    %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
+      %aurora-drawer#drawer(drawer)
+      %div(main)
+        %aurora-background#background
+
+        .conversation-and-tachies
+          %aurora-conversation-box#conversationBox
+          %aurora-tachies#tachies
+
+        %aurora-opening-screen#openingScreen
+
+        %aurora-topbar#topBar.hide
+
+
+%script{src: 'aurora-app.js'}

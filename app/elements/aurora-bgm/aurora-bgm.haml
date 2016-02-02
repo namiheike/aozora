@@ -1,0 +1,11 @@
+/ TODO fading animations
+
+%dom-module#aurora-bgm
+  %template
+    @@include('./aurora-bgm.css')
+
+    %audio#audioElement(loop preload)
+    %span#musicNameWrapper
+      %iron-icon{icon: 'image:audiotrack'}
+      %span#musicName [[music.displayName]]
+%script{src: 'aurora-bgm.js'}

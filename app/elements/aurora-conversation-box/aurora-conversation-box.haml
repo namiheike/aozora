@@ -1,0 +1,23 @@
+%dom-module#aurora-conversation-box
+  %template
+    @@include('./aurora-conversation-box.css')
+
+    %template{is: 'dom-if', if: '{{nodeTypeIsLine}}'}
+      .node.line.horizontal.layout
+        .role-wrapper.vertical.layout.center-justified.center
+          %p.role {{ _roleNameOfLine(node) }}
+        .sentence-wrapper.flex.vertical.layout.center-justified.center
+          %aurora-sentence(flex){sentence: '{{node.text}}'}
+
+    %template{is: 'dom-if', if: '{{nodeTypeIsNarrate}}'}
+      .node.narrate.horizontal.layout.center-justified
+        %p {{ node.text }}
+
+    %template{is: 'dom-if', if: '{{nodeTypeIsOptions}}'}
+      .node.options
+        %template{is: 'dom-repeat', items: '{{node.options}}', as: 'option'}
+          .option
+            / TODO ripple
+            %p{'on-tap' => '_onTapOnOption'} {{ option.text }}
+
+%script{src: 'aurora-conversation-box.js'}

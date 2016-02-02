@@ -1,0 +1,8 @@
+%dom-module#aurora-tachies
+  %template
+    @@include('./aurora-tachies.css')
+
+    %template{is: 'dom-repeat', items: '{{tachies}}', as: 'tachie'}
+      %aurora-tachie{tachie: '{{tachie}}'}
+
+%script{src: 'aurora-tachies.js'}

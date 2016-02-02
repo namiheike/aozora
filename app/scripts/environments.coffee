@@ -1,14 +1,14 @@
-Aozora = window.Aozora
+Aurora = window.Aurora
 
-Aozora.env ||= {}
+Aurora.env ||= {}
 
-Aozora.env.debugging = true
+Aurora.env.debugging = true
 
-Aozora.env.platform =
+Aurora.env.platform =
   isPhonegap: false
   device: undefined
 
 document.addEventListener 'deviceready', ( ->
-  Aozora.env.platform.isPhonegap = true
-  Aozora.env.device = window.device
+  Aurora.env.platform.isPhonegap = true
+  Aurora.env.device = window.device
 ), false

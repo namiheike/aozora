@@ -1,7 +1,7 @@
-Aozora = window.Aozora
+Aurora = window.Aurora
 
-Aozora.utilities ||= {}
+Aurora.utilities ||= {}
 
-Aozora.utilities.log = (message) ->
-  if Aozora.env.debugging
+Aurora.utilities.log = (message) ->
+  if Aurora.env.debugging
     console.log message

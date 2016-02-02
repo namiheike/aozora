@@ -1,0 +1,14 @@
+/ TODO make the nav button width 100 and add hover effect
+%dom-module#aurora-drawer
+  %template
+    @@include('./aurora-drawer.css')
+
+    %header
+      %iron-image.logo#logo{src: '../../resources/images/logo.svg'}
+    %nav
+      %paper-item
+        %paper-button
+          Setting
+    %footer
+      Copyright
+%script{src: 'aurora-drawer.js'}
