@@ -25,7 +25,8 @@ paths =
     bower:
       toCopy: [ 'bower_components/**' ]
       copyDest: 'dist/bower_components/'
-      copied: [ 'dist/bower_components' ]
+      copied: [ 'dist/bower_components/**/*' ]
+      reservedFiles: [ '!dist/bower_components/webcomponentsjs/webcomponents-lite.min.js' ]
   app:
     internal:
       index:
@@ -195,7 +196,7 @@ gulp.task 'replace-internal-elements-inventory-to-vulcanized', ->
 gulp.task 'cleanup-after-handling-internal-elements', ->
   # clean up individual elements, bower components
   gulp
-    .src [].concat( paths.elements.internal.folders.compiled, paths.dependencies.bower.copied ), { read: false }
+    .src [].concat( paths.elements.internal.folders.compiled, paths.dependencies.bower.copied, paths.dependencies.bower.reservedFiles ), { read: false }
     .pipe $.debug()
     .pipe $.rimraf()
 
