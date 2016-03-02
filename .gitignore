@@ -5,3 +5,8 @@ node_modules
 bower_components
 
 dist
+
+# merged from app repo
+app/config
+app/resources
+app/story

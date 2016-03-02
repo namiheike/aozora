@@ -5,20 +5,23 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- TODO custom title -->
   <title>Aurora game engine</title>
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+  <!-- TODO favicon related: Place favicon.ico and apple-touch-icon.png in the root directory -->
 
   <!-- TODO only inject phonegap.js when running the build-phonegap task -->
-  <script src="phonegap.js"></script>
+  <!-- <script src="phonegap.js"></script> -->
 
   <!-- TODO bundle these into one scripts -->
-  <script src="scripts/init.js"></script>
-  <script src="scripts/environments.js"></script>
-  <script src="scripts/utilities.js"></script>
-  <script src="scripts/components_behaviors.js"></script>
+  <script src="_scripts/init.js"></script>
+  <script src="_scripts/environments.js"></script>
+  <script src="_scripts/utilities.js"></script>
+  <script src="_scripts/components_behaviors.js"></script>
 
   <!-- build:css styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="_styles/main.css">
   <!-- endbuild-->
 
   <!-- build:js(.) bower_components/webcomponentsjs/webcomponents-lite.min.js -->
@@ -27,13 +30,14 @@
 
   <!-- polymer global settings -->
   <!-- using native shadow dom instead of shady dom -->
+  <!-- TODO decide whether to use shadow dom based on platform -->
   <script>
     window.Polymer = window.Polymer || {};
     window.Polymer.dom = 'shadow';
   </script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="elements/elements.html">
+  <link rel="import" href="_elements/elements.html">
   <!-- endreplace-->
 </head>
 
