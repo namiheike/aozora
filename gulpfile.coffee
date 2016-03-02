@@ -1,6 +1,7 @@
 # TODO
 
-# del -> gulp-rimraf
+# read & parse config at first
+# use `title` option in gulp-debug, https://stackoverflow.com/questions/27161903/how-to-get-task-name-inside-task-in-gulp
 
 # watch
 # minify js, css, html
@@ -16,31 +17,15 @@ gulp = require('gulp')
 $ = require('gulp-load-plugins')()
 runSequence = require('run-sequence')
 gutil = require('gutil')
+exec = require('child_process').exec
 
+resourcesCategories = ['backgrounds', 'images', 'music', 'sounds', 'tachies', 'videos', 'voices']
 paths = 
   dependencies:
     bower:
       toCopy: [ 'bower_components/**' ]
       copyDest: 'dist/bower_components/'
       copied: [ 'dist/bower_components' ]
-  # scripts:
-  #   internal:
-  #     forElements:
-  #       files: [ 'app/_elements/*/*.coffee' ]
-  #     forApp:
-  #       folder: [ 'app/_scripts' ]
-  #       files: [ 'app/_scripts/*.coffee' ]
-  # pages:
-  #   internal:
-  #     toCompile: [ 'app/elements/*/*.haml' ]
-  #     compiled: [ 'dist/elements/*/*.html' ]
-  # styles:
-  #   internal:
-  #     forElements:
-  #       toCompile: [ 'app/elements/*/*.sass' ]
-  #       compiled: [ 'dist/elements/*/*.css' ]
-  #     forApp:
-  #       [ 'app/styles/*.sass' ]
   app:
     internal:
       index:
@@ -78,19 +63,25 @@ paths =
     internal:
       toCopy: [ 'app/_resources/**/*' ]
       copyDest: 'dist/_resources'
-
-  # resources:
-  #   internal:
-  #     folder: [ 'app/_resources' ]
-  #   external:
-  #     meta: [ 'app/resources/*/*.cson' ]
-  #     content: [ 'app/resources/*/*.*', '!app/resources/*/*.cson' ]
-  # config:
-  #   external: []
-  # story:
-  #   external: []
-  # externalContents:
-  #   source: [ 'app/config', 'app/resources', 'app/story' ]
+    external:
+      metas:
+        toCompile: (category) -> [ "app/resources/#{category}/#{category}.cson" ]
+        compileDest: (category) -> "dist/resources/#{category}"
+      contents:
+        toCopy: (category) -> [ "app/resources/#{category}/*.*", "!app/resources/#{category}/#{category}.cson" ]
+        copyDest: (category) -> "dist/resources/#{category}"
+  config:
+    external:
+      toCompile: [ 'app/config/*.cson' ]
+      compileDest: 'dist/config'
+  story:
+    characters:
+      meta:
+        toCompile: [ 'app/story/characters.cson' ]
+        compileDest: 'dist/story/'
+    mainScript:
+      toParse: [ 'app/story/main.aurora-script' ]
+      parseDestFile: 'dist/story/main.json'
   othersToCopy: [ 'app/index.html', 'app/favicon.ico' ]
 
 gulp.task 'clean', (cb) ->
@@ -106,6 +97,7 @@ gulp.task 'copy-dependencies', ->
 
 gulp.task 'copy-others', ->
   # favicon, index.html
+  # TODO refactor
   gulp
     .src paths.othersToCopy
     .pipe gulp.dest 'dist'
@@ -213,72 +205,46 @@ gulp.task 'cleanup-after-handling-internal-elements', ->
     .pipe $.debug()
     .pipe $.rimraf()
 
-# gulp.task 'compile-resources-meta', ->
-#   gulp
-#     .src paths.resources.meta
-#     .pipe $.cson().on('error', gutil.log)
-#     .pipe gulp.dest('dist/resources')
+gulp.task 'compile-external-config', ->
+  gulp
+    .src paths.config.external.toCompile
+    .pipe $.debug()
+    .pipe $.cson().on('error', gutil.log)
+    .pipe gulp.dest paths.config.external.compileDest
 
-# gulp.task 'compile-scripts', ->
-#   runSequence [ 'compile-scripts-for-elements', 'compile-scripts-for-app' ]
+gulp.task 'handle-external-resources', (cb) ->
+  runSequence(
+    'compile-external-resources-metas'
+    'copy-external-resources-contents'
+    cb
+  )
 
-# gulp.task 'compile-scripts-for-elements', ->
-#   gulp
-#     .src paths.scripts.forElements
-#     .pipe $.coffee(bare: false).on('error', gutil.log)
-#     .pipe gulp.dest('dist/elements')
+gulp.task 'compile-external-resources-metas', ->
+  for category in resourcesCategories
+    gulp
+      .src paths.resources.external.metas.toCompile(category)
+      .pipe $.debug()
+      .pipe $.cson().on('error', gutil.log)
+      .pipe gulp.dest paths.resources.external.metas.compileDest(category)
 
-# gulp.task 'compile-scripts-for-app', ->
-#   gulp
-#     .src paths.scripts.forApp
-#     .pipe $.coffee(bare: false).on('error', gutil.log)
-#     .pipe gulp.dest('dist/_scripts')
+gulp.task 'copy-external-resources-contents', ->
+  for category in resourcesCategories
+    gulp
+      .src paths.resources.external.contents.toCopy(category), { dot: true }
+      .pipe $.debug()
+      .pipe gulp.dest paths.resources.external.contents.copyDest(category)
 
-# gulp.task 'compile-pages', ->
-#   gulp
-#     .src paths.pages.toCompile
-#     .pipe $.rubyHaml().on('error', gutil.log)
-#     .pipe gulp.dest('dist/elements')
+gulp.task 'compile-story', (cb) ->
+  # compile story data files like characters.cson
+  gulp
+    .src paths.story.characters.meta.toCompile
+    .pipe $.debug()
+    .pipe gulp.dest paths.story.characters.meta.compileDest
 
-# gulp.task 'handle-styles', (cb) ->
-#   runSequence [ 'compile-styles-for-elements', 'compile-styles-for-app' ], 'inject-styles', cb
-
-# gulp.task 'compile-styles-for-elements', ->
-#   $.rubySass paths.styles.forElements.toCompile
-#     .on 'error', gutil.log
-#     .pipe $.wrapper
-#       header: '<style>'
-#       footer: '</style>'
-#     .pipe gulp.dest 'dist/elements'
-
-# gulp.task 'compile-styles-for-app', ->
-#   $.rubySass paths.styles.forApp
-#     .on 'error', gutil.log
-#     .pipe gulp.dest 'dist/styles'
-
-# gulp.task 'inject-styles', ->
-#   gulp
-#     .src paths.pages.compiled
-#     .pipe $.fileInclude()
-#     .pipe gulp.dest 'dist/elements'
-
-# gulp.task 'compress-pages', (cb) ->
-#   runSequence 'compress-elements', 'replace-min', cb
-
-# gulp.task 'compress-elements', ->
-#   gulp
-#     .src path.elements.internal.toVulcanize
-#     .pipe gulp.dest path.elements.internal.vulcanized
-#     .pipe $.vulcanize { inlineScripts: true }
-#     .pipe $.rename 'elements.vulcanized.html'
-#     .pipe gulp.dest 'dist/elements/'
-
-# gulp.task 'replace-min', ->
-#   gulp
-#     .src 'dist/index.html'
-#     .pipe $.replace 'src=\"bower_components/webcomponentsjs/webcomponents-lite.js\"', 'src=\"bower_components/webcomponentsjs/webcomponents-lite.min.js\"'
-#     .pipe $.replace 'href=\"_elements/elements.html\"', 'href=\"_elements/elements.vulcanized.html\"'
-#     .pipe gulp.dest 'dist/'
+  exec "coffee tools/script_parser/parser.coffee --input-file #{paths.story.mainScript.toParse} --output-file #{paths.story.mainScript.parseDestFile}", (err, stdout, stderr) ->
+    gutil.log stdout
+    gutil.log stderr
+    cb err
 
 # TODO rename phonegap-build repo name with prefix aurora
 # gulp.task 'clean-phonegap', (cb) ->
@@ -302,11 +268,15 @@ gulp.task 'build', (cb) ->
     'clean'
     ['copy-dependencies', 'copy-others']
     # TODO compile-app-pages compile-app-favicon
-    ['compile-app-styles', 'compile-app-scripts', 'copy-internal-resources', 'handle-internal-elements']
-    # ['compile-resources-meta', 'compile-scripts', 'compile-pages']
-    # 'handle-styles'
-    # 'compress-pages'
-    # clean up to remove bower depends
+    [
+      'compile-app-styles'
+      'compile-app-scripts'
+      'copy-internal-resources'
+      'handle-internal-elements'
+      'compile-external-config'
+      'handle-external-resources'
+      'compile-story'
+    ]
     cb
   )
 
