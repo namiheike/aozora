@@ -5,10 +5,18 @@ Polymer
   created: ->
     window.Aurora.app = @
 
+    @config = {}
+    @resources = {}
+    @story = {}
+
   ready: ->
     # init globals
     # TODO maybe register each component onto @app by themselves
-    @resources = @.$.resources
+
+    # @resources = @.$.resources
+
+    @loader = @.$.loader
+
     @story = @.$.story
     @background = @.$.background
     @conversationBox = @.$.conversationBox

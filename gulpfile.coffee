@@ -1,7 +1,8 @@
 # TODO
 
-# read & parse config at first
-# use `title` option in gulp-debug, https://stackoverflow.com/questions/27161903/how-to-get-task-name-inside-task-in-gulp
+# - read & parse config at first
+# - vulcanize index
+# - use `title` option in gulp-debug, https://stackoverflow.com/questions/27161903/how-to-get-task-name-inside-task-in-gulp
 
 # watch
 # minify js, css, html
