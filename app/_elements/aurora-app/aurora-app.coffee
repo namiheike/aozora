@@ -13,11 +13,8 @@ Polymer
     # init globals
     # TODO maybe register each component onto @app by themselves
 
-    # @resources = @.$.resources
-
-    @loader = @.$.loader
-
-    @story = @.$.story
+    # @loader = @.$.loader
+    @storyController = @.$.storyController
     @background = @.$.background
     @conversationBox = @.$.conversationBox
     @tachies = @.$.tachies
@@ -29,7 +26,7 @@ Polymer
 
     # init game
     ## set page title
-    # TODO resources are not loaded at this time
+    # TODO custom title
     # @async () -> document.title = @resources.meta.title
 
   openDrawer: ->

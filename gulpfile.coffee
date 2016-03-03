@@ -3,6 +3,7 @@
 # - read & parse config at first
 # - vulcanize index
 # - use `title` option in gulp-debug, https://stackoverflow.com/questions/27161903/how-to-get-task-name-inside-task-in-gulp
+# - use `usemin` for app scripts deps like webcomponentsjs, lodash, etc.
 
 # watch
 # minify js, css, html
@@ -27,7 +28,7 @@ paths =
       toCopy: [ 'bower_components/**' ]
       copyDest: 'dist/bower_components/'
       copied: [ 'dist/bower_components/**/*' ]
-      reservedFiles: [ '!dist/bower_components/webcomponentsjs/webcomponents-lite.min.js' ]
+      reservedFiles: [ '!dist/bower_components/webcomponentsjs/webcomponents-lite.min.js', '!dist/bower_components/lodash/lodash.min.js' ]
   app:
     internal:
       index:
@@ -70,7 +71,7 @@ paths =
         toCompile: (category) -> [ "app/resources/#{category}/#{category}.cson" ]
         compileDest: (category) -> "dist/resources/#{category}"
       contents:
-        toCopy: (category) -> [ "app/resources/#{category}/*.*", "!app/resources/#{category}/#{category}.cson" ]
+        toCopy: (category) -> [ "app/resources/#{category}/**/*", "!app/resources/#{category}/#{category}.cson" ]
         copyDest: (category) -> "dist/resources/#{category}"
   config:
     external:
@@ -82,8 +83,8 @@ paths =
         toCompile: [ 'app/story/characters.cson' ]
         compileDest: 'dist/story/'
     mainScript:
-      toParse: [ 'app/story/main.aurora-script' ]
-      parseDestFile: 'dist/story/main.json'
+      toParse: [ 'app/story/scripts/main.aurora-script' ]
+      parseDestFile: 'dist/story/scripts/main.json'
   othersToCopy: [ 'app/index.html', 'app/favicon.ico' ]
 
 gulp.task 'clean', (cb) ->
@@ -241,6 +242,7 @@ gulp.task 'compile-story', (cb) ->
   gulp
     .src paths.story.characters.meta.toCompile
     .pipe $.debug()
+    .pipe $.cson().on('error', gutil.log)
     .pipe gulp.dest paths.story.characters.meta.compileDest
 
   exec "coffee tools/script_parser/parser.coffee --input-file #{paths.story.mainScript.toParse} --output-file #{paths.story.mainScript.parseDestFile}", (err, stdout, stderr) ->

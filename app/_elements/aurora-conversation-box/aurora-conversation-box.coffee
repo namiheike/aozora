@@ -24,20 +24,20 @@ Polymer
     # TODO remove after issue been solved
     return unless line.role?
 
-    @app.resources.characters[line.role].name
+    @app.story.characters[line.role].name
 
   _onTapOnBox: (e) ->
     switch @node.type
       when 'line', 'narrate'
-        @app.story.jumpToNextNode()
+        @app.storyController.jumpToNextNode()
 
   _onTapOnOption: (e) ->
     # TODO IMPORTANT very bad performance, integrate sth like IndexedDB, or LoveField maybe
     getNodeById = (id) =>
-      @app.resources.script.filter((node) -> node.id is id)[0]
+      @app.story.scripts.main.filter((node) -> node.id is id)[0]
 
     option = e.model.option
-    @app.story.jumpToNode getNodeById option.next
+    @app.storyController.jumpToNode getNodeById option.next
 
     # prevent from triggering `_onTapOnBox` method
     e.stopPropagation()

@@ -40,7 +40,7 @@ Polymer
     @app.bgm.play()
     @_hide()
 
-    @app.story.jumpToNextNode()
+    @app.storyController.jumpToNextNode()
 
   _show: () ->
     # TODO fade in

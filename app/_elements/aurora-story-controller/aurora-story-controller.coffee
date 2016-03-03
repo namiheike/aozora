@@ -1,5 +1,5 @@
 Polymer
-  is: 'aurora-story'
+  is: 'aurora-story-controller'
   behaviors: [ Aurora.behaviors.base ]
   properties:
     node:
@@ -61,6 +61,6 @@ Polymer
 
     # TODO IMPORTANT very bad performance, integrate IndexedDB or just use array index
     getNodeById = (id) =>
-      @app.resources.script.filter((node) -> node.id is id)[0]
+      @app.story.scripts.main.filter((node) -> node.id is id)[0]
 
     @node = getNodeById @node.next

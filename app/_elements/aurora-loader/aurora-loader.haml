@@ -1,16 +1,5 @@
 %script{src: '../../bower_components/PreloadJS/lib/preloadjs-0.6.2.min.js'}
 
 %dom-module#aurora-loader
-  -# %template
-  -#   #resourceLoaders
-  -#     %template{is: 'dom-repeat', items: '{{ _resourcesCollections }}', as: 'collection'}
-  -#       :plain
-  -#         <iron-ajax
-  -#           auto
-  -#           url="{{collection.fullPath}}"
-  -#           handle-as="json"
-  -#           on-response="_collectionLoaderResponse"
-  -#           data-collection-name$="{{collection.name}}"
-  -#         >
-  -#         </iron-ajax>
+
 %script{src: 'aurora-loader.js'}

@@ -11,8 +11,14 @@ Aurora.behaviors.base =
     unless @nodeName is 'AURORA-APP'
       @_getGlobalVars()
 
+  ready: ->
+    Aurora.utilities.log "component #{@nodeName} getting ready"    
+
   _getGlobalVars: ->
     @app = Aurora.app
 
   _removeSelfDom: ->
     Polymer.dom(@parentNode).removeChild @
+
+  _log: (message) ->
+   Aurora.utilities.log "#{@nodeName}: #{message}"
