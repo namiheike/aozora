@@ -237,15 +237,19 @@ gulp.task 'copy-external-resources-contents', ->
       .pipe $.debug()
       .pipe gulp.dest paths.resources.external.contents.copyDest(category)
 
-gulp.task 'compile-story', (cb) ->
-  # compile story data files like characters.cson
+gulp.task 'handle-story', [ 'compile-story-characters', 'parse-story-script' ]
+
+gulp.task 'compile-story-characters', ->
   gulp
     .src paths.story.characters.meta.toCompile
     .pipe $.debug()
     .pipe $.cson().on('error', gutil.log)
     .pipe gulp.dest paths.story.characters.meta.compileDest
 
-  exec "coffee tools/script_parser/parser.coffee --input-file #{paths.story.mainScript.toParse} --output-file #{paths.story.mainScript.parseDestFile}", (err, stdout, stderr) ->
+gulp.task 'parse-story-script', (cb) ->
+  path = require 'path'
+
+  exec "coffee #{path.join __dirname, 'tools/script_parser/parser.coffee'} --input-file #{path.join __dirname, paths.story.mainScript.toParse[0]} --output-file #{path.join __dirname, paths.story.mainScript.parseDestFile}", (err, stdout, stderr) ->
     gutil.log stdout
     gutil.log stderr
     cb err
@@ -279,7 +283,7 @@ gulp.task 'build', (cb) ->
       'handle-internal-elements'
       'compile-external-config'
       'handle-external-resources'
-      'compile-story'
+      'handle-story'
     ]
     cb
   )
