@@ -6,8 +6,8 @@
   %template
     @@include('./aurora-app.css')
 
-    %aurora-resources#resources
-    %aurora-story#story
+    %aurora-loader#loader
+    %aurora-story-controller#storyController
 
     %aurora-video#video.hide
     %aurora-loading-screen#loadingScreen
@@ -26,6 +26,5 @@
         %aurora-opening-screen#openingScreen
 
         %aurora-topbar#topBar.hide
-
 
 %script{src: 'aurora-app.js'}

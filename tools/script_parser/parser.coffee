@@ -87,8 +87,12 @@ reader.on 'close', ->
   # remove `next` for the last node
   delete script[script.length - 1].next
 
-  fs.writeFile argv.outputFile, CSON.createCSONString(script), (err) ->
-    if err?
-      console.log err
-    else
-      console.log 'DONE'
+  # create folder if doesn't exist
+  mkdirp = require 'mkdirp'
+  mkdirp require('path').dirname(argv.outputFile), (err) ->
+
+    fs.writeFile argv.outputFile, CSON.createJSONString(script), (err) ->
+      if err?
+        console.log err
+      else
+        console.log 'AURORA-SCRIPT-PARSER: DONE'

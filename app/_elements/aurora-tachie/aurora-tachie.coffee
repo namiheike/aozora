@@ -25,9 +25,9 @@ Polymer
     # build resource name
     characterName = Object.keys(@tachie)[0]
     tachieAlter = @tachie[characterName]
-    tachieResourceName = "#{characterName}_#{tachieAlter}"
+    resourceKey = "#{characterName}-#{tachieAlter}"
 
-    @newTachieResource = @app.resources.getResource('tachies', tachieResourceName)
+    @newTachieResource = @app.resources.getResource('tachies', resourceKey)
 
     if @newTachieResource isnt @currentTachieResource
       if not @currentTachieResource?

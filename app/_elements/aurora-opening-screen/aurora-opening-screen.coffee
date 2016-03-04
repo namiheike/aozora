@@ -22,5 +22,7 @@ Polymer
     @playAnimation 'exit'
 
   _onAnimationFinish: (e) ->
-    @app.story.startScript @app.resources.script[0]
+    @_log "event triggered: animation-finish"
+
+    @app.storyController.startScript @app.story.scripts.main[0]
     @_removeSelfDom()

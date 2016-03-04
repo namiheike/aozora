@@ -59,6 +59,6 @@ Polymer
     return unless @_animationStatus is 'fading_out'
 
     # notify the opening screen it has been shown
-    @app.story.onOpeningScreenShown()
+    @app.storyController.onOpeningScreenShown()
 
     @_removeSelfDom()

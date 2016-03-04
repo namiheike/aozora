@@ -5,11 +5,16 @@ Polymer
   created: ->
     window.Aurora.app = @
 
+    @config = {}
+    @resources = {}
+    @story = {}
+
   ready: ->
     # init globals
     # TODO maybe register each component onto @app by themselves
-    @resources = @.$.resources
-    @story = @.$.story
+
+    # @loader = @.$.loader
+    @storyController = @.$.storyController
     @background = @.$.background
     @conversationBox = @.$.conversationBox
     @tachies = @.$.tachies
@@ -21,7 +26,7 @@ Polymer
 
     # init game
     ## set page title
-    # TODO resources are not loaded at this time
+    # TODO custom title
     # @async () -> document.title = @resources.meta.title
 
   openDrawer: ->
