@@ -20,7 +20,7 @@ current_options = undefined
 
 reader.on 'line', (line) ->
   # comment
-  if line[0] is '#'
+  if line.startsWith '//'
     return
 
   # conclude options block for the current node
@@ -42,9 +42,9 @@ reader.on 'line', (line) ->
   if current_type is undefined
     # waiting for a symbol
     switch line
-      when 'v'
+      when 'VIDEO', 'V'
         current_type = 'video'
-      when 'n'
+      when 'NARRATION', 'N'
         current_type = 'narrate'
       # TODO
       # when 'options'
