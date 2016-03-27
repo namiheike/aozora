@@ -33,18 +33,24 @@ Polymer
     @node = node
 
   _renderNode: (node) ->
+    # video node
     if node.type is 'video'
       @app.video.allowSkipping = node.allowSkipping
       @app.video.video = node.video
       return
 
     # background
-    if node.background?
-      @app.background.options = node.background
+    if (background = node.background)?
+      switch typeof background
+        # shortcut
+        when 'string'
+          @app.background.options = { name: background }
+        when 'object'
+          @app.background.options = background
 
     # tachies
-    if node.tachies?
-      @app.tachies.tachies = node.tachies
+    if (tachies = node.tachies)?
+      @app.tachies.tachies = tachies
 
     # conversation-box
     @app.conversationBox.node = node
