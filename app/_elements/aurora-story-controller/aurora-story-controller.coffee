@@ -19,6 +19,7 @@ Polymer
     if ( music = @app.resources.custom?.opening?.bgm )?
       @app.bgm.musicName = music
 
+  # TODO more beautiful events handling for element
   onOpeningScreenShown: ->
     # notify the animations in opening-screen
     # @app.openingScreen.onShown()
@@ -31,6 +32,19 @@ Polymer
 
   startScript: (node) ->
     @node = node
+
+  jumpToNode: (node) ->
+    @node = node
+
+  jumpToNextNode: ->
+    return unless @node?
+    return if @node.isEnding is true
+
+    # get the next node
+    ## TODO if node got `next` option
+    ## default is the one with the next incremental id
+    if nodeWithNextId = @app.story.getNodeById ( @node.id + 1 )
+      @node = nodeWithNextId
 
   _renderNode: (node) ->
     # video node
@@ -58,15 +72,3 @@ Polymer
     # bgm
     if node.bgm?
       @app.bgm.musicName = node.bgm
-
-  jumpToNode: (node) ->
-    @node = node
-
-  jumpToNextNode: ->
-    return unless @node? and @node.next?
-
-    # TODO IMPORTANT very bad performance, integrate IndexedDB or just use array index
-    getNodeById = (id) =>
-      @app.story.scripts.main.filter((node) -> node.id is id)[0]
-
-    @node = getNodeById @node.next

@@ -38,7 +38,7 @@ reader.on 'line', (line) ->
     current_options = undefined
     return
 
-  # first line of a nodes block, define the type, wont really create the node
+  # first line of a nodes group block, define the type, wont really create the node
   if current_type is undefined
     # waiting for a symbol
     switch line
@@ -46,8 +46,8 @@ reader.on 'line', (line) ->
         current_type = 'video'
       when 'NARRATION', 'N'
         current_type = 'narrate'
-      # TODO
-      # when 'options'
+      when 'DECISION', 'D'
+        current_type = 'decision'
       else
         current_type = 'line'
         current_role = line
@@ -64,11 +64,9 @@ reader.on 'line', (line) ->
       # clear current options
       current_options = undefined
 
-      new_id = script.length + 1
       node =
-        id: new_id
+        id: script.length + 1
         type: current_type
-        next: new_id + 1
       switch current_type
         when 'video'
           node.video = line
@@ -77,8 +75,8 @@ reader.on 'line', (line) ->
         when 'line'
           node.role = current_role
           node.text = line
-        # TODO
-        # when 'options'
+        when 'decision'
+          node.text = line
 
       script.push node
       current_node = script[script.length - 1]

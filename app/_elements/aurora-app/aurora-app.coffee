@@ -7,7 +7,13 @@ Polymer
 
     @config = {}
     @resources = {}
-    @story = {}
+    @story =
+      # TODO IMPORTANT PERFORMANCE very bad performance, integrate IndexedDB
+      getNodeById: (id, script = 'main') =>
+        @story.scripts[script].filter((node) -> node.id is id)[0]
+      # TODO IMPORTANT PERFORMANCE very bad performance, integrate IndexedDB
+      getNodeByAnchor: (anchor, script = 'main') =>
+        @story.scripts[script].filter((node) -> node.anchor is anchor)[0]
 
   ready: ->
     # init globals

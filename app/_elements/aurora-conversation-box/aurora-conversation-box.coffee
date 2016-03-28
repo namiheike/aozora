@@ -16,7 +16,7 @@ Polymer
     # TODO remove after issues been solved
     @nodeTypeIsLine = @node.type is 'line'
     @nodeTypeIsNarrate = @node.type is 'narrate'
-    @nodeTypeIsOptions = @node.type is 'options'
+    @nodeTypeIsDecision = @node.type is 'decision'
 
   _roleNameOfLine: (line) ->
 
@@ -31,13 +31,9 @@ Polymer
       when 'line', 'narrate'
         @app.storyController.jumpToNextNode()
 
-  _onTapOnOption: (e) ->
-    # TODO IMPORTANT very bad performance, integrate sth like IndexedDB, or LoveField maybe
-    getNodeById = (id) =>
-      @app.story.scripts.main.filter((node) -> node.id is id)[0]
-
-    option = e.model.option
-    @app.storyController.jumpToNode getNodeById option.next
+  _onTapOnChoice: (e) ->
+    choice = e.model.choice
+    @app.storyController.jumpToNode @app.story.getNodeByAnchor choice.ref
 
     # prevent from triggering `_onTapOnBox` method
     e.stopPropagation()

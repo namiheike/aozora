@@ -1,3 +1,5 @@
+/ TODO styles for decision node
+
 %dom-module#aurora-conversation-box
   %template
     @@include('./aurora-conversation-box.css')
@@ -13,11 +15,13 @@
       .node.narrate.horizontal.layout.center-justified
         %p {{ node.text }}
 
-    %template{is: 'dom-if', if: '{{nodeTypeIsOptions}}'}
-      .node.options
-        %template{is: 'dom-repeat', items: '{{node.options}}', as: 'option'}
-          .option
-            / TODO ripple
-            %p{'on-tap' => '_onTapOnOption'} {{ option.text }}
+    %template{is: 'dom-if', if: '{{nodeTypeIsDecision}}'}
+      .node.choices
+        %p.title {{ node.text }}
+        %template{is: 'dom-repeat', items: '{{node.choices}}', as: 'choice'}
+          / TODO ripple
+          %p.choice{'on-tap' => '_onTapOnChoice'}
+            \- 
+            {{ choice.text }}
 
 %script{src: 'aurora-conversation-box.js'}
