@@ -22,7 +22,7 @@ gutil = require('gutil')
 exec = require('child_process').exec
 
 resourcesCategories = ['backgrounds', 'images', 'music', 'sounds', 'tachies', 'videos', 'voices']
-paths = 
+paths =
   dependencies:
     bower:
       toCopy: [ 'bower_components/**' ]
@@ -35,37 +35,37 @@ paths =
         compileDest: 'dist/'
         compiled: [ 'dist/index.html' ]
       styles:
-        toCompile: [ 'app/_styles/*.sass' ]
-        compileDest: 'dist/_styles'
+        toCompile: [ 'app/$styles/*.sass' ]
+        compileDest: 'dist/$styles'
       scripts:
-        toCompile: [ 'app/_scripts/*.coffee' ]
-        compileDest: 'dist/_scripts'
+        toCompile: [ 'app/$scripts/*.coffee' ]
+        compileDest: 'dist/$scripts'
   elements:
     internal:
       inventory:
-        toCopy: [ 'app/_elements/elements.html' ]
-        copyDest: 'dist/_elements/'
-        copied: [ 'dist/_elements/elements.html' ]
-        toVulcanize: [ 'dist/_elements/elements.html' ]
-        vulcanizeDest: 'dist/_elements/'
-        vulcanized: [ 'dist/_elements/elements.vulcanized.html' ]
+        toCopy: [ 'app/$elements/elements.html' ]
+        copyDest: 'dist/$elements/'
+        copied: [ 'dist/$elements/elements.html' ]
+        toVulcanize: [ 'dist/$elements/elements.html' ]
+        vulcanizeDest: 'dist/$elements/'
+        vulcanized: [ 'dist/$elements/elements.vulcanized.html' ]
       pages:
-        toCompile: [ 'app/_elements/*/*.haml' ]
-        compileDest: 'dist/_elements'
-        compiled: 'dist/_elements/*/*.html'
+        toCompile: [ 'app/$elements/*/*.haml' ]
+        compileDest: 'dist/$elements'
+        compiled: 'dist/$elements/*/*.html'
       styles:
-        toCompile: [ 'app/_elements/*/*.sass' ]
-        compileDest: 'dist/_elements'
-        compiled: 'dist/_elements/*/*.css'
+        toCompile: [ 'app/$elements/*/*.sass' ]
+        compileDest: 'dist/$elements'
+        compiled: 'dist/$elements/*/*.css'
       scripts:
-        toCompile: [ 'app/_elements/*/*.coffee' ]
-        compileDest: 'dist/_elements'
+        toCompile: [ 'app/$elements/*/*.coffee' ]
+        compileDest: 'dist/$elements'
       folders:
-        compiled: [ 'dist/_elements/*', '!dist/_elements/*.*' ]
+        compiled: [ 'dist/$elements/*', '!dist/$elements/*.*' ]
   resources:
     internal:
-      toCopy: [ 'app/_resources/**/*' ]
-      copyDest: 'dist/_resources'
+      toCopy: [ 'app/$resources/**/*' ]
+      copyDest: 'dist/$resources'
     external:
       metas:
         toCompile: (category) -> [ "app/resources/#{category}/#{category}.cson" ]
@@ -192,7 +192,7 @@ gulp.task 'replace-internal-elements-inventory-to-vulcanized', ->
     .src paths.app.internal.index.compiled
     .pipe $.debug()
     .pipe $.replace 'src=\"bower_components/webcomponentsjs/webcomponents-lite.js\"', 'src=\"bower_components/webcomponentsjs/webcomponents-lite.min.js\"'
-    .pipe $.replace 'href=\"_elements/elements.html\"', 'href=\"_elements/elements.vulcanized.html\"'
+    .pipe $.replace 'href=\"$elements/elements.html\"', 'href=\"$elements/elements.vulcanized.html\"'
     .pipe gulp.dest paths.app.internal.index.compileDest
 
 gulp.task 'cleanup-after-handling-internal-elements', ->
