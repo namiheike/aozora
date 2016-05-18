@@ -14,9 +14,10 @@ Polymer
     # hide the loading-screen
     @app.loadingScreen.tryFadeOut()
 
-    # handle opening screen custom
+    # handle opening screen custom config
+    # TODO maybe should be moved to event callback in `opening-screen`
     ## bgm
-    if ( music = @app.resources.custom?.opening?.bgm )?
+    if ( music = @app.config?.custom?.opening?.bgm )?
       @app.bgm.musicName = music
 
   # TODO more beautiful events handling for element
@@ -47,6 +48,9 @@ Polymer
       @node = nodeWithNextId
 
   _renderNode: (node) ->
+    @_log "rendering node:"
+    Aurora.utilities.log node
+
     # video node
     if node.type is 'video'
       @app.video.allowSkipping = node.allowSkipping

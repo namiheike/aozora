@@ -33,12 +33,15 @@ Polymer
   _finish: () ->
     # stop video playing, resume bgm playing, fade out, and play next node in story
 
+    # stop and hide video
+    @$.videoElement.pause()
+    @_hide()
+
+    # resume bgm playing
     # TODO consider if need auto resume bgm playing,
     # and what if the next node's bgm is a different one from the resuming one
-
-    @$.videoElement.pause()
-    @app.bgm.play()
-    @_hide()
+    if @app.bgm?
+      @app.bgm.play()
 
     @app.storyController.jumpToNextNode()
 

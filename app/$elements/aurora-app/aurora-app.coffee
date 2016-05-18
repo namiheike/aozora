@@ -32,8 +32,7 @@ Polymer
 
     # init game
     ## set page title
-    # TODO custom title
-    # @async () -> document.title = @resources.meta.title
+    @async () -> document.title = @app.meta.name
 
   openDrawer: ->
     drawerPanel = @$$ 'paper-drawer-panel'

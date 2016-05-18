@@ -2,7 +2,9 @@
   %template
     @@include('./aurora-opening-screen.css')
 
-    %iron-image.logo{src: '../../resources/images/logo.svg'}
+    / TODO custom logo images via config
+    / TODO using `resources` to build path
+    %iron-image.logo{src: '../../resources/images/logo.png'}
     %paper-button{'on-tap' => '_startBtnOnTap'} START
     %paper-button LOAD
     %paper-button GALLERY

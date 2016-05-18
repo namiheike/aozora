@@ -75,8 +75,8 @@ paths =
         copyDest: (category) -> "dist/resources/#{category}"
   config:
     external:
-      toCompile: [ 'app/config/*.cson' ]
-      compileDest: 'dist/config'
+      toCopy: [ 'app/config/application.json' ]
+      copyDest: 'dist/config'
   story:
     characters:
       meta:
@@ -97,6 +97,11 @@ gulp.task 'copy-dependencies', ->
   gulp
     .src paths.dependencies.bower.toCopy
     .pipe gulp.dest paths.dependencies.bower.copyDest
+
+gulp.task 'copy-config', ->
+  gulp
+    .src paths.config.external.toCopy
+    .pipe gulp.dest paths.config.external.copyDest
 
 gulp.task 'copy-others', ->
   # favicon, index.html
@@ -208,13 +213,6 @@ gulp.task 'cleanup-after-handling-internal-elements', ->
     .pipe $.debug()
     .pipe $.rimraf()
 
-gulp.task 'compile-external-config', ->
-  gulp
-    .src paths.config.external.toCompile
-    .pipe $.debug()
-    .pipe $.cson().on('error', gutil.log)
-    .pipe gulp.dest paths.config.external.compileDest
-
 gulp.task 'handle-external-resources', (cb) ->
   runSequence(
     'compile-external-resources-metas'
@@ -274,14 +272,13 @@ gulp.task 'parse-story-script', (cb) ->
 gulp.task 'build', (cb) ->
   runSequence(
     'clean'
-    ['copy-dependencies', 'copy-others']
+    ['copy-dependencies', 'copy-config', 'copy-others']
     # TODO compile-app-pages compile-app-favicon
     [
       'compile-app-styles'
       'compile-app-scripts'
       'copy-internal-resources'
       'handle-internal-elements'
-      'compile-external-config'
       'handle-external-resources'
       'handle-story'
     ]

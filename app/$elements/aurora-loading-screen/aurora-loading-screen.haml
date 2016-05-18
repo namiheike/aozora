@@ -2,8 +2,8 @@
   %template
     @@include('./aurora-loading-screen.css')
 
-    -# TODO using `resources` to build path
-    %iron-image.logo#auroraLogo{src: '../../_resources/images/aurora_logo.png'}
+    / TODO using `resources` to build path
+    %iron-image.logo#auroraLogo{src: '../../$resources/images/aurora_logo.png'}
     %paper-spinner#spinner(active)
 
 %script{src: 'aurora-loading-screen.js'}

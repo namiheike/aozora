@@ -11,7 +11,6 @@ Polymer
         path: 'config/'
         manifest: [
           { id: 'config-application', src: 'application.json' }
-          { id: 'config-custom', src: 'custom.json' }
         ]
       story:
         path: 'story/'
@@ -67,7 +66,7 @@ Polymer
     switch fileId
       # config
       when 'config-application'
-        @app.config.application = fileContent
+        @app.config = fileContent
       # story
       when 'story-characters'
         @app.story.characters = fileContent

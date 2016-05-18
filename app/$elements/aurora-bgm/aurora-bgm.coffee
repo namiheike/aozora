@@ -64,6 +64,7 @@ Polymer
     , 475 # TODO HACK should use a callback event instead of async
 
   _musicNameChanged: ->
+    Aurora.utilities.log "music name changed to #{@musicName}"
     @music = @app.resources.getResource 'music', @musicName
 
   _musicChanged: ->
