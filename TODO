@@ -1,4 +1,4 @@
-- new logo
-- options node
-- rename Meta
-- bgm bug
+- BUG bgm not playing
+- BUG loading screen style in landscape mode
+- options node style
+- use iron-pages to switch between loadingScreen, openingScreen, settingScreen, storyScreen, videoScreen

@@ -48,8 +48,7 @@ Polymer
       @node = nodeWithNextId
 
   _renderNode: (node) ->
-    @_log "rendering node:"
-    Aurora.utilities.log node
+    @_log "rendering node: #{JSON.stringify node}"
 
     # video node
     if node.type is 'video'

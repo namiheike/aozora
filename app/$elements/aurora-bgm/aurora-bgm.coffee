@@ -35,6 +35,7 @@ Polymer
             duration: 500
 
   play: ->
+    @_log "start playing #{JSON.stringify @music}"
     @$.audioElement.play()
     @_showMusicName()
 
@@ -64,9 +65,10 @@ Polymer
     , 475 # TODO HACK should use a callback event instead of async
 
   _musicNameChanged: ->
-    Aurora.utilities.log "music name changed to #{@musicName}"
+    @_log "music name changed to #{@musicName}"
     @music = @app.resources.getResource 'music', @musicName
 
   _musicChanged: ->
+    @_log "music changed to #{JSON.stringify @music}"
     @$.audioElement.src = @music.filePath
     @play()
