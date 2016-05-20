@@ -252,23 +252,6 @@ gulp.task 'parse-story-script', (cb) ->
     gutil.log stderr
     cb err
 
-# TODO rename phonegap-build repo name with prefix aurora
-# gulp.task 'clean-phonegap', (cb) ->
-#   del(
-#     [ '../aozora-phonegap-build/*', '!../aozora-phonegap-build/.gitignore', '!../aozora-phonegap-build/README.md', '!../aozora-phonegap-build/LICENSE' ],
-#     {
-#       force: true
-#     },
-#     cb)
-
-# gulp.task 'copy-phonegap', ->
-#   gulp
-#     .src [
-#       'dist/**/*',
-#       'config.xml'
-#     ]
-#     .pipe gulp.dest '../aozora-phonegap-build'
-
 gulp.task 'build', (cb) ->
   runSequence(
     'clean'
@@ -284,9 +267,5 @@ gulp.task 'build', (cb) ->
     ]
     cb
   )
-
-# gulp.task 'build-phonegap', (cb) ->
-#   runSequence 'build', 'clean-phonegap', 'copy-phonegap'
-#   # TODO auto git add, commit, push and call phonegap build url to update code and rebuild
 
 gulp.task 'default', [ 'build' ]

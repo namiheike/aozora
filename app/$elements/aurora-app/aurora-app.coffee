@@ -19,21 +19,41 @@ Polymer
     # init globals
     # TODO maybe register each component onto @app by themselves
 
-    # @loader = @.$.loader
-    @storyController = @.$.storyController
-    @background = @.$.background
-    @conversationBox = @.$.conversationBox
-    @tachies = @.$.tachies
-    @video = @.$.video
-    @openingScreen = @.$.openingScreen
-    @loadingScreen = @.$.loadingScreen
-    @topBar = @.$.topBar
+    @loader = @$.loader
+    @screens = @$.screens
+    @openingScreen = @$.openingScreen
+    @loadingScreen = @$.loadingScreen
+    @storyScreen = @$.storyScreen
+    @storyController = @$.storyController
+    @background = @$.background
+    @conversationBox = @$.conversationBox
+    @tachies = @$.tachies
+    @video = @$.video
+    @topBar = @$.topBar
     @bgm = @$.bgm
 
-    # init game
-    ## set page title
-    @async () -> document.title = @app.meta.name
-
+  # TODO move to story screen
   openDrawer: ->
     drawerPanel = @$$ 'paper-drawer-panel'
     drawerPanel.openDrawer()
+
+  resourcesLoad: ->
+    @_log "resources loaded"
+
+    # initializing which need config and resources being loaded
+    document.title = @config.meta.name
+
+    @screens.select('opening')
+
+    # notify the opening screen it has been shown
+    # @app.storyController.onOpeningScreenShown()
+
+    # TODO remove loadingScreen DOM after fading out
+
+    # triggered after all resources are ready
+
+    # handle opening screen custom config
+    # TODO maybe should be moved to event callback in `opening-screen`
+    ## bgm
+    # if ( music = @app.config?.custom?.opening?.bgm )?
+    #   @app.bgm.musicName = music

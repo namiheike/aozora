@@ -1,9 +1,13 @@
+/ TODO more fancy animation
+/ - show loader say 300ms after show the logo
+/ - progress bar to determine the loading progress
+
 %dom-module#aurora-loading-screen
   %template
     @@include('./aurora-loading-screen.css')
 
     / TODO using `resources` to build path
-    %iron-image.logo#auroraLogo{src: '../../$resources/images/aurora_logo.png'}
+    %iron-image.aurora-logo{src: '../../$resources/images/aurora_logo_hollow_black.png', width: 64, height: 64, sizing: 'contain'}
     %paper-spinner#spinner(active)
 
 %script{src: 'aurora-loading-screen.js'}

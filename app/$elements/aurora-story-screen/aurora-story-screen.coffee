@@ -1,5 +1,5 @@
 Polymer
-  is: 'aurora-loading-screen'
+  is: 'aurora-story-screen'
   behaviors: [
     Aurora.behaviors.base
   ]

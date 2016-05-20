@@ -1,3 +1,4 @@
+# TODO CODE CONVENTION event name should be present tense
 Polymer
   is: 'aurora-loader'
   behaviors: [ Aurora.behaviors.base ]
@@ -21,7 +22,7 @@ Polymer
 
     @loadingQueue = new createjs.LoadQueue(true)
     @loadingQueue.on 'fileload', @_fileLoaded, @
-    @loadingQueue.on 'complete', @_loadingCompleted, @
+    @loadingQueue.on 'complete', @_loadingComplete, @
 
     # load config
     @loadingQueue.loadManifest manifests.config, false
@@ -111,7 +112,7 @@ Polymer
     # merge other data from meta, like `displayName`
     _.merge @app.resources[category][key], @app.resources[category]['meta'][key]
 
-  _loadingCompleted: (e) ->
+  _loadingComplete: (e) ->
     @_log 'loading queue completed'
 
     # create resources related methods
@@ -120,4 +121,4 @@ Polymer
 
       @app.resources[category][key]
 
-    @app.storyController.start()
+    @app.resourcesLoad()

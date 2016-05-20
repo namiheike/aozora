@@ -7,24 +7,25 @@
     @@include('./aurora-app.css')
 
     %aurora-loader#loader
-    %aurora-story-controller#storyController
+
+    %neon-animated-pages#screens.flex{selectable: '.screen', 'attr-for-selected': 'screen-name', selected: 'loading', 'entry-animation': 'fade-in-animation', 'exit-animation': 'fade-out-animation'}
+      %aurora-loading-screen#loadingScreen.screen{'screen-name': 'loading'}
+      %aurora-opening-screen#openingScreen.screen{'screen-name': 'opening'}
+      %aurora-story-screen#storyScreen.screen.flex{'screen-name': 'story'}
+        %aurora-story-controller#storyController
+        %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
+          %aurora-drawer#drawer(drawer)
+          %div(main)
+            %aurora-background#background
+
+            .conversation-and-tachies
+              %aurora-conversation-box#conversationBox
+              %aurora-tachies#tachies
+
+            %aurora-topbar#topBar.hide
 
     %aurora-video#video.hide
-    %aurora-loading-screen#loadingScreen
 
     %aurora-bgm#bgm(hidden)
-
-    %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
-      %aurora-drawer#drawer(drawer)
-      %div(main)
-        %aurora-background#background
-
-        .conversation-and-tachies
-          %aurora-conversation-box#conversationBox
-          %aurora-tachies#tachies
-
-        %aurora-opening-screen#openingScreen
-
-        %aurora-topbar#topBar.hide
 
 %script{src: 'aurora-app.js'}

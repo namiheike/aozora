@@ -1,24 +1,14 @@
 Polymer
   is: 'aurora-story-controller'
-  behaviors: [ Aurora.behaviors.base ]
+  behaviors: [
+    Aurora.behaviors.base
+  ]
   properties:
     node:
       type: Object
       observer: '_nodeChanged'
 
   ready: ->
-
-  start: ->
-    # triggered after all resources are ready
-
-    # hide the loading-screen
-    @app.loadingScreen.tryFadeOut()
-
-    # handle opening screen custom config
-    # TODO maybe should be moved to event callback in `opening-screen`
-    ## bgm
-    if ( music = @app.config?.custom?.opening?.bgm )?
-      @app.bgm.musicName = music
 
   # TODO more beautiful events handling for element
   onOpeningScreenShown: ->
@@ -27,9 +17,6 @@ Polymer
 
     # notify the app to show the drawer button
     @app.topBar.show()
-
-  _nodeChanged: (newNode, oldNode) ->
-    @_renderNode @node
 
   startScript: (node) ->
     @node = node
@@ -42,10 +29,11 @@ Polymer
     return if @node.isEnding is true
 
     # get the next node
-    ## TODO if node got `next` option
-    ## default is the one with the next incremental id
     if nodeWithNextId = @app.story.getNodeById ( @node.id + 1 )
       @node = nodeWithNextId
+
+  _nodeChanged: (newNode, oldNode) ->
+    @_renderNode @node
 
   _renderNode: (node) ->
     @_log "rendering node: #{JSON.stringify node}"

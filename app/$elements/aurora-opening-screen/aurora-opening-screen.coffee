@@ -1,28 +1,15 @@
 Polymer
   is: 'aurora-opening-screen'
   behaviors: [
-    Aurora.behaviors.base,
-    Polymer.NeonAnimationRunnerBehavior
+    Aurora.behaviors.base
   ]
-  properties:
-    animationConfig:
-      value: ->
-        exit:
-          name: 'fade-out-animation'
-          node: @
-  listeners:
-    'neon-animation-finish': '_onAnimationFinish'
 
-  ready: () ->
+  # ready: ->
 
   _startBtnOnTap: (e) ->
-    @_fadeOut()
+    @_log "startBtnTap triggered"
 
-  _fadeOut: ->
-    @playAnimation 'exit'
+    @app.screens.select 'story'
 
-  _onAnimationFinish: (e) ->
-    @_log "event triggered: animation-finish"
-
+    # TODO should be moved to `animation finish` or `select` event on `storyScreen`
     @app.storyController.startScript @app.story.scripts.main[0]
-    @_removeSelfDom()

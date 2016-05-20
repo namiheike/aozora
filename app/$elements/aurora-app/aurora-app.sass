@@ -1,9 +1,9 @@
 \:host
   @apply(--layout-fit)
   @apply(--layout-flex)
+  @apply(--layout-vertical)
 
   paper-drawer-panel
-
     .conversation-and-tachies
       @apply(--layout-fit)
       @apply(--layout-flex)
@@ -19,12 +19,13 @@
     aurora-topbar
       @apply(--layout-fixed-top)
 
-  #video
-    z-index: 1
-
-  #loadingScreen
-    z-index: 2
-
+  // #video
+  //   z-index: 1
+  //
+  // #loadingScreen
+  //   z-index: 2
+  //
+  
   #bgm
     z-index: 3
     position: absolute
