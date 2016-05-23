@@ -21,6 +21,8 @@ $ = require('gulp-load-plugins')()
 runSequence = require('run-sequence')
 gutil = require('gutil')
 exec = require('child_process').exec
+polylint = require 'polylint'
+chalk = require 'chalk'
 
 resourcesCategories = ['backgrounds', 'images', 'music', 'sounds', 'tachies', 'videos', 'voices']
 paths =
@@ -263,6 +265,26 @@ gulp.task 'parse-story-script', (cb) ->
     gutil.log stderr
     cb err
 
+gulp.task 'check', (cb) ->
+  switch options.env
+    when 'dev'
+      runSequence(
+        'polylint'
+        cb
+      )
+    when 'prod'
+      runSequence(cb)
+
+gulp.task 'polylint', (cb) ->
+  # TODO use gulp-polylint when it becomes mature
+  # TODO use paths var
+  errors = polylint 'dist/index.html'
+
+  errors.then (errors) ->
+    for warning in errors
+      console.log "#{chalk.red(warning.filename)}:#{warning.location.line}:#{warning.location.column}\n#{chalk.gray(warning.message)}"
+
+  cb()
 
 options = {}
 
@@ -286,6 +308,7 @@ gulp.task 'build', (cb) ->
       'handle-external-resources'
       'handle-story'
     ]
+    'check'
     cb
   )
 

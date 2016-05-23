@@ -16,3 +16,6 @@
 - bgm: replace with a toast
 
 - polylint
+
+- option for Google Analytics
+- option for integrating bugsnag
