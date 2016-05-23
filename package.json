@@ -24,8 +24,7 @@
     "gutil": "^1.6.4",
     "mkdirp": "^0.5.1",
     "run-sequence": "^1.1.4",
-    "yargs": "TODO this package is only used for the script parser, remove after separate it into another repo",
-    "yargs": "^4.2.0"
+    "yargs": "^4.7.1"
   },
   "engines": {
     "node": ">=5.0.0"

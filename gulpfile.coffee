@@ -15,6 +15,7 @@
 # usemin
 # polyserve
 
+argv = require('yargs').argv
 gulp = require('gulp')
 $ = require('gulp-load-plugins')()
 runSequence = require('run-sequence')
@@ -130,16 +131,26 @@ gulp.task 'copy-internal-resources', ->
     .pipe gulp.dest paths.resources.internal.copyDest
 
 gulp.task 'handle-internal-elements', (cb) ->
-  runSequence(
-    [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ],
-    'inject-internal-elements-styles',
-    'clean-internal-elements-injected-styles'
-    'copy-internal-elements-inventory'
-    'vulcanize-internal-elements-inventory'
-    'replace-internal-elements-inventory-to-vulcanized'
-    'cleanup-after-handling-internal-elements'
-    cb
-  )
+  switch options.env
+    when 'dev'
+      runSequence(
+        [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
+        'inject-internal-elements-styles'
+        'clean-internal-elements-injected-styles'
+        'copy-internal-elements-inventory'
+        cb
+      )
+    when 'prod'
+      runSequence(
+        [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
+        'inject-internal-elements-styles'
+        'clean-internal-elements-injected-styles'
+        'copy-internal-elements-inventory'
+        'vulcanize-internal-elements-inventory'
+        'replace-internal-elements-inventory-to-vulcanized'
+        'cleanup-after-handling-internal-elements'
+        cb
+      )
 
 gulp.task 'compile-internal-elements-pages', (cb) ->
   gulp
@@ -252,7 +263,17 @@ gulp.task 'parse-story-script', (cb) ->
     gutil.log stderr
     cb err
 
+
+options = {}
+
 gulp.task 'build', (cb) ->
+  # PARAMS:
+  # --env: prod/dev
+
+  options.env = argv.env || 'dev'
+
+  console.log options
+
   runSequence(
     'clean'
     ['copy-dependencies', 'copy-config', 'copy-others']
