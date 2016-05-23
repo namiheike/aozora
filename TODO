@@ -2,7 +2,7 @@
 - BUG loading screen style in landscape mode
 - BUG screen(page) switching animation not working
 
-- use iron-pages to switch between loadingScreen, openingScreen, settingScreen, storyScreen, videoScreen
+- BUG: iron-pages: cannot set pages transition animation via the animationConfig property in pages itself, setting via the property on `iron-pages` is working.
 - remove dom for loadingScreen after page transition
 
 - skip vulcanize when developing

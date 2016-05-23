@@ -1,13 +1,11 @@
 # TODO
 # audio fade in/out
-# show the bgm title and composer ( via a toast maybe? )
 # TODO test for two bgms in close proximity to each other
 
 Polymer
   is: 'aurora-bgm'
   behaviors: [
     Aurora.behaviors.base
-    Polymer.NeonAnimationRunnerBehavior
   ]
   properties:
     musicName:
@@ -16,53 +14,14 @@ Polymer
     music:
       type: Object
       observer: '_musicChanged'
-    showed:
-      type: Boolean
-      value: false
-    animationConfig:
-      value: ->
-        entry:
-          name: 'fade-in-animation'
-          node: @
-          timing:
-            delay: 0
-            duration: 500
-        exit:
-          name: 'fade-out-animation'
-          node: @
-          timing:
-            delay: 0
-            duration: 500
 
   play: ->
     @_log "start playing #{JSON.stringify @music}"
     @$.audioElement.play()
-    @_showMusicName()
+    @_openToast()
 
   pause: ->
     @$.audioElement.pause()
-
-  _showMusicName: ->
-    # remove arranged hiding animation in the future
-    if @exitAnimationTask?
-      @cancelAsync @exitAnimationTask
-
-    unless @showed is true
-      @toggleAttribute 'hidden', false
-      @playAnimation 'entry'
-      @showed = true
-
-    # arrange hiding animation
-    @exitAnimationTask = @async =>
-      @_hideMusicName()
-    , 5000
-
-  _hideMusicName: ->
-    @playAnimation 'exit'
-    @async =>
-      @toggleAttribute 'hidden', true
-      @showed = false
-    , 475 # TODO HACK should use a callback event instead of async
 
   _musicNameChanged: ->
     @_log "music name changed to #{@musicName}"
@@ -72,3 +31,6 @@ Polymer
     @_log "music changed to #{JSON.stringify @music}"
     @$.audioElement.src = @music.filePath
     @play()
+
+  _openToast: ->
+    @$.toast.open()
