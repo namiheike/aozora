@@ -14,3 +14,5 @@
 
 - backgrounds transition: fading in and fading out in the same time; more transitions
 - bgm: replace with a toast
+
+- polylint
