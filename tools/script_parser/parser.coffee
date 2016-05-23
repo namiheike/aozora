@@ -1,5 +1,5 @@
 # TODO separate into an individual repo
-# TODO create command usage using yargs https://github.com/yargs/yargs
+# TODO command usage via yargs
 
 argv = require('yargs').argv
 

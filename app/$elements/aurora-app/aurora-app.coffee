@@ -1,6 +1,8 @@
 Polymer
   is: 'aurora-app'
   behaviors: [ Aurora.behaviors.base ]
+  listeners:
+    'loader.load': 'resourcesLoad'
 
   created: ->
     window.Aurora.app = @
@@ -18,8 +20,7 @@ Polymer
   ready: ->
     # init globals
     # TODO maybe register each component onto @app by themselves
-
-    @loader = @$.loader
+    # quick access instead of @$.component
     @screens = @$.screens
     @openingScreen = @$.openingScreen
     @loadingScreen = @$.loadingScreen
@@ -38,22 +39,13 @@ Polymer
     drawerPanel.openDrawer()
 
   resourcesLoad: ->
-    @_log "resources loaded"
+    @_log "resourcesLoad triggered"
 
     # initializing which need config and resources being loaded
     document.title = @config.meta.name
 
-    @screens.select('opening')
-
-    # notify the opening screen it has been shown
-    # @app.storyController.onOpeningScreenShown()
-
+    @screens.select 'opening'
     # TODO remove loadingScreen DOM after fading out
+    # TODO @loadingScreen.fire 'hide'
 
-    # triggered after all resources are ready
-
-    # handle opening screen custom config
-    # TODO maybe should be moved to event callback in `opening-screen`
-    ## bgm
-    # if ( music = @app.config?.custom?.opening?.bgm )?
-    #   @app.bgm.musicName = music
+    @openingScreen.fire 'shown'

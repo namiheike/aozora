@@ -5,8 +5,12 @@
     / TODO custom logo images via config
     / TODO using `resources` to build path
     %iron-image.logo{src: '../../resources/images/logo.png'}
-    %paper-button{'on-tap' => '_startBtnOnTap'} START
-    %paper-button LOAD
-    %paper-button GALLERY
+    %paper-listbox.btns
+      %paper-item
+        %paper-button{'on-tap' => '_startBtnOnTap'} START
+      %paper-item
+        %paper-button(disabled) SETTINGS
+      %paper-item
+        %paper-button(disabled) GALLERY
 
 %script{src: 'aurora-opening-screen.js'}

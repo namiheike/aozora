@@ -1,4 +1,6 @@
 # TODO CODE CONVENTION event name should be present tense
+# TODO rename component to aurora-resources-loader
+
 Polymer
   is: 'aurora-loader'
   behaviors: [ Aurora.behaviors.base ]
@@ -121,4 +123,5 @@ Polymer
 
       @app.resources[category][key]
 
-    @app.resourcesLoad()
+    # notify app
+    @fire 'load'
