@@ -2,7 +2,7 @@ Polymer
   is: 'aurora-app'
   behaviors: [ Aurora.behaviors.base ]
   listeners:
-    'loader.load': 'resourcesLoad'
+    'loader.loaded': 'resourcesLoaded'
 
   created: ->
     window.Aurora.app = @
@@ -38,8 +38,8 @@ Polymer
     drawerPanel = @$$ 'paper-drawer-panel'
     drawerPanel.openDrawer()
 
-  resourcesLoad: ->
-    @_log "resourcesLoad triggered"
+  resourcesLoaded: ->
+    @_log "resourcesLoaded triggered"
 
     # initializing which need config and resources being loaded
     document.title = @config.meta.name

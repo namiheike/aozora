@@ -124,4 +124,4 @@ Polymer
       @app.resources[category][key]
 
     # notify app
-    @fire 'load'
+    @fire 'loaded'

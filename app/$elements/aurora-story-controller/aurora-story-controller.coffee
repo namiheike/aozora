@@ -10,14 +10,6 @@ Polymer
 
   ready: ->
 
-  # TODO more beautiful events handling for element
-  onOpeningScreenShown: ->
-    # notify the animations in opening-screen
-    # @app.openingScreen.onShown()
-
-    # notify the app to show the drawer button
-    @app.topBar.show()
-
   startScript: (node) ->
     @node = node
 
@@ -42,6 +34,7 @@ Polymer
     if node.type is 'video'
       @app.video.allowSkipping = node.allowSkipping
       @app.video.video = node.video
+      @app.screens.select 'video'
       return
 
     # background

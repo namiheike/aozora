@@ -7,7 +7,7 @@ Polymer
   properties:
     animationConfig:
       value: ->
-        show: [
+        entry: [
           {
             name: 'fade-in-animation'
             node: @
@@ -17,14 +17,17 @@ Polymer
           }
         ]
   listeners:
+    'show': 'onShow'
     'neon-animation-finish': '_onAnimationFinish'
 
   ready: () ->
 
-  show: () ->
+  onShow: () ->
+    @_log 'onShow'
+
     @style.opacity = 0
     @toggleClass 'hide', false
-    @playAnimation 'show'
+    @playAnimation 'entry'
 
   _onAnimationFinish: (e) ->
     @style.opacity = 1

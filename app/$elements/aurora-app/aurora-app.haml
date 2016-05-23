@@ -11,6 +11,7 @@
     %neon-animated-pages#screens.flex{selectable: '.screen', 'attr-for-selected': 'screen-name', selected: 'loading', 'entry-animation': 'fade-in-animation', 'exit-animation': 'fade-out-animation'}
       %aurora-loading-screen#loadingScreen.screen{'screen-name': 'loading'}
       %aurora-opening-screen#openingScreen.screen{'screen-name': 'opening'}
+      %aurora-video#video.screen{'screen-name': 'video'}
       %aurora-story-screen#storyScreen.screen.flex{'screen-name': 'story'}
         %aurora-story-controller#storyController
         %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
@@ -23,8 +24,6 @@
               %aurora-tachies#tachies
 
             %aurora-topbar#topBar.hide
-
-    %aurora-video#video.hide
 
     %aurora-bgm#bgm
 

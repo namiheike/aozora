@@ -18,13 +18,13 @@ Polymer
   play: ->
     @_log "start playing #{JSON.stringify @music}"
     @$.audioElement.play()
-    @_openToast()
 
   pause: ->
     @$.audioElement.pause()
 
   _musicNameChanged: ->
     @_log "music name changed to #{@musicName}"
+    @_openToast()
     @music = @app.resources.getResource 'music', @musicName
 
   _musicChanged: ->

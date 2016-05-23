@@ -13,9 +13,10 @@ Polymer
   ready: ->
 
   _videoChanged: (newVideo, oldVideo) ->
+    @_log "video changed to: #{JSON.stringify newVideo}"
+
     @_holdBgmPlaying()
-    @_show()
-    # TODO wrap path building into a method of resources
+
     videoFilePath = this.app.resources.getResource('videos', newVideo).filePath
     @$.videoElement.src = videoFilePath
     @$.videoElement.addEventListener 'ended', @_onVideoFinish.bind(@), false
@@ -31,11 +32,12 @@ Polymer
     @_finish()
 
   _finish: () ->
+    @_log 'video playing finished'
+
     # stop video playing, resume bgm playing, fade out, and play next node in story
 
     # stop and hide video
     @$.videoElement.pause()
-    @_hide()
 
     # resume bgm playing
     # TODO consider if need auto resume bgm playing,
@@ -43,11 +45,6 @@ Polymer
     if @app.bgm?
       @app.bgm.play()
 
+    @app.screens.select 'story'
+
     @app.storyController.jumpToNextNode()
-
-  _show: () ->
-    # TODO fade in
-    @toggleClass 'hide', false
-
-  _hide: () ->
-    @toggleClass 'hide', true
