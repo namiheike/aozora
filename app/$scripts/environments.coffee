@@ -2,13 +2,7 @@ Aurora = window.Aurora
 
 Aurora.env ||= {}
 
-Aurora.env.debugging = true
-
-Aurora.env.platform =
-  isPhonegap: false
-  device: undefined
-
-document.addEventListener 'deviceready', ( ->
-  Aurora.env.platform.isPhonegap = true
-  Aurora.env.device = window.device
-), false
+# TODO replace in building process
+Aurora.env.env = 'dev'
+Aurora.env.platform = 'web'
+Aurora.env.isCordova = false

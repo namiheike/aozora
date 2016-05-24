@@ -1,11 +1,11 @@
 - BUG bgm not playing
 - BUG loading screen style in landscape mode
-- BUG screen(page) switching animation not working
 
-- BUG: iron-pages: cannot set pages transition animation via the animationConfig property in pages itself, setting via the property on `iron-pages` is working.
+- BUG screen(page) switching animation not working:
+  iron-pages: cannot set pages transition animation via the animationConfig property in pages itself, setting via the property on `iron-pages` is working.
+
 - remove dom for loadingScreen after page transition
 
-- skip vulcanize when developing
 - options node style
 - let the `loader` element contain the `loader` image itself
 - serve roboto font from cdn in some case ( like online version )
@@ -13,9 +13,11 @@
 - pass env from gulp to app
 
 - backgrounds transition: fading in and fading out in the same time; more transitions
-- bgm: replace with a toast
-
-- polylint
 
 - option for Google Analytics
 - option for integrating bugsnag
+
+- resolve deprecated iron-flex-layout.html:
+  This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead
+
+- proper loading process

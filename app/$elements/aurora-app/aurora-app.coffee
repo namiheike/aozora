@@ -19,18 +19,14 @@ Polymer
 
   ready: ->
     # init globals
-    # TODO maybe register each component onto @app by themselves
+    # TODO register each component onto @app by themselves
+
     # quick access instead of @$.component
     @screens = @$.screens
     @openingScreen = @$.openingScreen
     @loadingScreen = @$.loadingScreen
     @storyScreen = @$.storyScreen
-    @storyController = @$.storyController
-    @background = @$.background
-    @conversationBox = @$.conversationBox
-    @tachies = @$.tachies
     @video = @$.video
-    @topBar = @$.topBar
     @bgm = @$.bgm
 
   # TODO move to story screen

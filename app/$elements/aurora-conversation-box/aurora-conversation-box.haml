@@ -16,12 +16,13 @@
         %p {{ node.text }}
 
     %template{is: 'dom-if', if: '{{nodeTypeIsDecision}}'}
+      / TODO paper-item
       .node.choices
         %p.title {{ node.text }}
         %template{is: 'dom-repeat', items: '{{node.choices}}', as: 'choice'}
           / TODO ripple
           %p.choice{'on-tap' => '_onTapOnChoice'}
-            \- 
+            \-
             {{ choice.text }}
 
 %script{src: 'aurora-conversation-box.js'}

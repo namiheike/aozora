@@ -1,6 +1,16 @@
 %dom-module#aurora-story-screen
   %template
     @@include('./aurora-story-screen.css')
-    %content
+    %aurora-story-controller#storyController
+    %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
+      %aurora-drawer#drawer(drawer)
+      .main-contents.layout.fit.flex.vertical.end-justified(main)
+        %paper-toolbar#topBar.fixed-top
+          %paper-icon-button{icon: 'menu'}(paper-drawer-toggle)
+
+        %aurora-background#background.fit
+
+        %aurora-conversation-box#conversationBox
+        %aurora-tachies#tachies
 
 %script{src: 'aurora-story-screen.js'}

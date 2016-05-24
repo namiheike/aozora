@@ -1,1 +1,21 @@
 \:host
+  .main-contents
+    #tachies
+      order: 0
+
+    #conversationBox
+      order: 1
+
+    aurora-background
+      z-index: -1
+
+    #topBar
+      // TODO issue in iron-flex-layout
+      // .fixed-top should add position: fixed, which it doesnot
+      position: fixed
+
+      // TODO config to custom styles
+      // TODO cant use sth like rgba(--blue-gray-500, 0.1)
+      // checkout http://codepen.io/jakealbaugh/post/css4-variables-and-sass
+      // #607d8b that's --blue-gray-500
+      --paper-toolbar-background: #{rgba(#607d8b, 0.3)}
