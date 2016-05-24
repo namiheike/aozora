@@ -21,3 +21,5 @@
   This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead
 
 - proper loading process
+
+- optimize, cleanup redundant bower deps

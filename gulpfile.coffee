@@ -266,6 +266,7 @@ gulp.task 'parse-story-script', (cb) ->
     cb err
 
 gulp.task 'check', (cb) ->
+  # TODO currently will run polylint for both dev and prod env
   switch options.env
     when 'dev'
       runSequence(
@@ -273,7 +274,10 @@ gulp.task 'check', (cb) ->
         cb
       )
     when 'prod'
-      runSequence(cb)
+      runSequence(
+        'polylint'
+        cb
+      )
 
 gulp.task 'polylint', (cb) ->
   # TODO use gulp-polylint when it becomes mature
