@@ -262,9 +262,11 @@ options = {}
 
 gulp.task 'build', (cb) ->
   # PARAMS:
-  # --env: prod/dev
+  # --env: dev/prod, default to dev
+  # --offline: true/false, default to false in prod env, always set to true dev env
 
   options.env = argv.env || 'dev'
+  options.offline = if options.env is 'dev' then true else ( argv.offline || false )
 
   console.log options
 
