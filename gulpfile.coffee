@@ -1,19 +1,9 @@
 # TODO
 
-# - read & parse config at first
-# - vulcanize index
-# - use `title` option in gulp-debug, https://stackoverflow.com/questions/27161903/how-to-get-task-name-inside-task-in-gulp
-# - use `usemin` for app scripts deps like webcomponentsjs, lodash, etc.
-
 # watch
-# minify js, css, html
-# uglify
 # jslint
 # optimize images
 # handle fonts
-# ver
-# usemin
-# polyserve
 
 argv = require('yargs').argv
 gulp = require('gulp')
@@ -23,7 +13,8 @@ gutil = require('gutil')
 exec = require('child_process').exec
 polylint = require 'polylint'
 chalk = require 'chalk'
-webpack = require 'webpack-stream'
+del = require 'del'
+vinyl_paths = require 'vinyl-paths'
 
 resourcesCategories = ['backgrounds', 'images', 'music', 'sounds', 'tachies', 'videos', 'voices']
 paths =
@@ -31,33 +22,37 @@ paths =
     bower:
       toCopy: [ 'bower_components/**' ]
       copyDest: 'dist/bower_components/'
-      copied: [ 'dist/bower_components/**/*' ]
+      folderToCleanup: 'dist/bower_components'
   app:
     internal:
       index:
-        compileDest: 'dist/'
-        compiled: [ 'dist/index.html' ]
+        toBundle: [ 'dist/index.html' ]
+        bundleDest: 'dist/'
       styles:
         toCompile: [ 'app/$styles/*.sass' ]
         compileDest: 'dist/$styles'
+        compiled: [ 'dist/$styles/**/*' ]
+        folderToCleanup: 'dist/$styles'
       scripts:
         toCompile: [ 'app/$scripts/*.coffee' ]
         compileDest: 'dist/$scripts'
+        compiled: [ 'dist/$scripts/**/*' ]
+        folderToCleanup: 'dist/$scripts'
   elements:
     internal:
       pages:
         toCompile: [ 'app/$elements/*/*.haml' ]
         compileDest: 'dist/$elements'
-        compiled: 'dist/$elements/*/*.html'
+        compiled: [ 'dist/$elements/*/*.html' ]
       styles:
         toCompile: [ 'app/$elements/*/*.sass' ]
         compileDest: 'dist/$elements'
-        compiled: 'dist/$elements/*/*.css'
+        compiled: [ 'dist/$elements/*/*.css' ]
       scripts:
         toCompile: [ 'app/$elements/*/*.coffee' ]
         compileDest: 'dist/$elements'
-      folders:
-        compiled: [ 'dist/$elements/*', '!dist/$elements/*.*' ]
+        compiled: [ 'dist/$elements/*/*.js' ]
+      folderToCleanup: 'dist/$elements'
   resources:
     internal:
       toCopy: [ 'app/$resources/**/*' ]
@@ -83,10 +78,14 @@ paths =
       parseDestFile: 'dist/story/scripts/main.json'
   othersToCopy: [ 'app/index.html', 'app/favicon.ico' ]
 
-gulp.task 'clean', (cb) ->
+gulp.task 'noop', (cb) ->
   gulp
-    .src [ '.tmp', 'dist' ], { read: false }
-    .pipe $.rimraf()
+    .src ''
+    # .pipe gutil.noop()
+    .pipe gulp.dest '/tmp'
+
+gulp.task 'clean', (cb) ->
+  del [ '.tmp', 'dist' ]
 
 gulp.task 'copy-dependencies', ->
   # TODO link instead of copy
@@ -126,25 +125,12 @@ gulp.task 'copy-internal-resources', ->
     .pipe gulp.dest paths.resources.internal.copyDest
 
 gulp.task 'handle-internal-elements', (cb) ->
-  switch options.env
-    when 'dev'
-      runSequence(
-        [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
-        'inject-internal-elements-styles'
-        'clean-internal-elements-injected-styles'
-        cb
-      )
-    # when 'prod'
-    #   runSequence(
-    #     [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
-    #     'inject-internal-elements-styles'
-    #     'clean-internal-elements-injected-styles'
-    #     'copy-internal-elements-inventory'
-    #     'vulcanize-internal-elements-inventory'
-    #     'replace-internal-elements-inventory-to-vulcanized'
-    #     'cleanup-after-handling-internal-elements'
-    #     cb
-    #   )
+  runSequence(
+    [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
+    'inject-internal-elements-styles'
+    'clean-internal-elements-injected-styles'
+    cb
+  )
 
 gulp.task 'compile-internal-elements-pages', (cb) ->
   gulp
@@ -179,45 +165,8 @@ gulp.task 'clean-internal-elements-injected-styles', ->
   gulp
     .src paths.elements.internal.styles.compiled, { read: false }
     .pipe $.debug()
-    .pipe $.rimraf()
-#
-# gulp.task 'copy-internal-elements-inventory', ->
-#   gulp
-#     .src paths.elements.internal.inventory.toCopy
-#     .pipe $.debug()
-#     .pipe gulp.dest paths.elements.internal.inventory.copyDest
-#
-# gulp.task 'vulcanize-internal-elements-inventory', ->
-#   gulp
-#     .src paths.elements.internal.inventory.toVulcanize
-#     .pipe $.debug()
-#     .pipe $.vulcanize { inlineScripts: true, stripComments: true }
-#     .pipe $.rename 'elements.vulcanized.html'
-#     .pipe gulp.dest paths.elements.internal.inventory.vulcanizeDest
-#
-# gulp.task 'replace-internal-elements-inventory-to-vulcanized', ->
-#   # also will replace webcomponents-lite.js to min version, thought should not be placed in this task
-#   # TODO consider use some gulp plugin like gulp-usemin, instead of gulp-replace
-#   gulp
-#     .src paths.app.internal.index.compiled
-#     .pipe $.debug()
-#     .pipe $.replace 'src=\"bower_components/webcomponentsjs/webcomponents-lite.js\"', 'src=\"bower_components/webcomponentsjs/webcomponents-lite.min.js\"'
-#     .pipe $.replace 'href=\"$elements/elements.html\"', 'href=\"$elements/elements.vulcanized.html\"'
-#     .pipe gulp.dest paths.app.internal.index.compileDest
-#
-# gulp.task 'cleanup-after-handling-internal-elements', ->
-#   # clean up individual elements, bower components
-#   gulp
-#     .src [].concat( paths.elements.internal.folders.compiled, paths.dependencies.bower.copied, paths.dependencies.bower.reservedFiles ), { read: false }
-#     .pipe $.debug()
-#     .pipe $.rimraf()
-#
-#   # clean up former inventory(elements.html)
-#   gulp
-#     .src paths.elements.internal.inventory.copied
-#     .pipe $.debug()
-#     .pipe $.rimraf()
-#
+    .pipe vinyl_paths del
+
 gulp.task 'handle-external-resources', (cb) ->
   runSequence(
     'compile-external-resources-metas'
@@ -257,19 +206,46 @@ gulp.task 'parse-story-script', (cb) ->
     gutil.log stderr
     cb err
 
-gulp.task 'check', (cb) ->
-  # TODO currently will run polylint for both dev and prod env
+gulp.task 'optimize-after-build', (cb) ->
+  sequence = []
   switch options.env
     when 'dev'
-      runSequence(
-        'polylint'
-        cb
-      )
+      sequence.push 'noop'
     when 'prod'
-      runSequence(
-        'polylint'
-        cb
-      )
+      sequence.push 'bundle-index'
+      sequence.push 'cleanup-after-bundle'
+  sequence.push cb
+
+  runSequence.apply @, sequence
+
+gulp.task 'bundle-index', (cb) ->
+  gulp
+    .src paths.app.internal.index.toBundle
+    .pipe $.debug()
+    .pipe $.vulcanize { inlineScripts: true, inlineCss: true, stripComments: true }
+    .pipe $.htmlMinifier { collapseWhitespace: true, minifyCSS: true, minifyJS: true }
+    .pipe gulp.dest paths.app.internal.index.bundleDest
+
+gulp.task 'cleanup-after-bundle', (cb) ->
+  # clean up bundled bower_components, aurora_components, app internal scripts, styles
+  src = []
+    .concat paths.dependencies.bower.folderToCleanup
+    .concat paths.elements.internal.folderToCleanup
+    .concat paths.app.internal.styles.folderToCleanup
+    .concat paths.app.internal.scripts.folderToCleanup
+
+  del src
+
+gulp.task 'lint-after-build', (cb) ->
+  sequence = []
+  switch options.env
+    when 'dev'
+      sequence.push 'polylint'
+    when 'prod'
+      sequence.push 'noop'
+  sequence.push cb
+
+  runSequence.apply @, sequence
 
 gulp.task 'polylint', (cb) ->
   # TODO use gulp-polylint when it becomes mature
@@ -304,7 +280,8 @@ gulp.task 'build', (cb) ->
       'handle-external-resources'
       'handle-story'
     ]
-    'check'
+    'optimize-after-build'
+    'lint-after-build'
     cb
   )
 
