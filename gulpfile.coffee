@@ -23,6 +23,7 @@ gutil = require('gutil')
 exec = require('child_process').exec
 polylint = require 'polylint'
 chalk = require 'chalk'
+webpack = require 'webpack-stream'
 
 resourcesCategories = ['backgrounds', 'images', 'music', 'sounds', 'tachies', 'videos', 'voices']
 paths =
@@ -31,7 +32,6 @@ paths =
       toCopy: [ 'bower_components/**' ]
       copyDest: 'dist/bower_components/'
       copied: [ 'dist/bower_components/**/*' ]
-      reservedFiles: [ '!dist/bower_components/webcomponentsjs/webcomponents-lite.min.js', '!dist/bower_components/lodash/lodash.min.js' ]
   app:
     internal:
       index:
@@ -45,13 +45,6 @@ paths =
         compileDest: 'dist/$scripts'
   elements:
     internal:
-      inventory:
-        toCopy: [ 'app/$elements/elements.html' ]
-        copyDest: 'dist/$elements/'
-        copied: [ 'dist/$elements/elements.html' ]
-        toVulcanize: [ 'dist/$elements/elements.html' ]
-        vulcanizeDest: 'dist/$elements/'
-        vulcanized: [ 'dist/$elements/elements.vulcanized.html' ]
       pages:
         toCompile: [ 'app/$elements/*/*.haml' ]
         compileDest: 'dist/$elements'
@@ -139,20 +132,19 @@ gulp.task 'handle-internal-elements', (cb) ->
         [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
         'inject-internal-elements-styles'
         'clean-internal-elements-injected-styles'
-        'copy-internal-elements-inventory'
         cb
       )
-    when 'prod'
-      runSequence(
-        [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
-        'inject-internal-elements-styles'
-        'clean-internal-elements-injected-styles'
-        'copy-internal-elements-inventory'
-        'vulcanize-internal-elements-inventory'
-        'replace-internal-elements-inventory-to-vulcanized'
-        'cleanup-after-handling-internal-elements'
-        cb
-      )
+    # when 'prod'
+    #   runSequence(
+    #     [ 'compile-internal-elements-pages', 'compile-internal-elements-styles', 'compile-internal-elements-scripts' ]
+    #     'inject-internal-elements-styles'
+    #     'clean-internal-elements-injected-styles'
+    #     'copy-internal-elements-inventory'
+    #     'vulcanize-internal-elements-inventory'
+    #     'replace-internal-elements-inventory-to-vulcanized'
+    #     'cleanup-after-handling-internal-elements'
+    #     cb
+    #   )
 
 gulp.task 'compile-internal-elements-pages', (cb) ->
   gulp
@@ -188,44 +180,44 @@ gulp.task 'clean-internal-elements-injected-styles', ->
     .src paths.elements.internal.styles.compiled, { read: false }
     .pipe $.debug()
     .pipe $.rimraf()
-
-gulp.task 'copy-internal-elements-inventory', ->
-  gulp
-    .src paths.elements.internal.inventory.toCopy
-    .pipe $.debug()
-    .pipe gulp.dest paths.elements.internal.inventory.copyDest
-
-gulp.task 'vulcanize-internal-elements-inventory', ->
-  gulp
-    .src paths.elements.internal.inventory.toVulcanize
-    .pipe $.debug()
-    .pipe $.vulcanize { inlineScripts: true, stripComments: true }
-    .pipe $.rename 'elements.vulcanized.html'
-    .pipe gulp.dest paths.elements.internal.inventory.vulcanizeDest
-
-gulp.task 'replace-internal-elements-inventory-to-vulcanized', ->
-  # also will replace webcomponents-lite.js to min version, thought should not be placed in this task
-  # TODO consider use some gulp plugin like gulp-usemin, instead of gulp-replace
-  gulp
-    .src paths.app.internal.index.compiled
-    .pipe $.debug()
-    .pipe $.replace 'src=\"bower_components/webcomponentsjs/webcomponents-lite.js\"', 'src=\"bower_components/webcomponentsjs/webcomponents-lite.min.js\"'
-    .pipe $.replace 'href=\"$elements/elements.html\"', 'href=\"$elements/elements.vulcanized.html\"'
-    .pipe gulp.dest paths.app.internal.index.compileDest
-
-gulp.task 'cleanup-after-handling-internal-elements', ->
-  # clean up individual elements, bower components
-  gulp
-    .src [].concat( paths.elements.internal.folders.compiled, paths.dependencies.bower.copied, paths.dependencies.bower.reservedFiles ), { read: false }
-    .pipe $.debug()
-    .pipe $.rimraf()
-
-  # clean up former inventory(elements.html)
-  gulp
-    .src paths.elements.internal.inventory.copied
-    .pipe $.debug()
-    .pipe $.rimraf()
-
+#
+# gulp.task 'copy-internal-elements-inventory', ->
+#   gulp
+#     .src paths.elements.internal.inventory.toCopy
+#     .pipe $.debug()
+#     .pipe gulp.dest paths.elements.internal.inventory.copyDest
+#
+# gulp.task 'vulcanize-internal-elements-inventory', ->
+#   gulp
+#     .src paths.elements.internal.inventory.toVulcanize
+#     .pipe $.debug()
+#     .pipe $.vulcanize { inlineScripts: true, stripComments: true }
+#     .pipe $.rename 'elements.vulcanized.html'
+#     .pipe gulp.dest paths.elements.internal.inventory.vulcanizeDest
+#
+# gulp.task 'replace-internal-elements-inventory-to-vulcanized', ->
+#   # also will replace webcomponents-lite.js to min version, thought should not be placed in this task
+#   # TODO consider use some gulp plugin like gulp-usemin, instead of gulp-replace
+#   gulp
+#     .src paths.app.internal.index.compiled
+#     .pipe $.debug()
+#     .pipe $.replace 'src=\"bower_components/webcomponentsjs/webcomponents-lite.js\"', 'src=\"bower_components/webcomponentsjs/webcomponents-lite.min.js\"'
+#     .pipe $.replace 'href=\"$elements/elements.html\"', 'href=\"$elements/elements.vulcanized.html\"'
+#     .pipe gulp.dest paths.app.internal.index.compileDest
+#
+# gulp.task 'cleanup-after-handling-internal-elements', ->
+#   # clean up individual elements, bower components
+#   gulp
+#     .src [].concat( paths.elements.internal.folders.compiled, paths.dependencies.bower.copied, paths.dependencies.bower.reservedFiles ), { read: false }
+#     .pipe $.debug()
+#     .pipe $.rimraf()
+#
+#   # clean up former inventory(elements.html)
+#   gulp
+#     .src paths.elements.internal.inventory.copied
+#     .pipe $.debug()
+#     .pipe $.rimraf()
+#
 gulp.task 'handle-external-resources', (cb) ->
   runSequence(
     'compile-external-resources-metas'

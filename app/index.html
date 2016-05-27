@@ -6,7 +6,6 @@
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- TODO custom title -->
   <title>Aurora game engine</title>
 
   <!-- TODO favicon related: Place favicon.ico and apple-touch-icon.png in the root directory -->
@@ -14,18 +13,15 @@
   <!-- TODO only inject cordova.js when running the build-cordova task -->
   <!-- <script src="cordova.js"></script> -->
 
-  <!-- TODO bundle scripts into one scripts -->
-  <!-- TODO replace with min in gulpfile -->
-  <script src="bower_components/lodash/dist/lodash.min.js"></script>
+  <!-- TODO replace with min in `prod` env -->
+  <script src="bower_components/lodash/dist/lodash.js"></script>
 
   <script src="$scripts/init.js"></script>
   <script src="$scripts/environments.js"></script>
   <script src="$scripts/utilities.js"></script>
   <script src="$scripts/components_behaviors.js"></script>
 
-  <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="$styles/main.css">
-  <!-- endbuild-->
 
   <!-- TODO determine if need this polyfill by platform -->
   <!-- build:js(.) bower_components/webcomponentsjs/webcomponents-lite.min.js -->
@@ -41,8 +37,10 @@
   </script>
 
   <!-- will be replaced with elements/elements.vulcanized.html -->
-  <link rel="import" href="$elements/elements.html">
+  <!-- <link rel="import" href="$elements/elements.html"> -->
   <!-- endreplace-->
+
+  <link rel="import" href="$elements/aurora-app/aurora-app.html">
 </head>
 
 <body class="fullbleed">
