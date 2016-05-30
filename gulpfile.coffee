@@ -212,7 +212,8 @@ gulp.task 'cdnize-after-build', (cb) ->
   # TODO currently not that flexible and robust with string replacing
   # TODO currently lib version via CDN is hardcoded
 
-  return runSequence('noop', cb) if options.offline
+  unless options.online
+    return runSequence('noop', cb)
 
   # 1. index: external libs like lodash, polyfills in index -> jsdelivr
   # 2. elements: external libs like proloadjs, -> jsdelivr
@@ -245,12 +246,10 @@ gulp.task 'cdnize-elements', ->
 
 gulp.task 'bundle-after-build', (cb) ->
   sequence = []
-  switch options.env
-    when 'dev'
-      sequence.push 'noop'
-    when 'prod'
-      sequence.push 'bundle-index'
-      sequence.push 'cleanup-after-bundle'
+  if options.bundle
+    sequence.push 'bundle-index'
+  else
+    sequence.push 'noop'
   sequence.push cb
 
   runSequence.apply @, sequence
@@ -263,23 +262,28 @@ gulp.task 'bundle-index', (cb) ->
     .pipe $.htmlMinifier { collapseWhitespace: true, minifyCSS: true, minifyJS: true }
     .pipe gulp.dest paths.app.internal.index.bundleDest
 
-gulp.task 'cleanup-after-bundle', (cb) ->
-  # clean up bundled bower_components, aurora_components, app internal scripts, styles
+gulp.task 'cleanup-after-build', (cb) ->
   src = []
-    .concat paths.dependencies.bower.folderToCleanup
-    .concat paths.elements.internal.folderToCleanup
-    .concat paths.app.internal.styles.folderToCleanup
-    .concat paths.app.internal.scripts.folderToCleanup
+
+  # clean up bundled app internal scripts, styles, aurora_components
+  if options.bundle
+    src = src
+      .concat paths.elements.internal.folderToCleanup
+      .concat paths.app.internal.styles.folderToCleanup
+      .concat paths.app.internal.scripts.folderToCleanup
+
+  # clean up bower dependencies, if they've been bundled, or they will be served via cdn
+  if options.online or options.bundle
+    src = src.concat paths.dependencies.bower.folderToCleanup
 
   del src
 
 gulp.task 'lint-after-build', (cb) ->
   sequence = []
-  switch options.env
-    when 'dev'
-      sequence.push 'polylint'
-    when 'prod'
-      sequence.push 'noop'
+  if options.lint
+    sequence.push 'polylint'
+  else
+    sequence.push 'noop'
   sequence.push cb
 
   runSequence.apply @, sequence
@@ -313,6 +317,7 @@ gulp.task 'build', (cb) ->
     ]
     'cdnize-after-build'
     'bundle-after-build'
+    'cleanup-after-build'
     'lint-after-build'
     cb
   )
@@ -326,12 +331,14 @@ gulp.task 'list-all-dependencing-components', ->
 
 gulp.task 'default', [ 'build' ]
 
-options = {}
 # PARAMS:
-# --env: dev/prod, default to dev
-# --offline: true/false, default to false in prod env, always set to true dev env
+# --bundle: true/false, default to false
+# --online: true/false, default to false
+# --lint: true/false, default to false
 
-options.env = argv.env || 'dev'
-options.offline = if options.env is 'dev' then true else ( argv.offline || false )
+options =
+  bundle: argv.bundle || false
+  online: argv.online || false
+  lint: argv.lint || false
 
 console.log options
