@@ -1,3 +1,5 @@
+- serve roboto font from cdn in online version
+
 - BUG bgm not playing
 - BUG loading screen style in landscape mode
 
@@ -8,7 +10,6 @@
 
 - options node style
 - let the `loader` element contain the `loader` image itself
-- serve roboto font from cdn in some case ( like online version )
 
 - pass env from gulp to app
 
@@ -21,5 +22,3 @@
   This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead
 
 - proper loading process
-
-- optimize, cleanup redundant bower deps

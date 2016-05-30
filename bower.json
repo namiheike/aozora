@@ -3,13 +3,21 @@
   "version": "0.0.0",
   "dependencies": {
     "polymer": "Polymer/polymer#~1.4",
-    "paper-elements": "PolymerElements/paper-elements#~1.0",
-    "iron-elements": "PolymerElements/iron-elements#~1.0",
-    "neon-elements": "PolymerElements/neon-elements#~1.0",
     "PreloadJS": "^0.6.2",
     "lodash": "^4.6.1",
-    "font-roboto": "override with the local version",
-    "font-roboto": "PolymerElements/font-roboto-local"
+    "font-roboto": "PolymerElements/font-roboto-local",
+    "iron-icons": "^1.1.3",
+    "iron-image": "^1.2.3",
+    "paper-listbox": "^1.1.2",
+    "paper-spinner": "^1.2.0",
+    "paper-button": "^1.0.12",
+    "paper-drawer-panel": "^1.0.9",
+    "neon-animation": "^1.2.3",
+    "iron-ajax": "^1.2.0",
+    "paper-item": "^1.2.1",
+    "paper-toolbar": "^1.1.4",
+    "paper-icon-button": "^1.1.1",
+    "paper-toast": "^1.2.2"
   },
   "devDependencies": {}
 }

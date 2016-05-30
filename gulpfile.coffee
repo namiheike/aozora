@@ -6,6 +6,7 @@
 # handle fonts
 
 argv = require('yargs').argv
+_ = require 'lodash'
 gulp = require('gulp')
 $ = require('gulp-load-plugins')()
 runSequence = require('run-sequence')
@@ -26,6 +27,7 @@ paths =
   app:
     internal:
       index:
+        toCdnize: [ 'dist/index.html' ]
         toBundle: [ 'dist/index.html' ]
         bundleDest: 'dist/'
       styles:
@@ -206,7 +208,42 @@ gulp.task 'parse-story-script', (cb) ->
     gutil.log stderr
     cb err
 
-gulp.task 'optimize-after-build', (cb) ->
+gulp.task 'cdnize-after-build', (cb) ->
+  # TODO currently not that flexible and robust with string replacing
+  # TODO currently lib version via CDN is hardcoded
+
+  return runSequence('noop', cb) if options.offline
+
+  # 1. index: external libs like lodash, polyfills in index -> jsdelivr
+  # 2. elements: external libs like proloadjs, -> jsdelivr
+  # 2. elements: external polymer-related components in internal elements -> polygit
+  # 3. TODO aurora components
+
+  runSequence [ 'cdnize-index', 'cdnize-elements' ], cb
+
+gulp.task 'cdnize-index', ->
+  gulp
+    .src paths.app.internal.index.toCdnize
+    .pipe $.debug()
+    .pipe $.replace "bower_components/lodash/dist/lodash.js", "https://cdn.jsdelivr.net/lodash/4.13.1/lodash.min.js"
+    .pipe $.replace "bower_components/webcomponentsjs/webcomponents-lite.js", "https://cdn.jsdelivr.net/webcomponentsjs/0.7.22/webcomponents.min.js"
+    # the same place
+    .pipe gulp.dest (file) -> file.base
+
+gulp.task 'cdnize-elements', ->
+  gulp
+    .src paths.elements.internal.pages.compiled
+    .pipe $.debug()
+    # TODO PreloadJS on jsdelivr is still v0.3, the one on cdnjs is still v0.6.0, while the latest is v0.6.2
+    .pipe $.replace "../../bower_components/PreloadJS/lib/preloadjs-0.6.2.combined.js", "https://cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.6.0/preloadjs.min.js"
+    .pipe $.replace "../../bower_components/", "https://projectyorucdn.blob.core.windows.net/project-yoru-cdn/"
+    # TODO polygit response with 400 for iron-ajax only
+    # TODO switch back to polygit until this got resolved: https://github.com/PolymerLabs/polygit/issues/6
+    # .pipe $.replace "../../bower_components/", "https://polygit.org/components/"
+    # the same place
+    .pipe gulp.dest (file) -> file.base
+
+gulp.task 'bundle-after-build', (cb) ->
   sequence = []
   switch options.env
     when 'dev'
@@ -256,19 +293,11 @@ gulp.task 'polylint', (cb) ->
     for warning in errors
       console.log "#{chalk.red(warning.filename)}:#{warning.location.line}:#{warning.location.column}\n#{chalk.gray(warning.message)}"
 
+    # should put cb() here, but would cause some weird Promise related bug
+    # cb()
   cb()
 
-options = {}
-
 gulp.task 'build', (cb) ->
-  # PARAMS:
-  # --env: dev/prod, default to dev
-  # --offline: true/false, default to false in prod env, always set to true dev env
-
-  options.env = argv.env || 'dev'
-  options.offline = if options.env is 'dev' then true else ( argv.offline || false )
-
-  console.log options
 
   runSequence(
     'clean'
@@ -282,9 +311,27 @@ gulp.task 'build', (cb) ->
       'handle-external-resources'
       'handle-story'
     ]
-    'optimize-after-build'
+    'cdnize-after-build'
+    'bundle-after-build'
     'lint-after-build'
     cb
   )
 
+gulp.task 'list-all-dependencing-components', ->
+  # TODO list weirdly misses some components
+  gulp
+    .src paths.elements.internal.pages.compiled
+    .pipe $.debug()
+    .pipe $.replace /\.\.\/\.\.\/bower_components\/.*/, (component) -> console.log(component); component
+
 gulp.task 'default', [ 'build' ]
+
+options = {}
+# PARAMS:
+# --env: dev/prod, default to dev
+# --offline: true/false, default to false in prod env, always set to true dev env
+
+options.env = argv.env || 'dev'
+options.offline = if options.env is 'dev' then true else ( argv.offline || false )
+
+console.log options

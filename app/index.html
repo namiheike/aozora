@@ -13,7 +13,12 @@
   <!-- TODO only inject cordova.js when running the build-cordova task -->
   <!-- <script src="cordova.js"></script> -->
 
+  <!-- external libs -->
   <script src="bower_components/lodash/dist/lodash.js"></script>
+
+  <!-- polyfill -->
+  <!-- TODO inject by platform -->
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <script src="$scripts/init.js"></script>
   <script src="$scripts/environments.js"></script>
@@ -21,9 +26,6 @@
   <script src="$scripts/components_behaviors.js"></script>
 
   <link rel="stylesheet" href="$styles/main.css">
-
-  <!-- TODO determine if need this polyfill by platform -->
-  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 
   <!-- polymer global settings -->
   <!-- using native shadow dom instead of shady dom -->
