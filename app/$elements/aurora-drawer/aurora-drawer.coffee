@@ -5,8 +5,8 @@ Polymer
     creditInfo:
       type: String
 
-  attached: () ->
+  # attached: () ->
     # init vars
-    # cannot put in ready since config is not loaded at that time
-    # TODO maybe separate loader out of polymer
-    @creditInfo = @app.config.meta.author.name
+    # cannot put in ready/attached since config is not loaded at that time
+    # TODO HAVE TO separate config/resources loading process out of polymer
+    # @creditInfo = @app.config.meta.author.name
