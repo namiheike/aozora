@@ -24,6 +24,7 @@
     "polylint": "^2.10.1",
     "run-sequence": "^1.1.4",
     "vinyl-paths": "^2.1.0",
+    "vulcanize": "^1.14.8",
     "yargs": "^4.7.1"
   },
   "engines": {
