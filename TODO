@@ -1,3 +1,5 @@
+- BUG HIGH PRIORITY bundle (vulcanize) + online (cdnize) = [::_flattenBehaviorsList]: behavior is null
+
 - serve roboto font from cdn in online version
 
 - BUG bgm not playing
