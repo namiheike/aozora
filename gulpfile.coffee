@@ -232,12 +232,14 @@ gulp.task 'cdnize-index', ->
     .pipe gulp.dest (file) -> file.base
 
 gulp.task 'cdnize-elements', ->
+  # azure version: https://projectyorucdn.blob.core.windows.net/project-yoru-cdn/
+
   gulp
     .src paths.elements.internal.pages.compiled
     .pipe $.debug()
     # TODO PreloadJS on jsdelivr is still v0.3, the one on cdnjs is still v0.6.0, while the latest is v0.6.2
     .pipe $.replace "../../bower_components/PreloadJS/lib/preloadjs-0.6.2.combined.js", "https://cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.6.0/preloadjs.min.js"
-    .pipe $.replace "../../bower_components/", "https://projectyorucdn.blob.core.windows.net/project-yoru-cdn/"
+    .pipe $.replace "../../bower_components/", "http://cdn.wcdn.io/" # TODO https after wcdn supports https
     # TODO polygit response with 400 for iron-ajax only
     # TODO switch back to polygit until this got resolved: https://github.com/PolymerLabs/polygit/issues/6
     # .pipe $.replace "../../bower_components/", "https://polygit.org/components/"
