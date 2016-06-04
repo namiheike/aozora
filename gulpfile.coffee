@@ -212,7 +212,7 @@ gulp.task 'cdnize-after-build', (cb) ->
   # TODO currently not that flexible and robust with string replacing
   # TODO currently lib version via CDN is hardcoded
 
-  unless options.online
+  unless options.cdn?
     return runSequence('noop', cb)
 
   # 1. index: external libs like lodash, polyfills in index -> jsdelivr
@@ -232,19 +232,21 @@ gulp.task 'cdnize-index', ->
     .pipe gulp.dest (file) -> file.base
 
 gulp.task 'cdnize-elements', ->
-  # azure version: https://projectyorucdn.blob.core.windows.net/project-yoru-cdn/
+  switch options.cdn
+    when 'wcdn'
+      cdn_prefix = "https://cdn.wcdn.io/"
+    when 'azure'
+      cdn_prefix = "https://projectyorucdn.blob.core.windows.net/project-yoru-cdn/"
+    when 'polygit'
+      cdn_prefix = "https://polygit.org/components/"
 
   gulp
     .src paths.elements.internal.pages.compiled
     .pipe $.debug()
     # TODO PreloadJS on jsdelivr is still v0.3, the one on cdnjs is still v0.6.0, while the latest is v0.6.2
     .pipe $.replace "../../bower_components/PreloadJS/lib/preloadjs-0.6.2.combined.js", "https://cdnjs.cloudflare.com/ajax/libs/PreloadJS/0.6.0/preloadjs.min.js"
-    .pipe $.replace "../../bower_components/", "http://cdn.wcdn.io/" # TODO https after wcdn supports https
-    # TODO polygit response with 400 for iron-ajax only
-    # TODO switch back to polygit until this got resolved: https://github.com/PolymerLabs/polygit/issues/6
-    # .pipe $.replace "../../bower_components/", "https://polygit.org/components/"
-    # the same place
-    .pipe gulp.dest (file) -> file.base
+    .pipe $.replace "../../bower_components/", cdn_prefix
+    .pipe gulp.dest (file) -> file.base # the same place
 
 gulp.task 'bundle-after-build', (cb) ->
   sequence = []
@@ -275,7 +277,7 @@ gulp.task 'cleanup-after-build', (cb) ->
       .concat paths.app.internal.scripts.folderToCleanup
 
   # clean up bower dependencies, if they've been bundled, or they will be served via cdn
-  if options.online or options.bundle
+  if options.cdn? or options.bundle?
     src = src.concat paths.dependencies.bower.folderToCleanup
 
   del src
@@ -335,12 +337,12 @@ gulp.task 'default', [ 'build' ]
 
 # PARAMS:
 # --bundle: true/false, default to false
-# --online: true/false, default to false
+# --cdn: 'polygit'/'azure'/'wcdn', default to undefined
 # --lint: true/false, default to false
 
 options =
   bundle: argv.bundle || false
-  online: argv.online || false
+  cdn: argv.cdn
   lint: argv.lint || false
 
 console.log options
