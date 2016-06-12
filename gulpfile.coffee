@@ -212,7 +212,7 @@ gulp.task 'cdnize-after-build', (cb) ->
   # TODO currently not that flexible and robust with string replacing
   # TODO currently lib version via CDN is hardcoded
 
-  unless options.cdn?
+  if options.cdn is false
     return runSequence('noop', cb)
 
   # 1. index: external libs like lodash, polyfills in index -> jsdelivr
@@ -270,14 +270,14 @@ gulp.task 'cleanup-after-build', (cb) ->
   src = []
 
   # clean up bundled app internal scripts, styles, aurora_components
-  if options.bundle
+  if options.bundle is true
     src = src
       .concat paths.elements.internal.folderToCleanup
       .concat paths.app.internal.styles.folderToCleanup
       .concat paths.app.internal.scripts.folderToCleanup
 
   # clean up bower dependencies, if they've been bundled, or they will be served via cdn
-  if options.cdn? or options.bundle?
+  if ( options.cdn is true ) or ( options.bundle is true )
     src = src.concat paths.dependencies.bower.folderToCleanup
 
   del src
@@ -336,13 +336,13 @@ gulp.task 'list-all-dependencing-components', ->
 gulp.task 'default', [ 'build' ]
 
 # PARAMS:
-# --bundle: true/false, default to false
-# --cdn: 'polygit'/'azure'/'wcdn', default to undefined
-# --lint: true/false, default to false
+# --bundle: true/false(nonexistent), default to false
+# --cdn: false(nonexistent)/'polygit'/'azure'/'wcdn', default to undefined
+# --lint: true/false(nonexistent), default to false
 
 options =
   bundle: argv.bundle || false
-  cdn: argv.cdn
+  cdn: argv.cdn || false
   lint: argv.lint || false
 
 console.log options
