@@ -31,8 +31,9 @@ Polymer
       when 'line', 'narrate'
         @app.storyController.jumpToNextNode()
 
-  _onTapOnChoice: (e) ->
-    choice = e.model.choice
+  _onChoicesMenuSelect: (e) ->
+    choice = e.currentTarget.selectedItem.choice
+
     @app.storyController.jumpToNode @app.story.getNodeByAnchor choice.ref
 
     # prevent from triggering `_onTapOnBox` method

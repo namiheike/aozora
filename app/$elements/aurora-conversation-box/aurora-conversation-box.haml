@@ -1,28 +1,34 @@
+%link{rel: 'import', href: '../../bower_components/paper-menu/paper-menu.html'}
+%link{rel: 'import', href: '../../bower_components/paper-item/paper-item.html'}
+%link{rel: 'import', href: '../../bower_components/paper-item/paper-icon-item.html'}
+%link{rel: 'import', href: '../../bower_components/iron-icons/iron-icons.html'}
+%link{rel: 'import', href: '../../bower_components/iron-icons/hardware-icons.html'}
 %link{rel: 'import', href: '../aurora-sentence/aurora-sentence.html'}
 
 %dom-module#aurora-conversation-box
   %template
     @@include('./aurora-conversation-box.css')
 
-    %template{is: 'dom-if', if: '{{nodeTypeIsLine}}'}
+    %template{is: 'dom-if', if: '[[nodeTypeIsLine]]'}
       .node.line.horizontal.layout
         .role-wrapper.vertical.layout.center-justified.center
-          %p.role {{ _roleNameOfLine(node) }}
+          %p.role [[ _roleNameOfLine(node) ]]
         .sentence-wrapper.flex.vertical.layout.center-justified.center
-          %aurora-sentence(flex){sentence: '{{node.text}}'}
+          %aurora-sentence(flex){sentence: '[[node.text]]'}
 
-    %template{is: 'dom-if', if: '{{nodeTypeIsNarrate}}'}
+    %template{is: 'dom-if', if: '[[nodeTypeIsNarrate]]'}
       .node.narrate.horizontal.layout.center-justified
         %p {{ node.text }}
 
-    %template{is: 'dom-if', if: '{{nodeTypeIsDecision}}'}
-      / TODO paper-item
+    %template{is: 'dom-if', if: '[[nodeTypeIsDecision]]'}
       .node.choices
-        %p.title {{ node.text }}
-        %template{is: 'dom-repeat', items: '{{node.choices}}', as: 'choice'}
-          / TODO ripple
-          %p.choice{'on-tap' => '_onTapOnChoice'}
-            \-
-            {{ choice.text }}
+        %paper-menu#choices-menu{'on-iron-select' => '_onChoicesMenuSelect'}
+          %paper-item.title(disabled)
+            [[ node.text ]]
+          %template{is: 'dom-repeat', items: '[[node.choices]]', as: 'choice'}
+            / TODO ripple
+            %paper-icon-item.choice{choice: '[[ choice ]]'}
+              %iron-icon(item-icon){icon: 'hardware:keyboard-arrow-right'}
+              [[ choice.text ]]
 
 %script{src: 'aurora-conversation-box.js'}
