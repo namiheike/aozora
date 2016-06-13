@@ -14,9 +14,9 @@ Polymer
     # dirty hack for this issue: https://github.com/Polymer/polymer/issues/1716
     # and for cannot do sth like if={{ node.type == 'line' }}
     # TODO remove after issues been solved
-    @nodeTypeIsLine = @node.type is 'line'
-    @nodeTypeIsNarrate = @node.type is 'narrate'
-    @nodeTypeIsDecision = @node.type is 'decision'
+    @_nodeTypeIsLine = @node.type is 'line'
+    @_nodeTypeIsNarration = @node.type is 'narration'
+    @_nodeTypeIsDecision = @node.type is 'decision'
 
   _roleNameOfLine: (line) ->
 
@@ -31,7 +31,7 @@ Polymer
 
   _onTapOnBox: (e) ->
     switch @node.type
-      when 'line', 'narrate'
+      when 'line', 'narration'
         @app.storyController.jumpToNextNode()
 
   _onChoicesMenuSelect: (e) ->

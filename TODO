@@ -1,5 +1,3 @@
-- narrate/narration -> narration
-
 - BUG bundle (vulcanize) + online (cdnize) = [::_flattenBehaviorsList]: behavior is null
 
 - serve roboto font from cdn in online version
@@ -30,5 +28,3 @@
   - the laoder should wait for the font being loaded
 
 - use @_log, @_warn, @error provided by polymer for logging inside elements
-
-- gulp tasks, `cdnize` instead of `online` opt
