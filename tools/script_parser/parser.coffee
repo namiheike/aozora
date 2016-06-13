@@ -20,7 +20,7 @@ current_options = undefined
 
 reader.on 'line', (line) ->
   # comment
-  if line.startsWith '//'
+  if line.startsWith '#'
     return
 
   # conclude options block for the current node
