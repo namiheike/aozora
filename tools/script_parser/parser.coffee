@@ -45,7 +45,7 @@ reader.on 'line', (line) ->
       when 'VIDEO', 'V'
         current_type = 'video'
       when 'NARRATION', 'N'
-        current_type = 'narrate'
+        current_type = 'narration'
       when 'DECISION', 'D'
         current_type = 'decision'
       else
@@ -70,7 +70,7 @@ reader.on 'line', (line) ->
       switch current_type
         when 'video'
           node.video = line
-        when 'narrate'
+        when 'narration'
           node.text = line
         when 'line'
           node.role = current_role
