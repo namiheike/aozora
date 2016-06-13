@@ -24,7 +24,10 @@ Polymer
     # TODO remove after issue been solved
     return unless line.role?
 
-    @app.story.characters[line.role].name
+    if ( character = @app.story.characters[line.role] )?
+      character.name
+    else
+      line.role
 
   _onTapOnBox: (e) ->
     switch @node.type
