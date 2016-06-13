@@ -22,3 +22,6 @@ Aurora.behaviors.base =
 
   _log: (message) ->
    Aurora.utilities.log "#{@nodeName}: #{message}"
+
+  _warn: (message) ->
+   Aurora.utilities.log "#{@nodeName}: #{message}", 'warn'

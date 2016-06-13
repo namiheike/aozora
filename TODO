@@ -10,7 +10,6 @@
 
 - remove dom for loadingScreen after page transition
 
-- options node style
 - let the `loader` element contain the `loader` image itself
 
 - pass env from gulp to app
@@ -26,5 +25,3 @@
 - proper loading process
   - the loader should be shown at the very first
   - the laoder should wait for the font being loaded
-
-- use @_log, @_warn, @error provided by polymer for logging inside elements

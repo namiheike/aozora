@@ -27,6 +27,7 @@ Polymer
     if ( character = @app.story.characters[line.role] )?
       character.name
     else
+      @_warn "no name for character #{line.role}, using plain key"
       line.role
 
   _onTapOnBox: (e) ->
