@@ -28,7 +28,7 @@ Polymer
     @_renderNode @node
 
   _renderNode: (node) ->
-    @_log "rendering node: #{JSON.stringify node}"
+    @_debug "rendering node: #{JSON.stringify node}"
 
     # video node
     if node.type is 'video'

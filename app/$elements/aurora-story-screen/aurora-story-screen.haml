@@ -13,7 +13,7 @@
     @@include('./aurora-story-screen.css')
     %aurora-story-controller#storyController
     %paper-drawer-panel(force-narrow disable-swipe disable-edge-swipe)
-      %aurora-drawer#drawer(drawer)
+      %aurora-drawer#drawer(drawer){config: '[[config]]'}
       .main-contents.layout.fit.flex.vertical.end-justified(main)
         %paper-toolbar#topBar.fixed-top
           %paper-icon-button{icon: 'menu'}(paper-drawer-toggle)

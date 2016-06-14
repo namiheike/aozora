@@ -16,19 +16,19 @@ Polymer
       observer: '_musicChanged'
 
   play: ->
-    @_log "start playing #{JSON.stringify @music}"
+    @_debug "start playing #{JSON.stringify @music}"
     @$.audioElement.play()
 
   pause: ->
     @$.audioElement.pause()
 
   _musicNameChanged: ->
-    @_log "music name changed to #{@musicName}"
+    @_debug "music name changed to #{@musicName}"
     @_openToast()
     @music = @app.resources.getResource 'music', @musicName
 
   _musicChanged: ->
-    @_log "music changed to #{JSON.stringify @music}"
+    @_debug "music changed to #{JSON.stringify @music}"
     @$.audioElement.src = @music.filePath
     @play()
 

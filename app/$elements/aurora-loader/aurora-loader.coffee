@@ -40,7 +40,7 @@ Polymer
         , false
       )
 
-    @_log 'starting loading'
+    @_debug 'starting loading'
     @loadingQueue.load()
 
   _fileLoaded: (e) ->
@@ -49,7 +49,7 @@ Polymer
     filePath = item.src
     fileContent = e.result
 
-    @_log "file loaded: #{fileId}, #{filePath}"
+    @_debug "file loaded: #{fileId}, #{filePath}"
 
     # resources meta
     if fileId.startsWith 'resources-meta-'
@@ -81,7 +81,7 @@ Polymer
         # throw 'unknown file loaded'
 
   _resourcesMetaLoaded: (category, metaContent) ->
-    @_log "resources meta for #{category} loaded"
+    @_debug "resources meta for #{category} loaded"
 
     # save meta
     @app.resources[category] ?= {}
@@ -102,7 +102,7 @@ Polymer
             id: "resource-tachies-#{character}-#{tachieAlter}"
             src: "#{character}/#{metaContent[character][tachieAlter].fileName}"
 
-    @_log "resources manifest for #{category} builded, starting loading"
+    @_debug "resources manifest for #{category} builded, starting loading"
     @loadingQueue.loadManifest
       path: "resources/#{category}/"
       manifest: filesToListInManifest
@@ -115,11 +115,11 @@ Polymer
     _.merge @app.resources[category][key], @app.resources[category]['meta'][key]
 
   _loadingComplete: (e) ->
-    @_log 'loading queue completed'
+    @_debug 'loading queue completed'
 
     # create resources related methods
     @app.resources.getResource = ( category, key ) =>
-      @_log "getting resources: #{category}, #{key}"
+      @_debug "getting resources: #{category}, #{key}"
 
       @app.resources[category][key]
 

@@ -25,3 +25,6 @@
 - proper loading process
   - the loader should be shown at the very first
   - the laoder should wait for the font being loaded
+
+- dynamically declare `config`, `resources` for all elements/components
+  https://github.com/Polymer/polymer/issues/1778

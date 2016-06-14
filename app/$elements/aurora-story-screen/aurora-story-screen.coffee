@@ -7,6 +7,7 @@ Polymer
   listeners:
     shown: 'onShown'
   properties:
+    config: Object
     animationConfig:
       value: ->
         'show-topbar':
@@ -24,7 +25,7 @@ Polymer
     @app.topBar = @$.topBar
 
   onShown: (e) ->
-    @_log 'onShown'
+    @_debug 'onShown'
 
     @app.storyController.startScript @app.story.scripts.main[0]
 

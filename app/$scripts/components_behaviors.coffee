@@ -6,15 +6,15 @@ Aurora.behaviors.base =
   properties: {}
 
   created: ->
-    Aurora.utilities.log "component #{@nodeName} getting created"
+    @_debug "component #{@nodeName} getting created"
 
     unless @nodeName is 'AURORA-APP'
-      @_getGlobalVars()
+      @_setGlobalApp()
 
   ready: ->
-    Aurora.utilities.log "component #{@nodeName} getting ready"    
+    @_debug "component #{@nodeName} getting ready"
 
-  _getGlobalVars: ->
+  _setGlobalApp: ->
     @app = Aurora.app
 
   _removeSelfDom: ->
@@ -22,6 +22,9 @@ Aurora.behaviors.base =
 
   _log: (message) ->
    Aurora.utilities.log "#{@nodeName}: #{message}"
+
+  _debug: (message) ->
+   Aurora.utilities.log "#{@nodeName}: #{message}", 'debug'
 
   _warn: (message) ->
    Aurora.utilities.log "#{@nodeName}: #{message}", 'warn'

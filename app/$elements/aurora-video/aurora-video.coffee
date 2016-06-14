@@ -13,7 +13,7 @@ Polymer
   ready: ->
 
   _videoChanged: (newVideo, oldVideo) ->
-    @_log "video changed to: #{JSON.stringify newVideo}"
+    @_debug "video changed to: #{JSON.stringify newVideo}"
 
     @_holdBgmPlaying()
 
@@ -32,7 +32,7 @@ Polymer
     @_finish()
 
   _finish: () ->
-    @_log 'video playing finished'
+    @_debug 'video playing finished'
 
     # stop video playing, resume bgm playing, fade out, and play next node in story
 

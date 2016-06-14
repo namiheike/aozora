@@ -9,7 +9,7 @@ Polymer
   # ready: ->
 
   _startBtnOnTap: (e) ->
-    @_log "startBtnTap triggered"
+    @_debug 'startBtnTap triggered'
 
     @app.screens.select 'story'
     @app.storyScreen.fire 'shown'

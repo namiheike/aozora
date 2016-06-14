@@ -1,13 +1,16 @@
 Polymer
   is: 'aurora-app'
   behaviors: [ Aurora.behaviors.base ]
+  properties:
+    config:
+      type: Object
+      value: -> {}
   listeners:
     'loader.loaded': 'resourcesLoaded'
 
   created: ->
     window.Aurora.app = @
 
-    @config = {}
     @resources = {}
     @story =
       # TODO IMPORTANT PERFORMANCE very bad performance, integrate IndexedDB
@@ -35,7 +38,7 @@ Polymer
     drawerPanel.openDrawer()
 
   resourcesLoaded: ->
-    @_log "resourcesLoaded triggered"
+    @_debug "resourcesLoaded triggered"
 
     # initializing which need config and resources being loaded
     document.title = @config.meta.name
