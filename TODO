@@ -1,5 +1,7 @@
 - BUG bundle (vulcanize) + online (cdnize) = [::_flattenBehaviorsList]: behavior is null
 
+- pass env from gulp to app
+
 - serve roboto font from cdn in online version
 
 - BUG bgm not playing
@@ -11,8 +13,6 @@
 - remove dom for loadingScreen after page transition
 
 - let the `loader` element contain the `loader` image itself
-
-- pass env from gulp to app
 
 - backgrounds transition: fading in and fading out in the same time; more transitions
 
