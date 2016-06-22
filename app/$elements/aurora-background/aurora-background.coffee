@@ -14,5 +14,5 @@ Polymer
 
     @_debug "optionsChanged to #{JSON.stringify options}"
 
-    imagePath = @app.resources.getResource('backgrounds', options.name).filePath
-    @style.backgroundImage = "url(#{imagePath})"
+    imageUrl = @app.resources.getResource('backgrounds', options.name).url
+    @style.backgroundImage = "url(#{imageUrl})"

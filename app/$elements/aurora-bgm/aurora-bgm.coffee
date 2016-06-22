@@ -29,7 +29,7 @@ Polymer
 
   _musicChanged: ->
     @_debug "music changed to #{JSON.stringify @music}"
-    @$.audioElement.src = @music.filePath
+    @$.audioElement.src = @music.url
     @play()
 
   _openToast: ->

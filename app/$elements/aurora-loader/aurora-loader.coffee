@@ -46,8 +46,10 @@ Polymer
   _fileLoaded: (e) ->
     item = e.item
     fileId = item.id
+    fileType = item.type
     filePath = item.src
     fileContent = e.result
+    fileRawContent = e.rawResult
 
     @_debug "file loaded: #{fileId}, #{filePath}"
 
@@ -62,7 +64,7 @@ Polymer
       category = fileId.split('-')[1]
       resourceKey = _.replace fileId, "resource-#{category}-", ''
 
-      @_resourceContentLoaded( category, resourceKey, filePath, fileContent )
+      @_resourceContentLoaded( category, resourceKey, fileType, filePath, fileContent, fileRawContent )
       return
 
     # others
@@ -74,7 +76,7 @@ Polymer
       when 'story-characters'
         @app.story.characters = fileContent
       when 'story-scripts-main'
-        @app.story.scripts ?= {}
+        @app.story.scripts ||= {}
         @app.story.scripts.main = fileContent
       # else
         # TODO error handling system
@@ -84,7 +86,7 @@ Polymer
     @_debug "resources meta for #{category} loaded"
 
     # save meta
-    @app.resources[category] ?= {}
+    @app.resources[category] ||= {}
     @app.resources[category]['meta'] = metaContent
 
     # build manifest object for PreloadJS
@@ -107,9 +109,15 @@ Polymer
       path: "resources/#{category}/"
       manifest: filesToListInManifest
 
-  _resourceContentLoaded: ( category, key, path, content ) ->
-    @app.resources[category][key] ?= {}
+  _resourceContentLoaded: ( category, key, type, path, content, rawContent ) ->
+    # type is sth like createjs.LoadQueue.IMAGE
+
+    @app.resources[category][key] ||= {}
     @app.resources[category][key]['filePath'] = path
+
+    switch type
+      when createjs.AbstractLoader.IMAGE, createjs.AbstractLoader.SOUND, createjs.AbstractLoader.VIDEO
+        @app.resources[category][key]['url'] = URL.createObjectURL rawContent
 
     # merge other data from meta, like `displayName`
     _.merge @app.resources[category][key], @app.resources[category]['meta'][key]

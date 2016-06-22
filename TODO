@@ -1,3 +1,14 @@
+- use preloaded blob url
+  - [x]bg
+  - [x]tachie
+  - [x]bgm
+  - [x]video
+  - test for performance
+
+- MAJOR FEATURE voice
+
+- animate sentence
+
 - BUG bundle (vulcanize) + online (cdnize) = [::_flattenBehaviorsList]: behavior is null
 
 - pass env from gulp to app
@@ -16,9 +27,6 @@
 
 - backgrounds transition: fading in and fading out in the same time; more transitions
 
-- option for Google Analytics
-- option for integrating bugsnag
-
 - resolve deprecated iron-flex-layout.html:
   This file is deprecated. Please use `iron-flex-layout/iron-flex-layout-classes.html`, and one of the specific dom-modules instead
 
@@ -28,3 +36,5 @@
 
 - dynamically declare `config`, `resources` for all elements/components
   https://github.com/Polymer/polymer/issues/1778
+
+- option for integrating 3rd-party thing like Google Analytics, bugsnag...

@@ -10,15 +10,14 @@ Polymer
   listeners:
     tap: '_onTap'
 
-  ready: ->
+  # ready: ->
 
-  _videoChanged: (newVideo, oldVideo) ->
-    @_debug "video changed to: #{JSON.stringify newVideo}"
+  _videoChanged: (video) ->
+    @_debug "video changed to: #{JSON.stringify video}"
 
     @_holdBgmPlaying()
 
-    videoFilePath = this.app.resources.getResource('videos', newVideo).filePath
-    @$.videoElement.src = videoFilePath
+    @$.videoElement.src = @app.resources.getResource('videos', video).url
     @$.videoElement.addEventListener 'ended', @_onVideoFinish.bind(@), false
     @$.videoElement.play()
 
